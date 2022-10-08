@@ -4,8 +4,8 @@ import { MdOutlineLogin } from "react-icons/md";
 export const Navbar = () => {
   return (
     <>
-      <nav className="bg-background-color py-2.5 fixed w-full z-20 top-0 left-0">
-        <div className="container flex flex-wrap justify-between items-center mx-auto">
+      <nav className="bg-transparent py-2.5 fixed w-full z-20 top-0 left-0">
+        <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
             <div className="flex flex-row justify-center items-center text-main-color">

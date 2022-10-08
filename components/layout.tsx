@@ -16,9 +16,7 @@ export const Layout = ({children}: Props) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Navbar />
-      <main className="flex w-full flex-1 flex-col items-center justify-center px-20 text-center bg-background-color">
-        {children}
-      </main>
+      {children}
     </>
   );
 };
