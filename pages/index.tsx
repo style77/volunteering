@@ -11,6 +11,7 @@ const Home: NextPage = () => {
         <title>Volunteering</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center py-2">
+        <div className="flex flex-row mt-16">
         <div>
           <p className="font-inner font-semibold text-main-color text-9xl">
             Wolontariat
@@ -22,39 +23,40 @@ const Home: NextPage = () => {
         <div>
           <FaHandHoldingHeart className="text-[25rem] text-main-color"></FaHandHoldingHeart>
         </div>
-        <div className="text-main-color text-7xl mt-28" >
-          <p>Jak ułatwimy Tobie <span className="text-main-color-2">wolontariat</span></p>
         </div>
-        <div className="flex flex-row text-main-color gap-48 font-inner">
+        <div className="text-main-color text-7xl " >
+          <p>Jak ułatwimy Tobie <span className="text-main-color-2 font-bold">wolontariat</span></p>
+        </div>
+        <div className="flex flex-row text-main-color gap-48 font-inner mt-12 mb-6">
           <div>
-            <FiThumbsUp className="text-8xl"></FiThumbsUp>
-            <p className="text-6xl">Łatwość</p>
+            <FiThumbsUp className="text-6xl"></FiThumbsUp>
+            <p className="text-5xl">Łatwość</p>
             <p className="font-regular text-lg">
               Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
               wolontariuszy w kilku krokach.{" "}
             </p>
           </div>
           <div>
-            <AiOutlineInfoCircle className="text-8xl "></AiOutlineInfoCircle>
-            <p className="text-6xl ">Przejrzystość</p>
+            <AiOutlineInfoCircle className="text-6xl "></AiOutlineInfoCircle>
+            <p className="text-5xl ">Przejrzystość</p>
             <p className="font-regular text-lg">
               Szukający jak i wystawiający się mają dostęp <br /> do informacji
               dot. doświadczenia wolontariusza.
             </p>
           </div>
           <div>
-            <AiOutlineInfoCircle className="text-8xl "></AiOutlineInfoCircle>
-            <p className="text-6xl ">Wygoda i intuicja</p>
+            <AiOutlineInfoCircle className="text-6xl "></AiOutlineInfoCircle>
+            <p className="text-5xl ">Wygoda i intuicja</p>
             <p className="font-regular text-lg">
               Nasza aplikacja jest intuicyjna i wygodna
             </p>
           </div>
 
         </div>
-        <div className="mt-28">
+        <div className="mt-12 mb-6">
           <p className="text-main-color text-7xl">Jak to działa?</p>
         </div>
-        <div className="font-inner flex flex-row text-main-color gap-48">
+        <div className="flex flex-row font-inne text-main-color gap-24  m-32">
           <div>
             <p className="text-6xl font-regular">1</p>
             <p className="text-4xl">Stwórz konto</p>
