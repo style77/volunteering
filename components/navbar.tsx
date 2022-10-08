@@ -1,16 +1,25 @@
+import Link from "next/link";
+import { MdOutlineLogin } from "react-icons/md";
+
 export const Navbar = () => {
   return (
     <>
-      <nav className="bg-background-color px-2 sm:px-4 py-2.5 fixed w-full z-20 top-0 left-0">
+      <nav className="bg-background-color py-2.5 fixed w-full z-20 top-0 left-0">
         <div className="container flex flex-wrap justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
-            <button
-              type="button"
-              className="text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
-            >
-              Napisz do nas
-            </button>
+            <div className="flex flex-row justify-center items-center text-main-color">
+              <MdOutlineLogin />
+              <a className="flex ml-1 mr-4 font-inter font-semibold">Zaloguj</a>
+            </div>
+            <Link href="/contact">
+              <button
+                type="button"
+                className="text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
+              >
+                Napisz do nas
+              </button>
+            </Link>
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -18,7 +27,9 @@ export const Navbar = () => {
               aria-controls="navbar-sticky"
               aria-expanded="false"
             >
-              <span className="sr-only">Otwórz menu</span>
+              <span className="sr-only font-inter font-semibold">
+                Otwórz menu
+              </span>
               <svg
                 className="w-6 h-6"
                 aria-hidden="true"
@@ -35,36 +46,39 @@ export const Navbar = () => {
             </button>
           </div>
           <div
-            className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1"
+            className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1 ml-20"
             id="navbar-sticky"
           >
             <ul className="flex flex-col p-4 mt-4 rounded-lg border md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1">
               <li>
-                <a
-                  href="#"
-                  className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
-                  aria-current="page"
-                >
-                  O NAS
-                </a>
+                <Link href="/about">
+                  <a
+                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    aria-current="page"
+                  >
+                    O NAS
+                  </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
-                  aria-current="page"
-                >
-                  ZNAJDŹ WOLONTARIUSZA
-                </a>
+                <Link href="/search">
+                  <a
+                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    aria-current="page"
+                  >
+                    ZNAJDŹ WOLONTARIUSZA
+                  </a>
+                </Link>
               </li>
               <li>
-                <a
-                  href="#"
-                  className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
-                  aria-current="page"
-                >
-                  ZGŁOŚ WOLONTARIAT
-                </a>
+                <Link href="/submit">
+                  <a
+                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    aria-current="page"
+                  >
+                    ZGŁOŚ WOLONTARIAT
+                  </a>
+                </Link>
               </li>
             </ul>
           </div>
