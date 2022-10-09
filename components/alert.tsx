@@ -1,27 +1,28 @@
 import { useEffect } from "react";
 
 type Props = {
-  color: string
-  alertId: string
+  color: string;
+  alertId: string;
 };
 
 export const showAlert = (text: string, alertId: string = "alert") => {
   const alert = document.getElementById(alertId) as HTMLElement;
-  console.log(alertId);
   const alertText = document.getElementById("alert-text") as HTMLElement;
-  alertText.innerHTML = text;
 
-  alert.classList.remove("opacity-0");
-  alert.classList.add("opacity-100");
+  if (alert && alertText) {
+    alertText.innerHTML = text;
 
-  setTimeout(() => {
-    alert.classList.remove("opacity-100");
-    alert.classList.add("opacity-0");
-  }, 3000);
+    alert.classList.remove("opacity-0");
+    alert.classList.add("opacity-100");
+
+    setTimeout(() => {
+      alert.classList.remove("opacity-100");
+      alert.classList.add("opacity-0");
+    }, 3000);
+  }
 };
 
 export const Alert = (props: Props) => {
-
   return (
     <div
       className="fixed bottom-5 right-5 transition-opacity block opacity-0"

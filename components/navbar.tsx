@@ -1,21 +1,15 @@
 import Link from "next/link";
 import { MdOutlineLogin } from "react-icons/md";
+import LoginModal from "./modals/login";
 
 export const Navbar = () => {
   return (
     <>
-      <nav className="bg-background-color py-2.5 w-full z-20 top-0 left-0">
+      <nav className="bg-background-color py-2.5 w-full z-20 top-0 left-0 shadow-md">
         <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
-            <Link href="/login">
-              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
-                <MdOutlineLogin />
-                <a className="flex ml-1 mr-4 font-inter font-semibold">
-                  Zaloguj
-                </a>
-              </div>
-            </Link>
+            <LoginModal />
             <Link href="/contact">
               <button
                 type="button"
