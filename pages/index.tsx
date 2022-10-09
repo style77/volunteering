@@ -4,6 +4,8 @@ import Image from "next/image";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
+import {AiOutlineEye} from "react-icons/ai"
+
 const Home: NextPage = () => {
   return (
     <>
@@ -11,9 +13,9 @@ const Home: NextPage = () => {
         <title>Volunteering</title>
       </Head>
       <main className="flex min-h-screen flex-col items-center justify-center py-2">
-        <div className="flex flex-row mt-16">
-        <div>
-          <p className="font-inner font-semibold text-main-color text-9xl">
+        <div className="flex flex-row gap-48">
+        <div className="h-screen ">
+          <p className="font-inner font-semibold text-main-color text-9xl ">
             Wolontariat
           </p>
           <p className="font-inner text-main-color text-4xl">
@@ -27,7 +29,7 @@ const Home: NextPage = () => {
         <div className="text-main-color text-7xl " >
           <p>Jak ułatwimy Tobie <span className="text-main-color-2 font-bold">wolontariat</span></p>
         </div>
-        <div className="flex flex-row text-main-color gap-48 font-inner mt-12 mb-6">
+        <div className="flex flex-row text-main-color gap-48 font-inner my-10">
           <div>
             <FiThumbsUp className="text-6xl"></FiThumbsUp>
             <p className="text-5xl">Łatwość</p>
@@ -45,7 +47,7 @@ const Home: NextPage = () => {
             </p>
           </div>
           <div>
-            <AiOutlineInfoCircle className="text-6xl "></AiOutlineInfoCircle>
+            <AiOutlineEye className="text-6xl "></AiOutlineEye>
             <p className="text-5xl ">Wygoda i intuicja</p>
             <p className="font-regular text-lg">
               Nasza aplikacja jest intuicyjna i wygodna
@@ -53,10 +55,10 @@ const Home: NextPage = () => {
           </div>
 
         </div>
-        <div className="mt-12 mb-6">
+        <div className="my-10">
           <p className="text-main-color text-7xl">Jak to działa?</p>
         </div>
-        <div className="flex flex-row font-inne text-main-color gap-24  m-32">
+        <div className="flex flex-row font-inne text-main-color gap-32  mx-32">
           <div>
             <p className="text-6xl font-regular">1</p>
             <p className="text-4xl">Stwórz konto</p>
@@ -72,6 +74,13 @@ const Home: NextPage = () => {
             <p className="text-4xl">Czekaj na odpowiedź i nieś dobro!</p>
             <p className="text-lg font-regular">Czekaj aż ktoś się do Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!</p>
           </div>
+        </div>
+        <div className="font-inter flex w-screen h-[10rem] bg-main-color mt-24">
+          <p>
+            Hack Heroes competition project <br />
+            Made with heart by kluczi & youwish
+          </p> 
+          
         </div>
       </main>
     </>
