@@ -60,7 +60,7 @@ export const Navbar = () => {
   return (
     <>
       <nav
-        className="bg-background-color py-2.5 w-full z-20 top-0 left-0 shadow-md"
+        className="bg-background-color py-2.5 z-20 top-0 left-0 w-full drop-shadow-lg"
         id="nav"
       >
         <div className="container flex justify-between items-center mx-auto">

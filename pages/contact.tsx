@@ -53,7 +53,7 @@ const Contact: NextPage = () => {
       <Head>
         <title>Volunteering - Kontakt</title>
       </Head>
-      <div className="flex flex-wrap md:flex-nowrap min-h-screen min-w-screen items-center py-2">
+      <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center mt-8 md:mt-48">
         <div className="flex flex-col basis-1/3 ml-12 mb-52">
           <h1 className="text-8xl font-inner font-semibold text-main-color">
             Twoje zdanie
@@ -64,20 +64,20 @@ const Contact: NextPage = () => {
           </h6>
         </div>
         <div className="flex basis-1/3"></div>
-        <div className="flex basis-1/3 ml-10 -mt-32">
-          <form onSubmit={handleSubmit} ref={form}>
+        <div className="flex basis-1/3 -mt-32 w-full">
+          <form onSubmit={handleSubmit} ref={form} className="ml-12">
             <div className="mb-6">
               <label
-                htmlFor="email"
+                htmlFor="contact-email"
                 className="block mb-2 text-md font-inner font-medium text-main-color"
               >
                 Twój adres e-mail
               </label>
               <input
                 type="email"
-                id="email"
+                id="contact-email"
                 name="email"
-                className="w-[18rem] md:w-[32rem] mr-20 h-11 border-2 pl-2 border-main-color rounded-md"
+                className="w-[18rem] md:w-[32rem]  h-11 border-2 border-main-color rounded-md"
               />
             </div>
             <div className="mb-6">
@@ -91,7 +91,7 @@ const Contact: NextPage = () => {
                 type="text"
                 id="name"
                 name="name"
-                className="w-[18rem] md:w-[32rem] mr-20 h-11 border-2 pl-2 border-main-color rounded-md"
+                className="w-[18rem] md:w-[32rem] h-11 border-2 border-main-color rounded-md"
               />
             </div>
             <div className="mb-6">
@@ -105,7 +105,7 @@ const Contact: NextPage = () => {
                 type="text"
                 id="title"
                 name="title"
-                className="w-[18rem] md:w-[32rem] mr-20 h-11 border-2 pl-2 border-main-color rounded-md"
+                className="w-[18rem] md:w-[32rem] h-11 border-2 border-main-color rounded-md"
               />
             </div>
             <div className="mb-6">
@@ -118,14 +118,14 @@ const Contact: NextPage = () => {
               <textarea
                 id="message"
                 name="message"
-                className="w-[18rem] md:w-[32rem] h-52 mr-20 border-2 pl-2 border-main-color rounded-md"
+                className="w-[18rem] md:w-[32rem] h-52  border-2 border-main-color rounded-md"
               ></textarea>
             </div>
             <div className="mb-8 w-full">
               <button
                 type="submit"
                 id="submit"
-                className="mr-20 w-36 h-11 border-2 pl-2 bg-main-color text-background-color text-inner text-semibold border-main-color rounded-md"
+                className="w-36 h-11 border-2 bg-main-color text-background-color text-inner text-semibold border-main-color rounded-md"
               >
                 Wyślij
               </button>
