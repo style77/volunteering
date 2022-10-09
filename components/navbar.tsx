@@ -4,14 +4,18 @@ import { MdOutlineLogin } from "react-icons/md";
 export const Navbar = () => {
   return (
     <>
-      <nav className="bg-transparent py-2.5 fixed w-full z-20 top-0 left-0">
+      <nav className="bg-background-color py-2.5 w-full z-20 top-0 left-0">
         <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
-            <div className="flex flex-row justify-center items-center text-main-color">
-              <MdOutlineLogin />
-              <a className="flex ml-1 mr-4 font-inter font-semibold">Zaloguj</a>
-            </div>
+            <Link href="/login">
+              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
+                <MdOutlineLogin />
+                <a className="flex ml-1 mr-4 font-inter font-semibold">
+                  Zaloguj
+                </a>
+              </div>
+            </Link>
             <Link href="/contact">
               <button
                 type="button"
@@ -23,7 +27,7 @@ export const Navbar = () => {
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
-              className="inline-flex items-center p-2 text-sm text-zinc-400 rounded-lg md:hidden hover:text-zinc-300 transition"
+              className="inline-flex items-center p-2 mr-2 text-sm text-zinc-400 rounded-lg md:hidden hover:text-zinc-300 transition"
               aria-controls="navbar-sticky"
               aria-expanded="false"
             >
@@ -38,9 +42,9 @@ export const Navbar = () => {
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clip-rule="evenodd"
+                  clipRule="evenodd"
                 ></path>
               </svg>
             </button>
