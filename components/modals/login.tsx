@@ -78,9 +78,9 @@ const LoginModal = () => {
         className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
         onClick={() => handleToggleModal(true)}
       >
-        <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
+        <div className="flex flex-row justify-center ml-4 items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
           <MdOutlineLogin />
-          <a className="flex ml-1 mr-4 font-inter font-semibold">Zaloguj</a>
+          <a className="flex ml-2 mr-1 font-inter font-semibold">Zaloguj</a>
         </div>
       </a>
       {

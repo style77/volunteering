@@ -20,11 +20,13 @@ import LoginModal from "./modals/login";
 
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth();
-
   const [account, setAccount] = useState({ photo: "", name: "" });
+
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const getAccount = async () => {
+      setLoading(true);
       if (user) {
         if (user.providerData[0].providerId === "google.com") {
           setAccount({
@@ -42,9 +44,11 @@ export const Navbar = () => {
           });
         }
       }
+      setLoading(false);
     };
+
     getAccount();
-  }, []);
+  }, [user]);
 
   return (
     <>
@@ -64,12 +68,21 @@ export const Navbar = () => {
               <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer ml-4">
                 <Link href="/profile">
                   <div className="flex flex-row justify-center items-center">
-                    <div className="rounded-full h-10 w-10 flex mr-2">
-                      <img src={account?.photo} className="rounded-full" />
-                    </div>
-                    <span className="font-inner font-medium text-main-color-1 hover:text-main-color-2 transition text-lg">
-                      {account?.name}
-                    </span>
+                    {loading ? (
+                      <>
+                        <div className="animate-pulse rounded-full h-10 w-10 flex mr-2 bg-zinc-400"></div>
+                        <div className="animate-pulse font-inner font-medium text-main-color-1 bg-zinc-400 transition h-3 w-24 rounded-md"></div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="rounded-full h-10 w-10 flex mr-2">
+                          <img src={account?.photo} className="rounded-full" />
+                        </div>
+                        <span className="font-inner font-medium text-main-color-1 hover:text-main-color-2 transition text-lg">
+                          {account?.name}
+                        </span>
+                      </>
+                    )}
                   </div>
                 </Link>
               </div>
