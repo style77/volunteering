@@ -16,15 +16,15 @@ const Home: NextPage = () => {
         <div className="flex flex-row gap-48 mt-20">
           <div className="h-screen">
             <div className="flex flex-col">
-              <h1 className="flex font-inner font-semibold text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color to-main-color-2 text-6xl lg:text-9xl z-50">
+              <h1 className="flex font-inner font-semibold text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color to-main-color-2 text-6xl lg:text-9xl z-30">
                 Wolontariat
               </h1>
-              <h2 className="flex font-inner text-main-color text-xl lg:text-4xl">
+              <h2 className="flex font-inner text-main-color text-xl lg:text-4xl z-30">
                 to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
               </h2>
             </div>
           </div>
-          <div className="flex absolute ml-64 mt-5 z-10 -rotate-[15deg] lg:relative lg:ml-0 lg:mt-0 lg:rotate-0">
+          <div className="flex absolute ml-48 mt-5 z-10 opacity-50 md:opacity-100 -rotate-[15deg] lg:relative lg:ml-0 lg:mt-0 lg:rotate-0">
             <FaHandHoldingHeart className="flex text-8xl lg:text-[25rem] text-main-color"></FaHandHoldingHeart>
           </div>
         </div>

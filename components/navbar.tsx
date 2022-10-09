@@ -50,9 +50,19 @@ export const Navbar = () => {
     getAccount();
   }, [user]);
 
+  const toggleNavbar = () => {
+    const navbar = document.getElementById("navbar-sticky")
+    if (navbar) {
+      navbar.classList.toggle("hidden");
+    }
+  }
+
   return (
     <>
-      <nav className="bg-background-color py-2.5 w-full z-20 top-0 left-0 shadow-md">
+      <nav
+        className="bg-background-color py-2.5 w-full z-20 top-0 left-0 shadow-md"
+        id="nav"
+      >
         <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
@@ -95,6 +105,7 @@ export const Navbar = () => {
               className="inline-flex items-center p-2 mr-2 text-sm text-zinc-400 rounded-lg md:hidden hover:text-zinc-300 transition"
               aria-controls="navbar-sticky"
               aria-expanded="false"
+              onClick={() => toggleNavbar()}
             >
               <span className="sr-only font-inter font-semibold">
                 Otwórz menu
@@ -115,10 +126,10 @@ export const Navbar = () => {
             </button>
           </div>
           <div
-            className="hidden justify-between items-center w-full md:flex md:w-auto md:order-1 ml-20"
+            className="hidden flex flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 mt-4 rounded-lg border md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1">
+            <ul className="flex flex-col p-4 mt-4 rounded-lg border w-full bg-background-color shadow-lg md:shadow-none  md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1">
               <li>
                 <Link href="/">
                   <a
