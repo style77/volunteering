@@ -1,15 +1,33 @@
+import Image from "next/image";
 import Link from "next/link";
 import { MdOutlineLogin } from "react-icons/md";
+import useAuth from "../hooks/useAuth";
 import LoginModal from "./modals/login";
 
 export const Navbar = () => {
+  const { user, isLoggedIn } = useAuth();
+  console.log(user);
+
   return (
     <>
       <nav className="bg-background-color py-2.5 w-full z-20 top-0 left-0 shadow-md">
         <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
-            <LoginModal />
+            {isLoggedIn ? (
+              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer mr-4">
+                <Link href="/profile">
+                  <div className="flex flex-row justify-center items-center">
+                    <div className="rounded-full h-10 w-10 flex mr-1">
+                      <img src={user.photoURL} className="rounded-full" />
+                    </div>
+                    <span className="font-inner font-medium text-main-color-1 hover:text-main-color-2 transition text-lg">{user.displayName}</span>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <LoginModal />
+            )}
             <Link href="/contact">
               <button
                 type="button"
@@ -59,7 +77,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/search">
+                <Link href="/volunteering">
                   <a
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"

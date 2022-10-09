@@ -20,13 +20,17 @@ const LoginModal = () => {
     setShowModal(value);
 
     if (modal) {
-      modal.classList.toggle("hidden");
-
-      if (value) {
-        modal.classList.replace("opacity-0", "opacity-100");
-      } else {
-        modal.classList.replace("opacity-100", "opacity-0");
-      }
+      if (value) modal.classList.toggle("hidden");
+      setTimeout(() => {
+        if (value) {
+          modal.classList.replace("opacity-0", "opacity-100");
+        } else {
+          modal.classList.replace("opacity-100", "opacity-0");
+          setTimeout(() => {
+            modal.classList.toggle("hidden");
+          }, 500);
+        }
+      }, 1);
     }
   };
 
@@ -61,34 +65,40 @@ const LoginModal = () => {
 
   const handleAuth = async (provider: string) => {
     if (provider == "google") {
-        handleGoogle()
+      handleGoogle();
     } else if (provider == "email") {
-        handleEmail()
+      handleEmail();
     }
   };
 
   return (
     <>
       <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
-        <MdOutlineLogin />
         <a
-          className="flex ml-1 mr-4 font-inter font-semibold"
+          className="flex justify-center items-center"
           onClick={() => handleToggleModal(true)}
         >
-          Zaloguj
+          <MdOutlineLogin />
+          <a className="flex ml-1 mr-4 font-inter font-semibold">Zaloguj</a>
         </a>
       </div>
       {
         <div
           id="authentication-modal"
           tabIndex={-1}
-          className="opacity-0 hidden transition overflow-y-auto overflow-x-hidden fixed inset-0 z-[100]"
+          className="opacity-0 hidden transition overflow-y-auto overflow-x-hidden fixed inset-0 z-[100] font-inner"
         >
-          <div className="relative p-4 w-full max-w-md h-full grid place-items-center">
+          <div
+            className="fixed w-screen h-screen bg-black opacity-50"
+            onClick={() => handleToggleModal(false)}
+          ></div>
+          <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
+            <Alert color="bg-red-500" alertId="error-alert"></Alert>
+            <Alert color="bg-main-color" alertId="success"></Alert>
             <div className="relative bg-background-color rounded-lg shadow">
               <button
                 type="button"
-                className="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
+                className="absolute top-3 right-2.5 text-gray-400 bg-transparent transition hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center"
                 data-modal-toggle="authentication-modal"
                 onClick={() => handleToggleModal(false)}
               >
@@ -124,7 +134,7 @@ const LoginModal = () => {
                       type="email"
                       name="email"
                       id="email"
-                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="mail@volunteering.pl"
                       required
                     />
@@ -141,7 +151,7 @@ const LoginModal = () => {
                       name="password"
                       id="password"
                       placeholder="••••••••"
-                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       required
                     />
                   </div>
@@ -152,37 +162,37 @@ const LoginModal = () => {
                           id="remember"
                           type="checkbox"
                           value=""
-                          className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300"
+                          className="w-4 h-4 bg-gray-50 rounded border border-gray-300"
                         />
                       </div>
                       <label
                         htmlFor="remember"
-                        className="ml-2 text-sm font-medium text-gray-800"
+                        className="ml-2 text-sm font-medium text-gray-700"
                       >
                         Zapamiętaj mnie
                       </label>
                     </div>
                     <a
                       href="#"
-                      className="text-sm text-blue-700 hover:underline"
+                      className="ml-2 text-sm text-blue-700 hover:text-blue-900"
                     >
                       Zapomniałeś hasła?
                     </a>
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <button
-                      className="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                      className="w-full text-white bg-main-color transition hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                       onClick={() => handleAuth("email")}
                     >
                       Zaloguj się
                     </button>
 
-                    <span className="mt-1 text-main-color font-inner font-semibold">
+                    <span className="mt-1 text-main-color font-semibold">
                       lub
                     </span>
 
                     <button
-                      className="w-full flex mt-1 items-center justify-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                      className="w-full flex mt-1 items-center transition justify-center text-white bg-main-color hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
                       onClick={() => handleAuth("google")}
                     >
                       Zaloguj się z <FaGoogle className="ml-1 text-xl" />
@@ -190,7 +200,7 @@ const LoginModal = () => {
                   </div>
                   <div className="text-sm font-medium text-gray-800">
                     Pierwszy raz?{" "}
-                    <a href="#" className="text-blue-700 hover:underline">
+                    <a href="#" className="text-blue-700 hover:text-blue-900">
                       Zarejestruj się
                     </a>
                   </div>
@@ -200,8 +210,6 @@ const LoginModal = () => {
           </div>
         </div>
       }
-      <Alert color="bg-red-500" alertId="error-alert"></Alert>
-      <Alert color="bg-main-color" alertId="success"></Alert>
     </>
   );
 };

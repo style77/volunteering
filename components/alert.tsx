@@ -29,7 +29,7 @@ export const Alert = (props: Props) => {
       id={props.alertId}
     >
       <div
-        className={`flex items-center ${props.color} text-white text-sm font-bold px-4 py-3`}
+        className={`flex items-center ${props.color} text-white text-sm font-bold px-4 py-3 rounded-md`}
         role="alert"
       >
         <svg
