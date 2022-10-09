@@ -6,6 +6,8 @@
     "start": "next start"
   },
   "dependencies": {
+    "@emailjs/browser": "^3.7.0",
+    "firebase": "^9.11.0",
     "next": "latest",
     "react": "18.1.0",
     "react-dom": "18.1.0",
