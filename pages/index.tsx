@@ -15,15 +15,17 @@ const Home: NextPage = () => {
       <main className="flex min-h-screen flex-col items-center justify-center py-2">
         <div className="flex flex-row gap-48">
         <div className="h-screen ">
+          <div className="w-1/2 float-left">
           <p className="font-inner font-semibold text-main-color text-9xl ">
             Wolontariat
           </p>
           <p className="font-inner text-main-color text-4xl">
             to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
           </p>
+          </div>
         </div>
         <div>
-          <FaHandHoldingHeart className="text-[25rem] text-main-color"></FaHandHoldingHeart>
+          <FaHandHoldingHeart className="text-[25rem] text-main-color w-1/2 float-right"></FaHandHoldingHeart>
         </div>
         </div>
         <div className="text-main-color text-7xl " >
@@ -72,7 +74,7 @@ const Home: NextPage = () => {
           <div>
             <p className="text-6xl font-regular">3</p>
             <p className="text-4xl">Czekaj na odpowiedź i nieś dobro!</p>
-            <p className="text-lg font-regular">Czekaj aż ktoś się do Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!</p>
+            <p className="text-lg font-regular">Znajdź odpowiadający Tobie wolontariat, czekaj aż ktoś się do Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!</p>
           </div>
         </div>
         <div className="font-inter flex w-screen h-[10rem] bg-main-color mt-24">
