@@ -1,12 +1,50 @@
+import {
+  collection,
+  CollectionReference,
+  DocumentData,
+  DocumentReference,
+  Firestore,
+  getDoc,
+  getDocs,
+  query,
+  QuerySnapshot,
+  where,
+} from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { MdOutlineLogin } from "react-icons/md";
 import useAuth from "../hooks/useAuth";
+import { db } from "../saas/firebase";
 import LoginModal from "./modals/login";
 
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth();
-  console.log(user);
+
+  const [account, setAccount] = useState({ photo: "", name: "" });
+
+  useEffect(() => {
+    const getAccount = async () => {
+      if (user) {
+        if (user.providerData[0].providerId === "google.com") {
+          setAccount({
+            name: user.displayName,
+            photo: user.photoURL,
+          });
+        } else if (user.providerData[0].providerId === "password") {
+          const querySnapshot = await getDocs(
+            query(collection(db, "users"), where("uid", "==", user.uid))
+          );
+          const data = querySnapshot.docs[0].data();
+          setAccount({
+            name: data.name,
+            photo: data.photo || "/blank.png",
+          });
+        }
+      }
+    };
+    getAccount();
+  }, []);
 
   return (
     <>
@@ -14,20 +52,6 @@ export const Navbar = () => {
         <div className="container flex justify-between items-center mx-auto">
           <a className="flex items-center"></a>
           <div className="flex md:order-2">
-            {isLoggedIn ? (
-              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer mr-4">
-                <Link href="/profile">
-                  <div className="flex flex-row justify-center items-center">
-                    <div className="rounded-full h-10 w-10 flex mr-1">
-                      <img src={user.photoURL} className="rounded-full" />
-                    </div>
-                    <span className="font-inner font-medium text-main-color-1 hover:text-main-color-2 transition text-lg">{user.displayName}</span>
-                  </div>
-                </Link>
-              </div>
-            ) : (
-              <LoginModal />
-            )}
             <Link href="/contact">
               <button
                 type="button"
@@ -36,6 +60,22 @@ export const Navbar = () => {
                 Napisz do nas
               </button>
             </Link>
+            {isLoggedIn ? (
+              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer ml-4">
+                <Link href="/profile">
+                  <div className="flex flex-row justify-center items-center">
+                    <div className="rounded-full h-10 w-10 flex mr-2">
+                      <img src={account?.photo} className="rounded-full" />
+                    </div>
+                    <span className="font-inner font-medium text-main-color-1 hover:text-main-color-2 transition text-lg">
+                      {account?.name}
+                    </span>
+                  </div>
+                </Link>
+              </div>
+            ) : (
+              <LoginModal />
+            )}
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
@@ -67,7 +107,7 @@ export const Navbar = () => {
           >
             <ul className="flex flex-col p-4 mt-4 rounded-lg border md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1">
               <li>
-                <Link href="/about">
+                <Link href="/">
                   <a
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"

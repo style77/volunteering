@@ -8,7 +8,7 @@ const humanizeError: any = {
   "auth/operation-not-allowed": "Operacja niedozwolona",
   "auth/too-many-requests":
     "Zbyt wiele prób logowania. Spróbuj ponownie później",
-}
+};
 
 
 export { humanizeError }

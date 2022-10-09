@@ -6,6 +6,16 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        "ltr-linear-infinite": "move-bg 10s linear infinite",
+      },
+      keyframes: {
+        'move-bg': {
+          '0%':   { 'background-position': '0 0' },
+          '100%': { 'background-position': '85rem 0'}
+        }
+      },
+
       colors: {
         "main-color": "#2E4583",
         "main-color-2": "#3E60C1",

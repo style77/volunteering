@@ -11,6 +11,7 @@ import { MdOutlineLogin } from "react-icons/md";
 import { humanizeError } from "../../constants";
 import { auth } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
+import RegisterModal from "./register";
 
 const LoginModal = () => {
   const [showModal, setShowModal] = useState(false);
@@ -53,10 +54,10 @@ const LoginModal = () => {
     await signInWithEmailAndPassword(auth, email.value, password.value)
       .then((userCredential) => {
         const user = userCredential.user;
-        console.log(user);
         auth.setPersistence(
           remember.checked ? inMemoryPersistence : browserSessionPersistence
         );
+        showAlert("Zalogowano pomyślnie", "success");
       })
       .catch((error) => {
         showAlert(humanizeError[error.code], "error-alert");
@@ -73,15 +74,15 @@ const LoginModal = () => {
 
   return (
     <>
-      <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
-        <a
-          className="flex justify-center items-center"
-          onClick={() => handleToggleModal(true)}
-        >
+      <a
+        className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
+        onClick={() => handleToggleModal(true)}
+      >
+        <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
           <MdOutlineLogin />
           <a className="flex ml-1 mr-4 font-inter font-semibold">Zaloguj</a>
-        </a>
-      </div>
+        </div>
+      </a>
       {
         <div
           id="authentication-modal"
@@ -110,9 +111,9 @@ const LoginModal = () => {
                   xmlns="http://www.w3.org/2000/svg"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   ></path>
                 </svg>
                 <span className="sr-only">Zamknij</span>
@@ -198,12 +199,7 @@ const LoginModal = () => {
                       Zaloguj się z <FaGoogle className="ml-1 text-xl" />
                     </button>
                   </div>
-                  <div className="text-sm font-medium text-gray-800">
-                    Pierwszy raz?{" "}
-                    <a href="#" className="text-blue-700 hover:text-blue-900">
-                      Zarejestruj się
-                    </a>
-                  </div>
+                  <RegisterModal />
                 </div>
               </div>
             </div>

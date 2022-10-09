@@ -16,7 +16,7 @@ const Home: NextPage = () => {
         <div className="flex flex-row gap-48 mt-20">
           <div className="h-screen">
             <div className="flex flex-col">
-              <h1 className="flex font-inner font-semibold text-transparent bg-clip-text bg-gradient-to-r from-main-color to-main-color-2 text-6xl lg:text-9xl z-50">
+              <h1 className="flex font-inner font-semibold text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color to-main-color-2 text-6xl lg:text-9xl z-50">
                 Wolontariat
               </h1>
               <h2 className="flex font-inner text-main-color text-xl lg:text-4xl">
