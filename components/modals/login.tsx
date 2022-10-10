@@ -21,7 +21,7 @@ const LoginModal = () => {
     setShowModal(value);
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden");
+      if (value) modal.classList.toggle("hidden"); document.body.classList.toggle("overflow-y-hidden");
       setTimeout(() => {
         if (value) {
           modal.classList.replace("opacity-0", "opacity-100");
@@ -76,7 +76,7 @@ const LoginModal = () => {
     <>
       <a
         className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
-        onClick={() => handleToggleModal(true)}
+        onClick={(e) => {handleToggleModal(true)}}
       >
         <div className="flex flex-row justify-center ml-4 items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
           <MdOutlineLogin />
@@ -87,10 +87,10 @@ const LoginModal = () => {
         <div
           id="authentication-modal"
           tabIndex={-1}
-          className="opacity-0 hidden transition overflow-y-auto overflow-x-hidden fixed inset-0 z-[100] font-inner"
+          className="opacity-0 hidden transition fixed inset-0 z-[100] font-inner"
         >
           <div
-            className="fixed w-screen h-screen bg-black opacity-50"
+            className="fixed w-full h-screen bg-black opacity-50"
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
