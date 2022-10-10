@@ -15,45 +15,47 @@ type Props = {
 
 export const VolunteeringCard = ({ volunteeringName, orgName, city, isPaid, volunteeringType, volunteeringTerm, volunteeringImage }: Props) => {
     return (
-        <>
-            <main className="flex min-h-screen flex-col justify-center py-2">
-                <div className="flex w-[75vw] font-inter">
-                    <div className="flex flex-row h-28 w-[75vw] bg-main-color rounded-lg">
-                        <div className="rounded-lg">
-                            <Image width={153} height={110} src={volunteeringImage}></Image>
-                        </div>
-                        <div className="flex flex-col text-white justify-center ml-6 my-12">
-                            <div className="font-semibold text-3xl mb-6">
-                                {volunteeringName}
-                            </div>
-                            <div className="flex flex-row font-regular gap-12 text-sm ">
-                                <div className="flex flex-row w-40 gap-1">
-                                    <MdOutlineCorporateFare className="flex align-middle"></MdOutlineCorporateFare>
-                                    <span className="text-nowrap">{orgName}</span>
-                                </div>
-                                <div className="flex flex-row gap-1">
-                                    <IoLocationOutline></IoLocationOutline>
-                                    {city}
-                                </div>
-
-                            </div>
-                        </div>
-                        <div className="flex flex-col font-regular text-main-color justify-center mr-2 w-full items-end">
-                            <div className="rounded-lg bg-white text-center w-[10.9rem] py-2">
-                                {isPaid ? "Płatny":"Bezpłatny"}
-                            </div>
-                            <div className="flex flex-row gap-2 text-sm my-2 text-cente">
-                                <div className="rounded-lg bg-white gap-2 px-2 text-center py-2">
-                                    {volunteeringType}
-                                </div>
-                                <div className="rounded-lg bg-white px-2 py-2">
-                                    {volunteeringTerm}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+      <>
+        <main className="flex min-h-screen flex-col justify-center py-2">
+          <div className="flex w-[75vw] font-inter">
+            <div className="flex flex-row h-28 w-[75vw] bg-main-color rounded-lg">
+              <div className="rounded-lg">
+                <img
+                  src={volunteeringImage}
+                  className="h-24 w-24 object-contain ml-2 mt-2 rounded-lg"
+                ></img>
+              </div>
+              <div className="flex flex-col text-white justify-center ml-6 my-12">
+                <div className="font-semibold text-3xl mb-6">
+                  {volunteeringName}
                 </div>
-            </main>
-        </>
-    )
+                <div className="flex flex-row font-regular gap-12 text-sm ">
+                  <div className="flex flex-row w-40 gap-1">
+                    <MdOutlineCorporateFare className="flex align-middle"></MdOutlineCorporateFare>
+                    <span className="text-nowrap">{orgName}</span>
+                  </div>
+                  <div className="flex flex-row gap-1">
+                    <IoLocationOutline></IoLocationOutline>
+                    {city}
+                  </div>
+                </div>
+              </div>
+              <div className="flex flex-col font-regular text-main-color justify-center mr-2 w-full items-end">
+                <div className="rounded-lg bg-white text-center w-[10.9rem] py-2">
+                  {isPaid ? "Płatny" : "Bezpłatny"}
+                </div>
+                <div className="flex flex-row gap-2 text-sm my-2 text-cente">
+                  <div className="rounded-lg bg-white gap-2 px-2 text-center py-2">
+                    {volunteeringType}
+                  </div>
+                  <div className="rounded-lg bg-white px-2 py-2">
+                    {volunteeringTerm}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+      </>
+    );
 }

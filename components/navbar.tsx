@@ -15,29 +15,41 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { MdOutlineLogin } from "react-icons/md";
 import useAuth from "../hooks/useAuth";
+import Volunteering from "../pages/volunteering";
 import { auth, db } from "../saas/firebase";
 import { Alert, showAlert } from "./alert";
 import LoginModal from "./modals/login";
+
+export const handleDropdownToggle = () => {
+  const dropdown = document.getElementById("user-dropdown");
+
+  dropdown!.classList.toggle("hidden");
+
+  setTimeout(() => {
+    // We need to wait 1frame before we can replace that class
+    if (!dropdown?.classList.contains("hidden")) {
+      dropdown?.classList.replace("opacity-0", "opacity-100");
+    } else {
+      dropdown?.classList.replace("opacity-100", "opacity-0");
+    }
+  }, 1);
+};
 
 export const NavbarUser = (account: {
   photo: string;
   name: string;
   email: string;
 }) => {
-  const handleDropdownToggle = () => {
-    const dropdown = document.getElementById("user-dropdown");
+  useEffect(() => {
+    const backdrop = document.getElementById("user-menu-backdrop");
+    document.addEventListener("click", (e) => {
+      const dropdown = document.getElementById("user-dropdown");
 
-    dropdown!.classList.toggle("hidden");
-
-    setTimeout(() => {
-      // We need to wait 1frame before we can replace that class
-      if (!dropdown?.classList.contains("hidden")) {
-        dropdown?.classList.replace("opacity-0", "opacity-100");
-      } else {
-        dropdown?.classList.replace("opacity-100", "opacity-0");
+      if (e.target === backdrop && !dropdown!.classList.contains("hidden")) {
+        handleDropdownToggle();
       }
-    }, 1);
-  };
+    });
+  }, []);
 
   return (
     <>
@@ -63,10 +75,10 @@ export const NavbarUser = (account: {
           id="user-dropdown"
         >
           <div className="py-3 px-4">
-            <span className="block text-sm text-main-color-2 font-inner font-semibold">
+            <span className="block text-sm text-main-color-2 font-inter font-semibold">
               {account.name}
             </span>
-            <span className="block text-sm text-main-color font-inner font-regular">
+            <span className="block text-sm text-main-color font-inter font-regular">
               {account.email}
             </span>
           </div>
@@ -151,12 +163,22 @@ export const Navbar = () => {
 
   return (
     <>
+      <div
+        id="user-menu-backdrop"
+        className="h-screen w-screen opacity-0 fixed -z-1"
+      ></div>
       <nav
         className="bg-background-color py-2.5 z-20 top-0 left-0 w-full drop-shadow-lg"
         id="nav"
       >
         <div className="container flex justify-between items-center mx-auto">
-          <a className="flex items-center"></a>
+          <a href="/" className="flex items-center">
+            <img
+              src="/volunteering.svg"
+              className="h-8 bg-main-color rounded-full px-2 py-2"
+              alt="Volunteering"
+            />
+          </a>
           <div className="flex md:order-2">
             <Link href="/contact">
               <button
@@ -230,7 +252,7 @@ export const Navbar = () => {
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
                   >
-                    ZNAJDŹ WOLONTARIUSZA
+                    ZNAJDŹ WOLONTARIAT
                   </a>
                 </Link>
               </li>

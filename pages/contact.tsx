@@ -55,10 +55,10 @@ const Contact: NextPage = () => {
       </Head>
       <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center mt-8 md:mt-48">
         <div className="flex flex-col basis-1/3 ml-12 mb-52">
-          <h1 className="text-8xl font-inner font-semibold text-main-color">
+          <h1 className="text-8xl font-inter font-semibold text-main-color">
             Twoje zdanie
           </h1>
-          <h6 className="flex mt-3 font-inner font-regular text-main-color">
+          <h6 className="flex mt-3 font-inter font-regular text-main-color">
             jest dla nas bardzo ważne, więc jeżeli odkryłeś/aś jakiś błąd lub
             masz propozycję co możemy dodać, pisz śmiało!
           </h6>
@@ -69,7 +69,7 @@ const Contact: NextPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="contact-email"
-                className="block mb-2 text-md font-inner font-medium text-main-color"
+                className="block mb-2 text-md font-inter font-medium text-main-color"
               >
                 Twój adres e-mail
               </label>
@@ -83,7 +83,7 @@ const Contact: NextPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="name"
-                className="block mb-2 text-md font-inner font-medium text-main-color"
+                className="block mb-2 text-md font-inter font-medium text-main-color"
               >
                 Twoje imię
               </label>
@@ -97,7 +97,7 @@ const Contact: NextPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="title"
-                className="block mb-2 text-md font-inner font-medium text-main-color"
+                className="block mb-2 text-md font-inter font-medium text-main-color"
               >
                 Rodzaj zapytania
               </label>
@@ -111,7 +111,7 @@ const Contact: NextPage = () => {
             <div className="mb-6">
               <label
                 htmlFor="message"
-                className="block mb-2 text-md font-inner font-medium text-main-color"
+                className="block mb-2 text-md font-inter font-medium text-main-color"
               >
                 Opis
               </label>
