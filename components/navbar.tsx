@@ -230,7 +230,7 @@ export const Navbar = () => {
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
                   >
-                    ZNAJDŹ WOLONTARIUSZA
+                    ZNAJDŹ WOLONTARIAT
                   </a>
                 </Link>
               </li>
