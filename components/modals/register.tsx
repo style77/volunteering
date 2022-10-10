@@ -76,7 +76,7 @@ const RegisterModal: NextPage = () => {
         <div
           id="register-modal"
           tabIndex={-1}
-          className="opacity-0 hidden transition fixed inset-0 z-[100] font-inner"
+          className="opacity-0 hidden transition fixed inset-0 z-[100] font-inter"
         >
           <div
             className="fixed w-screen h-screen bg-black opacity-50 top-0"
