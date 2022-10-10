@@ -5,7 +5,6 @@ import { auth } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
 
 const ForgotModal = () => {
-    const [email, setEmail] = useState('');
     const emailRef = useRef<HTMLInputElement | null>(null);
 
 
@@ -19,7 +18,7 @@ const ForgotModal = () => {
     const modal = document.getElementById("forgot-password-modal");
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden"); document.body.classList.toggle("overflow-y-hidden");
+      if (value) modal.classList.toggle("hidden");
       setTimeout(() => {
         if (value) {
           modal.classList.replace("opacity-0", "opacity-100");
@@ -34,7 +33,8 @@ const ForgotModal = () => {
   };
 
   const handleSendPasswordResetEmail = async () => {
-    await sendPasswordResetEmail(auth, email)
+    const email = document.getElementById("forgot-mail") as HTMLInputElement;
+    await sendPasswordResetEmail(auth, email.value)
         .then(() => {
             showAlert(
               "Wysłano link do resetowania hasła",
@@ -42,6 +42,7 @@ const ForgotModal = () => {
             );
         })
         .catch((error) => {
+            console.log(error)
             showAlert(humanizeError[error.code], "forgot-error-alert");
         })
         handleToggleModal(false)
@@ -95,7 +96,7 @@ const ForgotModal = () => {
                 <div className="space-y-6">
                   <div>
                     <label
-                      htmlFor="register-username"
+                      htmlFor="forgot-mail"
                       className="block mb-2 text-sm font-medium text-gray-800"
                     >
                       Email
@@ -105,7 +106,7 @@ const ForgotModal = () => {
                       name="forgot-mail"
                       id="forgot-mail"
                       ref={emailRef}
-                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full h-12 p-2.5"
                       placeholder="m.krasucki@gmail.com"
                       required
                     />

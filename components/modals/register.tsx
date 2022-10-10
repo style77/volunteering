@@ -46,7 +46,7 @@ const RegisterModal: NextPage = () => {
     const modal = document.getElementById("register-modal");
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden"); document.body.classList.toggle("overflow-y-hidden");
+      if (value) modal.classList.toggle("hidden");
       setTimeout(() => {
         if (value) {
           modal.classList.replace("opacity-0", "opacity-100");
