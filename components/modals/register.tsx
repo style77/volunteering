@@ -7,10 +7,8 @@ import { auth, db } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
-import { MdSettingsInputAntenna } from "react-icons/md";
 
 const RegisterModal: NextPage = () => {
-  const [ showModal, setShowModal ] = useState(false);
 
   const [ password, setPassword ] = useState("");
   const username = useRef<HTMLInputElement | null>(null);
@@ -39,17 +37,16 @@ const RegisterModal: NextPage = () => {
         return user;
       })
       .catch((error) => {
-        console.error(error)
         showAlert(humanizeError[error.code], "register-error-alert");
       });
+    handleToggleModal(false)
   };
 
   const handleToggleModal = (value: boolean) => {
     const modal = document.getElementById("register-modal");
-    setShowModal(value);
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden");
+      if (value) modal.classList.toggle("hidden"); document.body.classList.toggle("overflow-y-hidden");
       setTimeout(() => {
         if (value) {
           modal.classList.replace("opacity-0", "opacity-100");
@@ -79,10 +76,10 @@ const RegisterModal: NextPage = () => {
         <div
           id="register-modal"
           tabIndex={-1}
-          className="opacity-0 hidden transition overflow-y-auto overflow-x-hidden fixed inset-0 z-[100] font-inner"
+          className="opacity-0 hidden transition fixed inset-0 z-[100] font-inner"
         >
           <div
-            className="fixed w-screen h-screen bg-black opacity-50"
+            className="fixed w-screen h-screen bg-black opacity-50 top-0"
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">

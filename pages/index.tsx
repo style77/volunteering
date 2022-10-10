@@ -16,27 +16,27 @@ const Home: NextPage = () => {
         <div className="flex flex-row gap-48 mt-20 justify-center">
           <div className="h-screen">
             <div className="flex flex-col">
-              <h1 className="flex font-inner font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl lg:text-9xl -z-1">
+              <h1 className="flex font-inner font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl 2xl:text-9xl -z-1">
                 Wolontariat
               </h1>
-              <h2 className="flex font-inner text-main-color select-none text-xl lg:text-4xl -z-1">
+              <h2 className="flex font-inner text-main-color select-none text-xl 2xl:text-4xl -z-1">
                 to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
               </h2>
             </div>
           </div>
-          <div className="flex absolute ml-48 mt-5 -z-10 opacity-50 lg:opacity-100 -rotate-[15deg] lg:relative lg:ml-0 lg:mt-0 lg:rotate-0">
-            <FaHandHoldingHeart className="flex text-8xl lg:text-[25rem] text-main-color" />
+          <div className="flex absolute ml-48 mt-5 -z-10 opacity-50 2xl:opacity-100 -rotate-[15deg] 2xl:relative 2xl:ml-0 2xl:mt-0 2xl:rotate-0">
+            <FaHandHoldingHeart className="flex text-8xl 2xl:text-[25rem] text-main-color" />
           </div>
         </div>
 
         <div className="ml-10">
-          <span className="text-main-color text-5xl lg:text-7xl font-bold">
+          <span className="text-main-color text-5xl 2xl:text-7xl font-bold">
             Jak ułatwimy Tobie{" "}
             <span className="text-main-color-2">wolontariat</span>
           </span>
         </div>
 
-        <div className="flex flex-col lg:flex-row text-main-color gap-20 lg:gap-48 font-inner my-10 w-full justify-center items-center">
+        <div className="flex flex-col 2xl:flex-row text-main-color gap-20 2xl:gap-48 font-inner my-10 w-full justify-center items-center">
           <div className="flex flex-col">
             <FiThumbsUp className="text-6xl"></FiThumbsUp>
             <p className="text-5xl">Łatwość</p>
@@ -69,7 +69,7 @@ const Home: NextPage = () => {
             </span>
           </div>
 
-          <div className="flex flex-col lg:flex-row text-main-color gap-20 lg:gap-48 font-inner my-10 w-full justify-center items-center">
+          <div className="flex flex-col 2xl:flex-row text-main-color gap-20 2xl:gap-48 font-inner my-10 w-full justify-center items-center">
             <div className="flex flex-col">
               <span className="text-5xl">Stwórz konto</span>
               <span className="font-regular text-lg">

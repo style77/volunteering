@@ -27,7 +27,7 @@ export const NavbarUser = (account: {
   const handleDropdownToggle = () => {
     const dropdown = document.getElementById("user-dropdown");
 
-    dropdown?.classList.toggle("hidden");
+    dropdown!.classList.toggle("hidden");
 
     setTimeout(() => {
       // We need to wait 1frame before we can replace that class
@@ -88,11 +88,13 @@ export const NavbarUser = (account: {
               </a>
             </li>
             <li>
-              <Alert color="bg-red-500" alertId="logout-alert"></Alert>
               <a
                 onClick={() => {
                   auth.signOut();
-                  showAlert("Wylogowano pomyślnie. Wracaj do nas jak najszybciej!", "logout-alert");
+                  showAlert(
+                    "Wylogowano pomyślnie. Wracaj do nas jak najszybciej!",
+                    "logout-alert"
+                  );
                 }}
                 className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
               >
@@ -245,6 +247,7 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
+        <Alert color="bg-red-500" alertId="logout-alert"></Alert>
       </nav>
     </>
   );

@@ -12,12 +12,20 @@ export const showAlert = (text: string, alertId: string = "alert") => {
   if (alert && alertText) {
     alertText.innerHTML = text;
 
-    alert.classList.remove("opacity-0");
-    alert.classList.add("opacity-100");
+    alert.classList.remove("hidden")
 
     setTimeout(() => {
-      alert.classList.remove("opacity-100");
-      alert.classList.add("opacity-0");
+      alert.classList.remove("opacity-0");
+      alert.classList.add("opacity-100");
+
+    setTimeout(() => {
+        alert.classList.remove("opacity-100");
+        alert.classList.add("opacity-0");
+      }, 3000);
+    }, 1);
+
+    setTimeout(() => {
+      alert.classList.add("hidden");
     }, 3000);
   }
 };
@@ -25,7 +33,7 @@ export const showAlert = (text: string, alertId: string = "alert") => {
 export const Alert = (props: Props) => {
   return (
     <div
-      className="fixed bottom-5 right-5 transition-opacity block opacity-0"
+      className="fixed bottom-5 right-5 transition-opacity block opacity-0 hidden"
       id={props.alertId}
     >
       <div

@@ -5,23 +5,21 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { useEffect, useRef, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import { humanizeError } from "../../constants";
 import { auth } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
+import ForgotModal from "./forgot";
 import RegisterModal from "./register";
 
 const LoginModal = () => {
-  const [showModal, setShowModal] = useState(false);
-
   const handleToggleModal = (value: boolean) => {
     const modal = document.getElementById("authentication-modal");
-    setShowModal(value);
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden"); document.body.classList.toggle("overflow-y-hidden");
+      if (value) modal.classList.toggle("hidden");
+      document.body.classList.toggle("overflow-y-hidden");
       setTimeout(() => {
         if (value) {
           modal.classList.replace("opacity-0", "opacity-100");
@@ -37,38 +35,42 @@ const LoginModal = () => {
 
   const handleGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
-    await signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        const { user } = result;
-        // can do something with this but its not that important rn
-      })
-      .catch((error) => {
-        showAlert(error.message);
-      });
+    await signInWithPopup(auth, googleProvider).then((result) => {
+      const { user } = result;
+      // can do something with this but its not that important rn
+    });
   };
 
   const handleEmail = async () => {
     const email = document.getElementById("email") as HTMLInputElement;
     const password = document.getElementById("password") as HTMLInputElement;
     const remember = document.getElementById("remember") as HTMLInputElement;
-    await signInWithEmailAndPassword(auth, email.value, password.value)
-      .then((userCredential) => {
+    await signInWithEmailAndPassword(auth, email.value, password.value).then(
+      (userCredential) => {
         const user = userCredential.user;
         auth.setPersistence(
           remember.checked ? inMemoryPersistence : browserSessionPersistence
         );
         showAlert(`Zalogowano pomyślnie 🎉`, "success");
-      })
-      .catch((error) => {
-        showAlert(humanizeError[error.code], "error-alert");
-      });
+      }
+    );
   };
 
   const handleAuth = async (provider: string) => {
+    let handle;
     if (provider == "google") {
-      handleGoogle();
+      handle = handleGoogle;
     } else if (provider == "email") {
-      handleEmail();
+      handle = handleEmail;
+    }
+    if (handle) {
+      handle()
+        .then(() => {
+          handleToggleModal(false);
+        })
+        .catch((error) => {
+          showAlert(humanizeError[error.code], "error-alert");
+        });
     }
   };
 
@@ -76,13 +78,17 @@ const LoginModal = () => {
     <>
       <a
         className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
-        onClick={(e) => {handleToggleModal(true)}}
+        onClick={(e) => {
+          handleToggleModal(true);
+        }}
       >
         <div className="flex flex-row justify-center ml-4 items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
           <MdOutlineLogin />
           <a className="flex ml-2 mr-1 font-inter font-semibold">Zaloguj</a>
         </div>
       </a>
+      <Alert color="bg-main-color" alertId="success"></Alert>
+
       {
         <div
           id="authentication-modal"
@@ -95,7 +101,6 @@ const LoginModal = () => {
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
             <Alert color="bg-red-500" alertId="error-alert"></Alert>
-            <Alert color="bg-main-color" alertId="success"></Alert>
             <div className="relative bg-background-color rounded-lg shadow">
               <button
                 type="button"
@@ -173,12 +178,7 @@ const LoginModal = () => {
                         Zapamiętaj mnie
                       </label>
                     </div>
-                    <a
-                      href="#"
-                      className="ml-2 text-sm text-blue-700 hover:text-blue-900"
-                    >
-                      Zapomniałeś hasła?
-                    </a>
+                    <ForgotModal />
                   </div>
                   <div className="flex flex-col items-center justify-center">
                     <button

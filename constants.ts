@@ -8,6 +8,7 @@ const humanizeError: any = {
   "auth/operation-not-allowed": "Operacja niedozwolona",
   "auth/too-many-requests":
     "Zbyt wiele prób logowania. Spróbuj ponownie później",
+  "auth/missing-email": "Nie znaleziono konta z podanym adresem email",
 };
 
 
