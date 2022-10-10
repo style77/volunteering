@@ -165,19 +165,22 @@ export const Navbar = () => {
     <>
       <div
         id="user-menu-backdrop"
-        className="h-screen w-screen opacity-0 fixed -z-1"
+        className="h-screen w-screen opacity-0 fixed -z-10"
       ></div>
       <nav
         className="bg-background-color py-2.5 z-20 top-0 left-0 w-full drop-shadow-lg"
         id="nav"
       >
         <div className="container flex justify-between items-center mx-auto">
-          <a href="/" className="flex items-center">
-            <img
-              src="/volunteering.svg"
-              className="h-8 bg-main-color rounded-full px-2 py-2"
-              alt="Volunteering"
-            />
+          <a href="/" className="flex items-center ">
+            <div className="h-8 bg-main-color rounded-full px-2 py-2">
+              <img
+                src="/volunteering.svg"
+                className="h-5"
+                style={{ filter: "invert(0.98)" }}
+                alt="Volunteering"
+              />
+            </div>
           </a>
           <div className="flex md:order-2">
             <Link href="/contact">

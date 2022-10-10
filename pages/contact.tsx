@@ -64,7 +64,7 @@ const Contact: NextPage = () => {
           </h6>
         </div>
         <div className="flex basis-1/3"></div>
-        <div className="flex basis-1/3 -mt-32 w-full">
+        <div className="flex basis-1/3 -mt-32 w-full mr-4">
           <form onSubmit={handleSubmit} ref={form} className="ml-12">
             <div className="mb-6">
               <label
