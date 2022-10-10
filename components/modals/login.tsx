@@ -40,7 +40,7 @@ const LoginModal = () => {
     await signInWithPopup(auth, googleProvider)
       .then((result) => {
         const { user } = result;
-        console.log(user);
+        // can do something with this but its not that important rn
       })
       .catch((error) => {
         showAlert(error.message);
@@ -57,7 +57,7 @@ const LoginModal = () => {
         auth.setPersistence(
           remember.checked ? inMemoryPersistence : browserSessionPersistence
         );
-        showAlert("Zalogowano pomyślnie", "success");
+        showAlert(`Zalogowano pomyślnie 🎉`, "success");
       })
       .catch((error) => {
         showAlert(humanizeError[error.code], "error-alert");
