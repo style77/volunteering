@@ -83,8 +83,6 @@ const RegisterModal: NextPage = () => {
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
-            <Alert color="bg-red-500" alertId="register-error-alert"></Alert>
-            <Alert color="bg-main-color" alertId="register-success"></Alert>
             <div className="relative bg-background-color rounded-lg shadow">
               <button
                 type="button"

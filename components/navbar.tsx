@@ -247,8 +247,14 @@ export const Navbar = () => {
             </ul>
           </div>
         </div>
-        <Alert color="bg-red-500" alertId="logout-alert"></Alert>
       </nav>
+      <Alert color="bg-red-500" alertId="logout-alert"></Alert>
+      <Alert color="bg-main-color" alertId="success"></Alert>
+      <Alert alertId="forgot-error-alert" color="bg-red-500"></Alert>
+      <Alert alertId="forgot-success-alert" color="bg-red-500"></Alert>
+      <Alert color="bg-red-500" alertId="error-alert"></Alert>
+      <Alert color="bg-red-500" alertId="register-error-alert"></Alert>
+      <Alert color="bg-main-color" alertId="register-success"></Alert>
     </>
   );
 };

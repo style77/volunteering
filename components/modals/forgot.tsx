@@ -66,8 +66,6 @@ const ForgotModal = () => {
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
-            <Alert alertId="forgot-error-alert" color="bg-red-500"></Alert>
-            <Alert alertId="forgot-success-alert" color="bg-red-500"></Alert>
             <div className="relative bg-background-color rounded-lg shadow">
               <button
                 type="submit"

@@ -87,8 +87,6 @@ const LoginModal = () => {
           <a className="flex ml-2 mr-1 font-inter font-semibold">Zaloguj</a>
         </div>
       </a>
-      <Alert color="bg-main-color" alertId="success"></Alert>
-
       {
         <div
           id="authentication-modal"
@@ -100,7 +98,6 @@ const LoginModal = () => {
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
-            <Alert color="bg-red-500" alertId="error-alert"></Alert>
             <div className="relative bg-background-color rounded-lg shadow">
               <button
                 type="button"
