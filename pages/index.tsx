@@ -26,7 +26,7 @@ const Home: NextPage = () => {
                 </h2>
 
                 <div
-                  className="flex justify-center items-center align-middle mt-56 cursor-pointer z-30"
+                  className="flex justify-center items-center align-middle mt-56 cursor-pointer"
                   onClick={() => {
                     if (
                       !document
@@ -40,7 +40,7 @@ const Home: NextPage = () => {
                     href="#what-is-volunteering"
                     className="xl:w-full xl:h-full"
                   >
-                    <button className="h-16 w-52 text-xl font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
+                    <button className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0">
                       Dowiedz się więcej!
                     </button>
                   </a>

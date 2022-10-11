@@ -12,7 +12,7 @@ import {
 } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { MdOutlineLogin } from "react-icons/md";
 import useAuth from "../hooks/useAuth";
 import Volunteering from "../pages/volunteering";
@@ -20,111 +20,15 @@ import { auth, db } from "../saas/firebase";
 import { Alert, showAlert } from "./alert";
 import LoginModal from "./modals/login";
 
-export const handleDropdownToggle = () => {
-  const dropdown = document.getElementById("user-dropdown");
-
-  dropdown!.classList.toggle("hidden");
-
-  setTimeout(() => {
-    // We need to wait 1frame before we can replace that class
-    if (!dropdown?.classList.contains("hidden")) {
-      dropdown?.classList.replace("opacity-0", "opacity-100");
-    } else {
-      dropdown?.classList.replace("opacity-100", "opacity-0");
-    }
-  }, 1);
-};
-
-export const NavbarUser = (account: {
-  photo: string;
-  name: string;
-  email: string;
-}) => {
-  useEffect(() => {
-    const backdrop = document.getElementById("user-menu-backdrop");
-    document.addEventListener("click", (e) => {
-      const dropdown = document.getElementById("user-dropdown");
-
-      if (e.target === backdrop && !dropdown!.classList.contains("hidden")) {
-        handleDropdownToggle();
-      }
-    });
-  }, []);
-
-  return (
-    <>
-      <button
-        type="button"
-        className="flex mr-3 text-sm bg-gray-600 rounded-full md:mr-0 focus:ring-2 focus:ring-main-color"
-        id="user-menu-button"
-        aria-expanded="false"
-        data-dropdown-toggle="user-dropdown"
-        data-dropdown-placement="bottom"
-        onClick={() => handleDropdownToggle()}
-      >
-        <span className="sr-only">Open user menu</span>
-        <img
-          className="w-8 h-8 rounded-full"
-          src={account.photo}
-          alt="user photo"
-        />
-      </button>
-      {
-        <div
-          className="hidden fixed opacity-0 transition duration-300 mt-60 mr-10 z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow"
-          id="user-dropdown"
-        >
-          <div className="py-3 px-4">
-            <span className="block text-sm text-main-color-2 font-inter font-semibold">
-              {account.name}
-            </span>
-            <span className="block text-sm text-main-color font-inter font-regular">
-              {account.email}
-            </span>
-          </div>
-          <ul className="py-1" aria-labelledby="user-menu-button">
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                Profil
-              </a>
-            </li>
-            <li>
-              <a
-                href="#"
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                coś do dodania
-              </a>
-            </li>
-            <li>
-              <a
-                onClick={() => {
-                  auth.signOut();
-                  showAlert(
-                    "Wylogowano pomyślnie. Wracaj do nas jak najszybciej!",
-                    "logout-alert"
-                  );
-                }}
-                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-              >
-                Wyloguj się
-              </a>
-            </li>
-          </ul>
-        </div>
-      }
-    </>
-  );
-};
-
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth();
   const [account, setAccount] = useState({ photo: "", name: "", email: "" });
-
   const [loading, setLoading] = useState(false);
+
+  const [userDropdownShown, setUserDropdownShown] = useState(false);
+
+  const userDropdown = useRef<HTMLDivElement>(null);
+  const userMenuBackdrop = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const getAccount = async () => {
@@ -154,6 +58,29 @@ export const Navbar = () => {
     getAccount();
   }, [user]);
 
+  const showDropdown = () => {
+    setUserDropdownShown(true)
+    userDropdown.current!.classList.toggle("hidden");
+    setTimeout(() => {
+      userDropdown.current!.classList.replace("opacity-0", "opacity-100");
+      userMenuBackdrop.current!.classList.replace("opacity-0", "opacity-100");
+    }, 1);
+  }
+
+  const hideDropdown = () => {
+    setUserDropdownShown(false)
+    userDropdown.current!.classList.replace("opacity-100", "opacity-0");
+    userMenuBackdrop.current!.classList.replace("opacity-100", "opacity-0");
+    setTimeout(() => {
+      userDropdown.current!.classList.toggle("hidden");
+    }, 300)
+  }
+
+  const handleDropdownToggle = () => {
+    if (!userDropdownShown) showDropdown()
+    else hideDropdown()
+  };
+
   const toggleNavbar = () => {
     const navbar = document.getElementById("navbar-sticky");
     if (navbar) {
@@ -161,11 +88,19 @@ export const Navbar = () => {
     }
   };
 
+  const handleBackdrop = () => {
+    if (userDropdownShown) {
+      hideDropdown()
+    }
+  }
+
   return (
     <>
       <div
         id="user-menu-backdrop"
-        className="h-screen w-screen opacity-0 fixed -z-10"
+        ref={userMenuBackdrop}
+        className="h-screen w-screen opacity-0 fixed z-0"
+        onClick={() => handleBackdrop()}
       ></div>
       <nav
         className="bg-background-color py-2.5 z-20 top-0 left-0 w-full drop-shadow-lg"
@@ -173,12 +108,13 @@ export const Navbar = () => {
       >
         <div className="container flex justify-between items-center mx-auto">
           <a href="/" className="flex items-center ">
-            <div className="h-8 bg-main-color rounded-full px-2 py-2">
+            <div className="h-8 bg-main-color rounded-full px-2 py-2 hidden lg:block">
               <img
                 src="/volunteering.svg"
                 className="h-5"
-                style={{ filter: "invert(0.98)" }}
-                alt="Volunteering"
+                style={{
+                  filter: "invert(0.98)",
+                }}
               />
             </div>
           </a>
@@ -186,13 +122,13 @@ export const Navbar = () => {
             <Link href="/contact">
               <button
                 type="button"
-                className="text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center mr-3 md:mr-0"
+                className="text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Napisz do nas
               </button>
             </Link>
             {isLoggedIn ? (
-              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer ml-4">
+              <div className="flex flex-row justify-center items-center text-main-color hover:text-main-color-2 transition ml-4">
                 <div className="flex flex-row justify-center items-center">
                   {loading ? (
                     <>
@@ -200,7 +136,68 @@ export const Navbar = () => {
                     </>
                   ) : (
                     <>
-                      <NavbarUser {...account} />
+                      <button
+                        type="button"
+                        className="flex mr-3 text-sm bg-gray-600 rounded-full md:mr-0 focus:ring-2 focus:ring-main-color"
+                        id="user-menu-button"
+                        aria-expanded="false"
+                        data-dropdown-toggle="user-dropdown"
+                        data-dropdown-placement="bottom"
+                        onClick={() => handleDropdownToggle()}
+                      >
+                        <span className="sr-only">Open user menu</span>
+                        <img
+                          className="w-8 h-8 rounded-full"
+                          src={account.photo}
+                          alt="user photo"
+                        />
+                      </button>
+                      <div
+                        className="hidden fixed opacity-0 transition duration-300 mt-60 mr-10 z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md"
+                        id="user-dropdown"
+                        ref={userDropdown}
+                      >
+                        <div className="py-3 px-4">
+                          <span className="block text-sm text-main-color-2 font-inter font-semibold">
+                            {account.name}
+                          </span>
+                          <span className="block text-sm text-main-color font-inter font-regular">
+                            {account.email}
+                          </span>
+                        </div>
+                        <ul className="py-1" aria-labelledby="user-menu-button">
+                          <li>
+                            <a
+                              href="#"
+                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                              Profil
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              href="#"
+                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                              coś do dodania
+                            </a>
+                          </li>
+                          <li>
+                            <a
+                              onClick={() => {
+                                auth.signOut();
+                                showAlert(
+                                  "Wylogowano pomyślnie. Wracaj do nas jak najszybciej!",
+                                  "logout-alert"
+                                );
+                              }}
+                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                            >
+                              Wyloguj się
+                            </a>
+                          </li>
+                        </ul>
+                      </div>
                     </>
                   )}
                 </div>
@@ -238,7 +235,7 @@ export const Navbar = () => {
             className="hidden flex flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
             id="navbar-sticky"
           >
-            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color shadow-lg md:shadow-none md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1">
+            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color shadow-lg md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
               <li>
                 <Link href="/">
                   <a

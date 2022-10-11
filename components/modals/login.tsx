@@ -5,6 +5,7 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
+import { useRef } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import { humanizeError } from "../../constants";
@@ -14,6 +15,11 @@ import ForgotModal from "./forgot";
 import RegisterModal from "./register";
 
 const LoginModal = () => {
+
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const remember = useRef<HTMLInputElement>(null);
+
   const handleToggleModal = (value: boolean) => {
     const modal = document.getElementById("authentication-modal");
 
@@ -42,14 +48,11 @@ const LoginModal = () => {
   };
 
   const handleEmail = async () => {
-    const email = document.getElementById("email") as HTMLInputElement;
-    const password = document.getElementById("password") as HTMLInputElement;
-    const remember = document.getElementById("remember") as HTMLInputElement;
-    await signInWithEmailAndPassword(auth, email.value, password.value).then(
+    await signInWithEmailAndPassword(auth, email.current!.value, password.current!.value).then(
       (userCredential) => {
         const user = userCredential.user;
         auth.setPersistence(
-          remember.checked ? inMemoryPersistence : browserSessionPersistence
+          remember.current!.checked ? inMemoryPersistence : browserSessionPersistence
         );
         showAlert(`Zalogowano pomyślnie 🎉`, "success");
       }
@@ -91,10 +94,10 @@ const LoginModal = () => {
         <div
           id="authentication-modal"
           tabIndex={-1}
-          className="opacity-0 hidden transition fixed inset-0 z-[100] font-inter"
+          className="opacity-0 hidden transition absolute inset-0 z-[100] font-inter"
         >
           <div
-            className="fixed w-full h-screen bg-black opacity-50"
+            className="absolute inset-0 w-full h-screen bg-black/50"
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">
@@ -137,6 +140,7 @@ const LoginModal = () => {
                       type="email"
                       name="email"
                       id="email"
+                      ref={email}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="mail@volunteering.pl"
                       required
@@ -154,6 +158,7 @@ const LoginModal = () => {
                       name="password"
                       id="password"
                       placeholder="••••••••"
+                      ref={password}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       required
                     />
@@ -165,6 +170,7 @@ const LoginModal = () => {
                           id="remember"
                           type="checkbox"
                           value=""
+                          ref={remember}
                           className="w-4 h-4 bg-gray-50 rounded border border-gray-300"
                         />
                       </div>
