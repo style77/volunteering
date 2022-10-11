@@ -3,6 +3,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "postbuild": "next-sitemap",
     "start": "next start"
   },
   "dependencies": {
@@ -10,6 +11,7 @@
     "firebase": "^9.11.0",
     "next": "latest",
     "next-seo": "^5.5.0",
+    "next-sitemap": "^3.1.24",
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-icons": "^4.4.0",

@@ -2,6 +2,11 @@
 # yarn lockfile v1
 
 
+"@corex/deepmerge@^4.0.29":
+  version "4.0.29"
+  resolved "https://registry.yarnpkg.com/@corex/deepmerge/-/deepmerge-4.0.29.tgz#af9debf07d7f6b0d2a9d04a266abf2c1418ed2f6"
+  integrity sha512-q/yVUnqckA8Do+EvAfpy7RLdumnBy9ZsducMUtZTvpdbJC7azEf1hGtnYYxm0QfphYxjwggv6XtH64prvS1W+A==
+
 "@emailjs/browser@^3.7.0":
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/@emailjs/browser/-/browser-3.7.0.tgz#6ee7cf286a6b9cf45d12707846e24749976f550c"
@@ -1199,6 +1204,14 @@ next-seo@^5.5.0:
   version "5.5.0"
   resolved "https://registry.yarnpkg.com/next-seo/-/next-seo-5.5.0.tgz#12bdfce60a6ae098f49617357a166c2d44dbc29e"
   integrity sha512-5ouBHFtx8YrSDW44lj0qIEQ+oMcz6stgoITB+SqHUZbhgizoJsyLmq73gJ0lxtEKpcN8vG2QgRIJfdb8OAPChw==
+
+next-sitemap@^3.1.24:
+  version "3.1.24"
+  resolved "https://registry.yarnpkg.com/next-sitemap/-/next-sitemap-3.1.24.tgz#4520db61616390d4e5272e471d43218b2c361bc3"
+  integrity sha512-dEFOI6cnNffDcmxis/1IVNK2JI1wtxxGoj2ipP7L8xDVbxjyuuH2V8MEajHPPrIhybfGk6gyZ5HDpXgVcTv9QA==
+  dependencies:
+    "@corex/deepmerge" "^4.0.29"
+    minimist "^1.2.6"
 
 next@latest:
   version "12.3.1"
