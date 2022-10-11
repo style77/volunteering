@@ -5,7 +5,7 @@ export const SearchBar= () => {
         <>
             <div className="flex flex-row font-inter font-light justify-center mx-12">
                 <div className="flex lg:flex-row flex-col gap-2">
-                    <div className="flex flex-col w-[27rem]">
+                    <div className="flex flex-col w-22">
                         <label htmlFor="search-volunteering" className="text-main-color ">Znajdź wolontariat...</label>
                         <input type="text" id="search-volunteering" className="h-12 text-lg rounded-lg text-main-color bg-white border-2 border-main-color focus:border-main-color-2 focus:rounded-xl p-2" />
                     </div>

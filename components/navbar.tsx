@@ -66,7 +66,7 @@ export const Navbar = () => {
     setUserDropdownShown(true);
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-[1]");
+    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-0");
 
     userDropdown.current!.classList.toggle("hidden");
     setTimeout(() => {
@@ -79,7 +79,7 @@ export const Navbar = () => {
     setUserDropdownShown(false);
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("z-[1]", "-z-[1]");
+    userMenuBackdrop.current!.classList.replace("z-0", "-z-[1]");
 
     userDropdown.current!.classList.replace("opacity-100", "opacity-0");
     userMenuBackdrop.current!.classList.replace("opacity-100", "opacity-0");
@@ -98,9 +98,9 @@ export const Navbar = () => {
     setShowNavbar(true);
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-[1]");
+    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-0");
 
-    navbar.current!.classList.toggle("hidden");
+    navbar.current!.classList.remove("hidden");
     setTimeout(() => {
       navbar.current!.classList.replace("opacity-0", "opacity-100");
       navbar.current!.classList.replace("translate-y-0", "translate-y-1");
@@ -111,12 +111,12 @@ export const Navbar = () => {
     setShowNavbar(false);
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("z-[1]", "-z-[1]");
+    userMenuBackdrop.current!.classList.replace("z-0", "-z-[1]");
 
     navbar.current!.classList.replace("opacity-100", "opacity-0");
     navbar.current!.classList.replace("translate-y-1", "translate-y-0");
     setTimeout(() => {
-      navbar.current!.classList.toggle("hidden");
+      navbar.current!.classList.add("hidden");
     }, 300)
   }
 
@@ -194,7 +194,7 @@ export const Navbar = () => {
                         />
                       </button>
                       <div
-                        className="hidden fixed opacity-0 transition duration-300 mt-60 mr-10 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md"
+                        className="hidden fixed opacity-0 transition duration-300 mt-60 mr-44 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md"
                         id="user-dropdown"
                         ref={userDropdown}
                       >
@@ -206,10 +206,7 @@ export const Navbar = () => {
                             {account.email}
                           </span>
                         </div>
-                        <ul
-                          className="py-1"
-                          aria-labelledby="user-menu-button"
-                        >
+                        <ul className="py-1" aria-labelledby="user-menu-button">
                           <li>
                             <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
                               Profil
@@ -270,11 +267,11 @@ export const Navbar = () => {
             </button>
           </div>
           <div
-            className="hidden flex opacity-0 transition duration-300 flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
+            className="hidden flex opacity-0 xl:opacity-100 transition duration-300 flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
             id="navbar-sticky"
             ref={navbar}
           >
-            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color shadow-lg md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
+            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
               <li>
                 <Link href="/">
                   <a

@@ -3,29 +3,67 @@ import Head from "next/head";
 import { VolunteeringCard } from "../components/volunteeringCard";
 import { CardEvents } from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
-
+import { NextSeo } from "next-seo";
 
 const Volunteering: NextPage = () => {
-    
-    return (
-        <>
-        <Head>
+  return (
+    <>
+      <NextSeo
+        title="Volunteering - Wolontariaty"
+        description="Wyszukiwarka wolontariatów w Polsce. Znajdź wolontariat dla siebie i zacznij pomagać razem z Volunteering już teraz!"
+        canonical="https://volunteering.pl/"
+        openGraph={{
+          url: "https://volunteering.pl/volunteering",
+          title: "Volunteering - Wolontariaty",
+          description:
+            "Wyszukiwarka wolontariatów w Polsce. Znajdź wolontariat dla siebie i zacznij pomagać razem z Volunteering już teraz!",
+          images: [
+            {
+              url: "https://volunteering.pl/favicon.ico",
+              width: 256,
+              height: 256,
+              alt: "Volunteering - Wolontariaty",
+            },
+          ],
+          site_name: "Volunteering",
+        }}
+      />
+
+      <Head>
         <title>Volunteering - Wolontariaty</title>
-         </Head>
-        <main className="font-inter flex min-h-screen flex-col py-2">
-            <div className="font-semibold text-6xl text-main-color m-6">
-                Wyszukiwanie wolontariatu
+      </Head>
+      <main className="font-inter flex min-h-screen flex-col py-2">
+        <div className="font-semibold text-4xl xl:text-6xl text-main-color m-6">
+          Wyszukiwanie wolontariatu
+        </div>
+        <SearchBar />
+        <div className="text-main-color text-3xl text-regular m-6">
+          Wyniki wyszukiwania
+        </div>
+
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col xl:flex-row gap-2 w-full">
+            <div className="flex basis-4/5 justify-center items-center">
+              <VolunteeringCard
+                volunteeringName="Kropeczka"
+                orgName="Fundacja drzewo"
+                city="Bydgoszcz"
+                isPaid={false}
+                volunteeringType="Hospicyjny"
+                volunteeringTerm="Cykliczny"
+                volunteeringImage="https://tinyurl.com/67swpcxj"
+              ></VolunteeringCard>
             </div>
-            <SearchBar />
-            <div className="text-main-color text-3xl text-regular m-6">
-                Wyniki wyszukiwania
+            <div className="flex justify-center items-center">
+              <CardEvents
+                isFavorite={false}
+                isNotifications={false}
+              ></CardEvents>
             </div>
-            <div className="flex flex-row gap-6 justify-center mt-4">
-                <VolunteeringCard volunteeringName="Kropeczka" orgName="Fundacja drzewo" city="Bydgoszcz" isPaid={false} volunteeringType="Hospicyjny" volunteeringTerm="Cykliczny" volunteeringImage="/nowe_logo_caritas.jpeg"></VolunteeringCard>
-                <CardEvents isFavorite={false} isNotifications={false}></CardEvents>
-            </div>
-        </main>
-        </>
-    )
-}
-export default Volunteering
+          </div>
+        </div>
+      </main>
+    </>
+  );
+};
+export default Volunteering;
