@@ -5,11 +5,32 @@ import { FaHandHoldingHeart } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
 import { AiOutlineEye } from "react-icons/ai";
-import { handleDropdownToggle } from "../components/navbar";
+import { NextSeo } from "next-seo";
 
 const Home: NextPage = () => {
   return (
     <>
+      <NextSeo
+        title="Volunteering - Strona główna"
+        description="Strona główna serwisu Volunteering. Znajdziesz tutaj informacje o tym jak serwis działa. Zacznij pomagać razem z nami już teraz!"
+        canonical="https://volunteering.pl/"
+        openGraph={{
+          url: "https://volunteering.pl/",
+          title: "Volunteering - Strona główna",
+          description:
+            "Strona główna serwisu Volunteering. Znajdziesz tutaj informacje o tym jak serwis działa. Zacznij pomagać razem z nami już teraz!",
+          images: [
+            {
+              url: "https://volunteering.pl/favicon.ico",
+              width: 256,
+              height: 256,
+              alt: "Volunteering - Strona główna",
+            },
+          ],
+          site_name: "Volunteering",
+        }}
+      />
+
       <Head>
         <title>Volunteering</title>
       </Head>
@@ -25,22 +46,15 @@ const Home: NextPage = () => {
                   to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
                 </h2>
 
-                <div
-                  className="flex justify-center items-center align-middle mt-56 cursor-pointer"
-                  onClick={() => {
-                    if (
-                      !document
-                        .getElementById("user-dropdown")
-                        ?.classList.contains("hidden")
-                    )
-                      handleDropdownToggle();
-                  }}
-                >
+                <div className="flex justify-center items-center align-middle mt-56 cursor-pointer">
                   <a
                     href="#what-is-volunteering"
                     className="xl:w-full xl:h-full"
                   >
-                    <button id="find-out-more" className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0">
+                    <button
+                      id="find-out-more"
+                      className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0"
+                    >
                       Dowiedz się więcej!
                     </button>
                   </a>
@@ -53,7 +67,7 @@ const Home: NextPage = () => {
           </div>
         </div>
 
-        <div className="ml-10" id="what-is-volunteering">
+        <div className="ml-10 select-none" id="what-is-volunteering">
           <span className="text-main-color text-5xl xl:text-7xl font-bold">
             Jak ułatwimy Tobie{" "}
             <span className="text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2">
@@ -141,7 +155,7 @@ const Home: NextPage = () => {
       </main>
       <div
         className="w-full h-8 absolute  -bottom-3 bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2"
-        style={{backgroundPosition: "20rem 0"}}
+        style={{ backgroundPosition: "20rem 0" }}
       ></div>
     </>
   );
