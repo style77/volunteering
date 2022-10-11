@@ -273,7 +273,7 @@ export const Navbar = () => {
           >
             <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
               <li>
-                <Link href="/">
+                <Link href="/" onClick={() => toggleNavbar()}>
                   <a
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
@@ -283,7 +283,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/volunteering">
+                <Link href="/volunteering" onClick={() => toggleNavbar()}>
                   <a
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
@@ -293,7 +293,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/submit">
+                <Link href="/submit" onClick={() => toggleNavbar()}>
                   <a
                     className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"

@@ -15,7 +15,8 @@
     "react": "18.1.0",
     "react-dom": "18.1.0",
     "react-icons": "^4.4.0",
-    "react-password-strength-bar": "^0.4.1"
+    "react-password-strength-bar": "^0.4.1",
+    "vivid-studio": "^0.9.1"
   },
   "devDependencies": {
     "@types/node": "17.0.35",

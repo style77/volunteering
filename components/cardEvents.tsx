@@ -19,19 +19,26 @@ export const CardEvents = ({ isFavorite, isNotifications }: Props) => {
     const [notification, setNotification]=useState(isNotifications)
     
     return (
-        <>
-            <div className="flex flex-col">
-                <div className="flex flex-row rounded-lg bg-main-color h-28 w-56 justify-center items-center">
-                    <div className="flex gap-3 text-main-color">
-                        <EventButton icon="favorite" isSelected={favorite} setSelected={setFavorite} />
-                        <EventButton icon="notifications" isSelected={notification} setSelected={setNotification} />
-                        <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
-                            <MdChatBubbleOutline />
-                        </button>
-                    </div>
-
-                </div>
+      <>
+        <div className="flex flex-col">
+          <div className="flex flex-row rounded-lg bg-main-color h-52 w-16 xl:h-36 xl:w-56 justify-center items-center">
+            <div className="flex flex-col xl:flex-row gap-3 text-main-color">
+              <EventButton
+                icon="favorite"
+                isSelected={favorite}
+                setSelected={setFavorite}
+              />
+              <EventButton
+                icon="notifications"
+                isSelected={notification}
+                setSelected={setNotification}
+              />
+              <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+                <MdChatBubbleOutline />
+              </button>
             </div>
-        </>
-    )
+          </div>
+        </div>
+      </>
+    );
 }

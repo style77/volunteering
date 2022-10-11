@@ -19,7 +19,7 @@ export const EventButton=({icon,isSelected, setSelected}:Props) => {
     return(
         <>
         <div>
-            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out delay-150 hover:scale-110 duration-300" onClick={() => setSelected(!isSelected)}>
+            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" onClick={() => setSelected(!isSelected)}>
                 {isSelected ? icons[`${icon}Selected`]:icons[`${icon}NotSelected`] }
             </button>
         </div>

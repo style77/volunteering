@@ -33,17 +33,17 @@ const Volunteering: NextPage = () => {
         <title>Volunteering - Wolontariaty</title>
       </Head>
       <main className="font-inter flex min-h-screen flex-col py-2">
-        <div className="font-semibold text-4xl xl:text-6xl text-main-color m-6">
+        <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
           Wyszukiwanie wolontariatu
         </div>
         <SearchBar />
-        <div className="text-main-color text-3xl text-regular m-6">
+        <div className="text-main-color text-3xl text-regular my-6 ml-6">
           Wyniki wyszukiwania
         </div>
 
         <div className="flex flex-col gap-4">
-          <div className="flex flex-col xl:flex-row gap-2 w-full">
-            <div className="flex basis-4/5 justify-center items-center">
+          <div className="flex flex-row gap-2 w-full">
+            <div className="flex basis-11/12 xl:justify-center items-center">
               <VolunteeringCard
                 volunteeringName="Kropeczka"
                 orgName="Fundacja drzewo"
@@ -54,7 +54,7 @@ const Volunteering: NextPage = () => {
                 volunteeringImage="https://tinyurl.com/67swpcxj"
               ></VolunteeringCard>
             </div>
-            <div className="flex justify-center items-center">
+            <div className="flex justify-start items-center mr-2">
               <CardEvents
                 isFavorite={false}
                 isNotifications={false}
