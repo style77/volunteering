@@ -63,7 +63,11 @@ export const Navbar = () => {
   }, [user]);
 
   const showDropdown = () => {
-    setUserDropdownShown(true)
+    setUserDropdownShown(true);
+
+    // change backdrop's z-index
+    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-[1]");
+
     userDropdown.current!.classList.toggle("hidden");
     setTimeout(() => {
       userDropdown.current!.classList.replace("opacity-0", "opacity-100");
@@ -72,12 +76,16 @@ export const Navbar = () => {
   }
 
   const hideDropdown = () => {
-    setUserDropdownShown(false)
+    setUserDropdownShown(false);
+
+    // change backdrop's z-index
+    userMenuBackdrop.current!.classList.replace("z-[1]", "-z-[1]");
+
     userDropdown.current!.classList.replace("opacity-100", "opacity-0");
     userMenuBackdrop.current!.classList.replace("opacity-100", "opacity-0");
     setTimeout(() => {
       userDropdown.current!.classList.toggle("hidden");
-    }, 300)
+    }, 300);
   }
 
   const handleDropdownToggle = () => {
@@ -89,6 +97,9 @@ export const Navbar = () => {
   const showNavbar = () => {
     setShowNavbar(true);
 
+    // change backdrop's z-index
+    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-[1]");
+
     navbar.current!.classList.toggle("hidden");
     setTimeout(() => {
       navbar.current!.classList.replace("opacity-0", "opacity-100");
@@ -98,6 +109,10 @@ export const Navbar = () => {
 
   const hideNavbar = () => {
     setShowNavbar(false);
+
+    // change backdrop's z-index
+    userMenuBackdrop.current!.classList.replace("z-[1]", "-z-[1]");
+
     navbar.current!.classList.replace("opacity-100", "opacity-0");
     navbar.current!.classList.replace("translate-y-1", "translate-y-0");
     setTimeout(() => {
@@ -125,7 +140,7 @@ export const Navbar = () => {
       <div
         id="user-menu-backdrop"
         ref={userMenuBackdrop}
-        className="h-screen w-screen opacity-0 fixed z-0"
+        className="h-screen w-screen opacity-0 fixed -z-[1]"
         onClick={() => handleBackdrop()}
       ></div>
       <nav
@@ -179,7 +194,7 @@ export const Navbar = () => {
                         />
                       </button>
                       <div
-                        className="hidden fixed opacity-0 transition duration-300 mt-60 mr-10 z-50 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md"
+                        className="hidden fixed opacity-0 transition duration-300 mt-60 mr-10 my-4 text-base list-none bg-white rounded divide-y divide-gray-100 shadow-md"
                         id="user-dropdown"
                         ref={userDropdown}
                       >
@@ -191,20 +206,17 @@ export const Navbar = () => {
                             {account.email}
                           </span>
                         </div>
-                        <ul className="py-1" aria-labelledby="user-menu-button">
+                        <ul
+                          className="py-1"
+                          aria-labelledby="user-menu-button"
+                        >
                           <li>
-                            <a
-                              href="#"
-                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-                            >
+                            <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
                               Profil
                             </a>
                           </li>
                           <li>
-                            <a
-                              href="#"
-                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
-                            >
+                            <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
                               coś do dodania
                             </a>
                           </li>
@@ -217,7 +229,7 @@ export const Navbar = () => {
                                   "logout-alert"
                                 );
                               }}
-                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100"
+                              className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                             >
                               Wyloguj się
                             </a>

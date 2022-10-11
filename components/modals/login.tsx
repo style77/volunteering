@@ -23,7 +23,6 @@ const LoginModal = () => {
   const remember = useRef<HTMLInputElement>(null);
 
   const handleToggleModal = (value: boolean) => {
-    if (value) modal.current!.classList.toggle("hidden");
     document.body.classList.toggle("overflow-y-hidden");
 
     // There are some weird problems with "Dowiedz się więcej" button
@@ -41,6 +40,7 @@ const LoginModal = () => {
         if (findOutMoreButton) {
           findOutMoreButton.classList.replace("z-0", "-z-[1]");
         }
+        modal.current!.classList.toggle("hidden");
       } else {
         // hide modal
         if (findOutMoreButton) {
