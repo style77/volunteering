@@ -2,6 +2,7 @@ import {
   createUserWithEmailAndPassword,
   EmailAuthCredential,
   signInWithEmailAndPassword,
+  UserCredential,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { NextPage } from "next";
@@ -12,7 +13,21 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const registerUser = async () => {};
+export const registerUser = async (userCredential: UserCredential, name: string, mail: string) => {
+  const user = userCredential.user;
+  await addDoc(collection(db, "users"), {
+    name: name,
+    email: mail,
+    uid: user.uid,
+    createdAt: new Date(),
+    eventsData: {notifications: [], favorite: []}, // There will be saved id of volonteerings that are marked as favorite or that user is subscribed to notifications
+    badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
+    photo: "https://volunteering.pl/blank.png",
+    isVerified: false, // This will be used to check if user has verified his phone number
+  });
+
+  return user
+};
 
 const RegisterModal: NextPage = () => {
   const [password, setPassword] = useState("");
@@ -33,24 +48,12 @@ const RegisterModal: NextPage = () => {
   }, []);
 
   const registerWithEmailAndPassword = async () => {
-    const name = document.getElementById(
-      "register-username"
-    ) as HTMLInputElement;
-    const email = document.getElementById("register-email") as HTMLInputElement;
-    const password = document.getElementById(
-      "register-password"
-    ) as HTMLInputElement;
-
-    await createUserWithEmailAndPassword(auth, email.value, password.value)
+    await createUserWithEmailAndPassword(auth, mail, password)
       .then(async (userCredential) => {
-        const user = userCredential.user;
-        await addDoc(collection(db, "users"), {
-          name: name.value,
-          email: email.value,
-          uid: user.uid,
-        });
-        showAlert("Zarejestrowano pomyślnie", "register-success");
-        return user;
+        registerUser(userCredential, name, mail).then((user) => {
+          showAlert("Zarejestrowano pomyślnie", "register-success");
+          return user;
+        })
       })
       .catch((error) => {
         showAlert(humanizeError[error.code], "register-error-alert");
@@ -178,6 +181,7 @@ const RegisterModal: NextPage = () => {
                       ref={username}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="Marcin Krasucki"
+                      onChange={(e) => setName(e.target.value)}
                       required
                     />
                   </div>
@@ -194,6 +198,7 @@ const RegisterModal: NextPage = () => {
                       id="register-email"
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="m.krasucki@gmail.com"
+                      onChange={(e) => setMail(e.target.value)}
                       required
                     />
                   </div>
