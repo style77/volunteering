@@ -30,6 +30,10 @@ export const Navbar = () => {
   const userDropdown = useRef<HTMLDivElement>(null);
   const userMenuBackdrop = useRef<HTMLDivElement>(null);
 
+  // mobile menu state
+  const navbar = useRef<HTMLDivElement>(null);
+  const [navbarShown, setShowNavbar] = useState(false);
+
   useEffect(() => {
     const getAccount = async () => {
       setLoading(true);
@@ -81,16 +85,38 @@ export const Navbar = () => {
     else hideDropdown()
   };
 
+
+  const showNavbar = () => {
+    setShowNavbar(true);
+
+    navbar.current!.classList.toggle("hidden");
+    setTimeout(() => {
+      navbar.current!.classList.replace("opacity-0", "opacity-100");
+      navbar.current!.classList.replace("translate-y-0", "translate-y-1");
+    }, 1);
+  }
+
+  const hideNavbar = () => {
+    setShowNavbar(false);
+    navbar.current!.classList.replace("opacity-100", "opacity-0");
+    navbar.current!.classList.replace("translate-y-1", "translate-y-0");
+    setTimeout(() => {
+      navbar.current!.classList.toggle("hidden");
+    }, 300)
+  }
+
   const toggleNavbar = () => {
-    const navbar = document.getElementById("navbar-sticky");
-    if (navbar) {
-      navbar.classList.toggle("hidden");
-    }
+    if (!navbarShown) showNavbar()
+    else hideNavbar()
   };
 
   const handleBackdrop = () => {
     if (userDropdownShown) {
       hideDropdown()
+    }
+
+    if (navbarShown) {
+      hideNavbar()
     }
   }
 
@@ -232,8 +258,9 @@ export const Navbar = () => {
             </button>
           </div>
           <div
-            className="hidden flex flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
+            className="hidden flex opacity-0 transition duration-300 flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
             id="navbar-sticky"
+            ref={navbar}
           >
             <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color shadow-lg md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
               <li>

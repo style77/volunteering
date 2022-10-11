@@ -16,27 +16,43 @@ import RegisterModal from "./register";
 
 const LoginModal = () => {
 
+  const modal = useRef<HTMLDivElement>(null);
+
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const remember = useRef<HTMLInputElement>(null);
 
   const handleToggleModal = (value: boolean) => {
-    const modal = document.getElementById("authentication-modal");
+    if (value) modal.current!.classList.toggle("hidden");
+    document.body.classList.toggle("overflow-y-hidden");
 
-    if (modal) {
-      if (value) modal.classList.toggle("hidden");
-      document.body.classList.toggle("overflow-y-hidden");
-      setTimeout(() => {
-        if (value) {
-          modal.classList.replace("opacity-0", "opacity-100");
-        } else {
-          modal.classList.replace("opacity-100", "opacity-0");
-          setTimeout(() => {
-            modal.classList.toggle("hidden");
-          }, 500);
+    // There are some weird problems with "Dowiedz się więcej" button
+    // It's not working properly when you open login modal
+    // So I need to change its z-index
+    // It's junky code but what can I do :(
+    const findOutMoreButton = document.getElementById("find-out-more");
+
+    setTimeout(() => {
+      if (value) {
+        // show modal
+        modal.current!.classList.replace("opacity-0", "opacity-100");
+        email.current!.focus();
+
+        if (findOutMoreButton) {
+          findOutMoreButton.classList.replace("z-0", "-z-[1]");
         }
-      }, 1);
-    }
+      } else {
+        // hide modal
+        if (findOutMoreButton) {
+          findOutMoreButton.classList.replace("-z-[1]", "z-0");
+        }
+
+        modal.current!.classList.replace("opacity-100", "opacity-0");
+        setTimeout(() => {
+          modal.current!.classList.toggle("hidden");
+        }, 500);
+      }
+    }, 1);
   };
 
   const handleGoogle = async () => {
@@ -92,7 +108,7 @@ const LoginModal = () => {
       </a>
       {
         <div
-          id="authentication-modal"
+          ref={modal}
           tabIndex={-1}
           className="opacity-0 hidden transition absolute inset-0 z-[100] font-inter"
         >

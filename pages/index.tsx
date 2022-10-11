@@ -40,7 +40,7 @@ const Home: NextPage = () => {
                     href="#what-is-volunteering"
                     className="xl:w-full xl:h-full"
                   >
-                    <button className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0">
+                    <button id="find-out-more" className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0">
                       Dowiedz się więcej!
                     </button>
                   </a>
