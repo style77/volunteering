@@ -154,7 +154,7 @@ const Home: NextPage = () => {
         </div>
       </main>
       <div
-        className="w-full h-8 absolute  -bottom-3 bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2"
+        className="hidden xl:block w-full h-8 absolute  -bottom-3 bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2"
         style={{ backgroundPosition: "20rem 0" }}
       ></div>
     </>

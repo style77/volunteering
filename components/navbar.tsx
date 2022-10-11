@@ -159,7 +159,7 @@ export const Navbar = () => {
               />
             </div>
           </a>
-          <div className="flex md:order-2">
+          <div className="flex xl:order-2">
             <Link href="/contact">
               <button
                 type="button"
@@ -179,7 +179,7 @@ export const Navbar = () => {
                     <>
                       <button
                         type="button"
-                        className="flex mr-3 text-sm bg-gray-600 rounded-full md:mr-0 focus:ring-2 focus:ring-main-color"
+                        className="flex mr-3 text-sm bg-gray-600 rounded-full xl:mr-0 focus:ring-2 focus:ring-main-color"
                         id="user-menu-button"
                         aria-expanded="false"
                         data-dropdown-toggle="user-dropdown"
@@ -243,7 +243,7 @@ export const Navbar = () => {
             <button
               data-collapse-toggle="navbar-sticky"
               type="button"
-              className="inline-flex items-center p-2 mr-2 text-sm text-zinc-400 rounded-lg md:hidden hover:text-zinc-300 transition"
+              className="inline-flex items-center p-2 mr-2 text-sm text-zinc-400 rounded-lg xl:hidden hover:text-zinc-300 transition"
               aria-controls="navbar-sticky"
               aria-expanded="false"
               onClick={() => toggleNavbar()}
@@ -267,15 +267,15 @@ export const Navbar = () => {
             </button>
           </div>
           <div
-            className="hidden flex opacity-0 xl:opacity-100 transition duration-300 flex-col justify-between items-center w-full md:flex md:w-auto md:order-1 md:ml-20 absolute top-11 md:static z-50"
+            className="hidden flex opacity-0 xl:opacity-100 transition duration-300 flex-col justify-between items-center w-full xl:flex xl:w-auto xl:order-1 xl:ml-20 absolute top-11 xl:static z-50"
             id="navbar-sticky"
             ref={navbar}
           >
-            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color md:bg-transparent md:w-auto md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 gap-1 shadow md:shadow-none">
+            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color xl:bg-transparent xl:w-auto xl:flex-row xl:space-x-8 xl:mt-0 xl:text-sm xl:font-medium xl:border-0 gap-1 shadow xl:shadow-none">
               <li>
                 <Link href="/" onClick={() => toggleNavbar()}>
                   <a
-                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
                   >
                     O NAS
@@ -285,7 +285,7 @@ export const Navbar = () => {
               <li>
                 <Link href="/volunteering" onClick={() => toggleNavbar()}>
                   <a
-                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
                   >
                     ZNAJDŹ WOLONTARIAT
@@ -295,7 +295,7 @@ export const Navbar = () => {
               <li>
                 <Link href="/submit" onClick={() => toggleNavbar()}>
                   <a
-                    className="block py-2 pr-4 pl-3 rounded md:bg-transparent md:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
                   >
                     ZGŁOŚ WOLONTARIAT
