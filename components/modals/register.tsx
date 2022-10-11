@@ -1,4 +1,8 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import {
+  createUserWithEmailAndPassword,
+  EmailAuthCredential,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { NextPage } from "next";
 import { useEffect, useRef, useState } from "react";
@@ -8,38 +12,50 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-const RegisterModal: NextPage = () => {
+export const registerUser = async () => {};
 
-  const [ password, setPassword ] = useState("");
+const RegisterModal: NextPage = () => {
+  const [password, setPassword] = useState("");
+  const passwordRef = useRef<HTMLInputElement>(null);
+
   const username = useRef<HTMLInputElement | null>(null);
+
+  const [verifiedPassword, setVerifiedPassword] = useState("");
+  const passwordVerification = useRef<HTMLInputElement | null>(null);
+
+  const [mail, setMail] = useState("");
+  const [name, setName] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
-      if (username.current) username.current!.focus()
-    }, 500)
-  }, [])
-  
+      if (username.current) username.current!.focus();
+    }, 500);
+  }, []);
 
   const registerWithEmailAndPassword = async () => {
-    const name = document.getElementById("register-username") as HTMLInputElement;
+    const name = document.getElementById(
+      "register-username"
+    ) as HTMLInputElement;
     const email = document.getElementById("register-email") as HTMLInputElement;
-    const password = document.getElementById("register-password") as HTMLInputElement;
+    const password = document.getElementById(
+      "register-password"
+    ) as HTMLInputElement;
 
     await createUserWithEmailAndPassword(auth, email.value, password.value)
       .then(async (userCredential) => {
         const user = userCredential.user;
         await addDoc(collection(db, "users"), {
-          'name': name.value,
-          'email': email.value,
+          name: name.value,
+          email: email.value,
           uid: user.uid,
-        })
+        });
         showAlert("Zarejestrowano pomyślnie", "register-success");
         return user;
       })
       .catch((error) => {
         showAlert(humanizeError[error.code], "register-error-alert");
       });
-    handleToggleModal(false)
+    handleToggleModal(false);
   };
 
   const handleToggleModal = (value: boolean) => {
@@ -57,6 +73,42 @@ const RegisterModal: NextPage = () => {
           }, 500);
         }
       }, 1);
+    }
+  };
+
+  const handlePasswordVerification = () => {
+    if (password === verifiedPassword) {
+      passwordVerification.current!.classList.replace(
+        "border-red-500",
+        "border-gray-300"
+      );
+      passwordRef.current!.classList.replace(
+        "border-red-500",
+        "border-gray-300"
+      );
+    } else {
+      passwordVerification.current!.classList.replace(
+        "border-gray-300",
+        "border-red-500"
+      );
+      passwordRef.current!.classList.replace(
+        "border-gray-300",
+        "border-red-500"
+      );
+    }
+  };
+
+  useEffect(() => {
+    handlePasswordVerification();
+  }, [verifiedPassword, password]);
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (password === verifiedPassword) {
+      registerWithEmailAndPassword();
+    } else {
+      showAlert("Hasła nie są takie same", "register-error-alert");
     }
   };
 
@@ -110,7 +162,7 @@ const RegisterModal: NextPage = () => {
                   Dołącz do{" "}
                   <span className="text-main-color-2">Volunteering</span>
                 </h3>
-                <div className="space-y-6">
+                <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
                   <div>
                     <label
                       htmlFor="register-username"
@@ -121,6 +173,7 @@ const RegisterModal: NextPage = () => {
                     <input
                       type="username"
                       name="username"
+                      min={6}
                       id="register-username"
                       ref={username}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
@@ -154,7 +207,9 @@ const RegisterModal: NextPage = () => {
                     <input
                       type="password"
                       name="password"
+                      min={6}
                       id="register-password"
+                      ref={passwordRef}
                       placeholder="••••••••"
                       onChange={(e) => {
                         setPassword(e.target.value);
@@ -174,15 +229,35 @@ const RegisterModal: NextPage = () => {
                       shortScoreWord="za krótkie"
                     />
                   </div>
+                  <div>
+                    <label
+                      htmlFor="register-password"
+                      className="block mb-2 text-sm font-medium text-gray-800"
+                    >
+                      Hasło
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="verify-register-password"
+                      ref={passwordVerification}
+                      placeholder="••••••••"
+                      onChange={(e) => {
+                        setVerifiedPassword(e.target.value);
+                      }}
+                      className="bg-gray-50 border border-red-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                      required
+                    />
+                  </div>
                   <div className="flex flex-col items-center justify-center">
                     <button
+                      type="submit"
                       className="w-full text-white bg-main-color transition hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => registerWithEmailAndPassword()}
                     >
                       Zarejestruj się
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

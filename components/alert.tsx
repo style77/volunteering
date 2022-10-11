@@ -5,6 +5,8 @@ type Props = {
   alertId: string;
 };
 
+const AlertDuration = 3000;
+
 export const showAlert = (text: string, alertId: string = "alert") => {
   const alert = document.getElementById(alertId) as HTMLElement;
   const alertText = document.getElementById(`alert-text-${alertId}`) as HTMLElement;
@@ -19,14 +21,14 @@ export const showAlert = (text: string, alertId: string = "alert") => {
       alert.classList.add("opacity-100");
 
     setTimeout(() => {
-        alert.classList.remove("opacity-100");
-        alert.classList.add("opacity-0");
-      }, 3000);
+      alert.classList.remove("opacity-100");
+      alert.classList.add("opacity-0");
+    }, AlertDuration);
     }, 1);
 
     setTimeout(() => {
       alert.classList.add("hidden");
-    }, 3000);
+    }, AlertDuration);
   }
 };
 

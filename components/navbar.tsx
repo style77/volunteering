@@ -273,30 +273,33 @@ export const Navbar = () => {
           >
             <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color xl:bg-transparent xl:w-auto xl:flex-row xl:space-x-8 xl:mt-0 xl:text-sm xl:font-medium xl:border-0 gap-1 shadow xl:shadow-none">
               <li>
-                <Link href="/" onClick={() => toggleNavbar()}>
+                <Link href="/">
                   <a
                     className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
+                    onClick={() => toggleNavbar()}
                   >
                     O NAS
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="/volunteering" onClick={() => toggleNavbar()}>
+                <Link href="/volunteering">
                   <a
                     className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
+                    onClick={() => toggleNavbar()}
                   >
                     ZNAJDŹ WOLONTARIAT
                   </a>
                 </Link>
               </li>
               <li>
-                <Link href="/submit" onClick={() => toggleNavbar()}>
+                <Link href="/submit">
                   <a
                     className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
+                    onClick={() => toggleNavbar()}
                   >
                     ZGŁOŚ WOLONTARIAT
                   </a>
