@@ -68,7 +68,7 @@ const Add: NextPage = () => {
                 className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
               >
                 <option selected disabled>
-                  Wybierz{" "}
+                  Wybierz
                 </option>
                 <option value="sport">sportowy</option>
                 <option value="hospice">w hospicjum</option>
@@ -88,7 +88,7 @@ const Add: NextPage = () => {
                 className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
               >
                 <option selected disabled>
-                  Wybierz{" "}
+                  Wybierz
                 </option>
                 <option value="one-time">Jednorazowy</option>
                 <option value="periodic">Okresowy</option>
@@ -106,7 +106,7 @@ const Add: NextPage = () => {
                 className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
               >
                 <option selected disabled>
-                  Wybierz{" "}
+                  Wybierz
                 </option>
                 <option value="not-paid">Bezpłatne </option>
                 <option value="paid">Płatne </option>
