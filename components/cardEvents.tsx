@@ -1,44 +1,73 @@
-import { useState } from "react"
-import { MdOutlineFavoriteBorder } from "react-icons/md"
-import { MdOutlineFavorite } from "react-icons/md"
-import { MdNotificationsNone } from "react-icons/md"
-import { MdNotificationsActive } from "react-icons/md"
-import { MdChatBubbleOutline } from "react-icons/md"
-import {EventButton} from "../components/eventButton"
+import { useState } from "react";
+import { MdOutlineFavoriteBorder } from "react-icons/md";
+import { MdOutlineFavorite } from "react-icons/md";
+import { MdNotificationsNone } from "react-icons/md";
+import { MdNotificationsActive } from "react-icons/md";
+import { MdChatBubbleOutline } from "react-icons/md";
+import { EventButton } from "../components/eventButton";
 
 type Props = {
-    isFavorite: boolean
-    isNotifications: boolean
-}
+  isFavorite: boolean;
+  isNotifications: boolean;
+};
 
-
-
-
-export const CardEvents = ({ isFavorite, isNotifications }: Props) => {
-    const [favorite, setFavorite] = useState(isFavorite)
-    const [notification, setNotification]=useState(isNotifications)
-    
-    return (
-      <>
-        <div className="flex flex-col">
-          <div className="flex flex-row rounded-lg bg-main-color h-52 w-16 xl:h-36 xl:w-56 justify-center items-center">
-            <div className="flex flex-col xl:flex-row gap-3 text-main-color">
-              <EventButton
-                icon="favorite"
-                isSelected={favorite}
-                setSelected={setFavorite}
-              />
-              <EventButton
-                icon="notifications"
-                isSelected={notification}
-                setSelected={setNotification}
-              />
-              <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
-                <MdChatBubbleOutline />
-              </button>
+export const SkeletonCardEvents = () => {
+  return (
+    <>
+      <div className="flex flex-col w-full">
+        <div className="flex flex-row rounded-lg bg-main-color h-20 w-full xl:h-36 xl:w-56 justify-center items-center shadow-md">
+          <div className="flex flex-row gap-3 text-main-color">
+            <div className="shadow-lg rounded-full">
+              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
             </div>
+            <div className="shadow-lg rounded-full">
+              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
+            </div>
+            <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
           </div>
         </div>
-      </>
-    );
-}
+      </div>
+    </>
+  );
+};
+
+export const CardEvents = ({ isFavorite, isNotifications }: Props) => {
+  const [favorite, setFavorite] = useState(isFavorite);
+  const [notification, setNotification] = useState(isNotifications);
+
+  const handleNotifications = (isSelected: boolean) => {
+    setNotification(isSelected);
+
+    // there will be all the logic to handle the notifications switch
+  };
+
+  const handleFavorite = (isSelected: boolean) => {
+    setFavorite(isSelected);
+
+    // there will be all the logic to handle the favorite switch
+  };
+
+  return (
+    <>
+      <div className="flex flex-col w-full">
+        <div className="flex flex-row rounded-lg bg-main-color h-20 w-full xl:h-36 xl:w-56 justify-center items-center shadow-md">
+          <div className="flex flex-row gap-3 text-main-color">
+            <EventButton
+              icon="favorite"
+              isSelected={favorite}
+              handleEvent={handleFavorite}
+            />
+            <EventButton
+              icon="notifications"
+              isSelected={notification}
+              handleEvent={handleNotifications}
+            />
+            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+              <MdChatBubbleOutline />
+            </button>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

@@ -4,7 +4,7 @@ import { MdNotificationsActive, MdNotificationsNone, MdOutlineFavorite, MdOutlin
 type Props = {
     icon:string
     isSelected:boolean
-    setSelected:any
+    handleEvent: Function;
 }
 
 
@@ -15,14 +15,19 @@ const icons:any={
     notificationsSelected:<MdNotificationsActive />,
 }
 
-export const EventButton=({icon,isSelected, setSelected}:Props) => {
-    return(
-        <>
-        <div>
-            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" onClick={() => setSelected(!isSelected)}>
-                {isSelected ? icons[`${icon}Selected`]:icons[`${icon}NotSelected`] }
-            </button>
+export const EventButton=({icon,isSelected, handleEvent}:Props) => {
+    return (
+      <>
+        <div className="shadow-lg rounded-full">
+          <button
+            className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300"
+            onClick={() => handleEvent(!isSelected)}
+          >
+            {isSelected
+              ? icons[`${icon}Selected`]
+              : icons[`${icon}NotSelected`]}
+          </button>
         </div>
-        </>
-    )
+      </>
+    );
 }

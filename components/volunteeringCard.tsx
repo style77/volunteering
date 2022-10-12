@@ -12,6 +12,44 @@ type Props = {
   volunteeringImage: string;
 };
 
+export const SkeletonVolunteeringCard = () => {
+  return (
+    <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
+      <div className="xl:ml-4 mt-6">
+        <div className="object-contain h-24 w-24 hidden xl:block animate-pulse rounded-full bg-white" />
+      </div>
+      <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">
+        <div className="font-semibold text-3xl mb-6 animate-pulse bg-white w-48 h-8 rounded-md"></div>
+        <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
+          <div className="flex flex-row w-40 items-center">
+            <MdOutlineCorporateFare className="flex mr-1"></MdOutlineCorporateFare>
+            <span className="animate-pulse w-24 h-3 bg-white rounded-md"></span>
+          </div>
+          <div className="flex flex-row items-center">
+            <IoLocationOutline className="flex mr-1"></IoLocationOutline>
+            <span className="animate-pulse w-24 h-3 bg-white rounded-md"></span>
+          </div>
+        </div>
+        <div className="xl:hidden select-none flex text-sm flex-row gap-2 mt-5 font-regular text-main-color w-full items-end">
+          <div className="rounded-lg bg-white text-center py-2 my-6 animate-pulse h-8 w-16"></div>
+          <div className="flex flex-row gap-2 my-6">
+            <div className="rounded-lg bg-white px-2 py-2 text-center animate-pulse h-8 w-16"></div>
+            <div className="rounded-lg bg-white px-2 py-2 text-center animate-pulse h-8 w-16"></div>
+          </div>
+        </div>
+      </div>
+      <div className="hidden xl:flex text-md gap-2 flex-col mt-0 font-regular text-main-color justify-center mr-6 w-full items-end">
+        <div className="rounded-lg bg-white text-center w-[14.5rem] py-2 animate-pulse h-8"></div>
+        <div className="flex flex-row gap-2 my-2">
+          <div className="rounded-lg bg-white w-28 h-8 px-2 py-2 text-center animate-pulse"></div>
+          <div className="rounded-lg bg-white w-28 h-8 px-2 py-2 text-center animate-pulse"></div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+
 export const VolunteeringCard = ({
   volunteeringName,
   orgName,
@@ -23,11 +61,11 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg ml-6">
-        <div className="xl:ml-2 mt-2">
+      <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
+        <div className="xl:ml-4 mt-6">
           <img
             src={volunteeringImage}
-            className="object-contain h-24 hidden xl:block"
+            className="h-24 w-36 hidden xl:block rounded-full"
           />
         </div>
         <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">

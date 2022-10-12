@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { VolunteeringCard } from "../components/volunteeringCard";
-import { CardEvents } from "../components/cardEvents";
+import { SkeletonVolunteeringCard, VolunteeringCard } from "../components/volunteeringCard";
+import { CardEvents, SkeletonCardEvents } from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
 import { NextSeo } from "next-seo";
 
@@ -41,8 +41,8 @@ const Volunteering: NextPage = () => {
           Wyniki wyszukiwania
         </div>
 
-        <div className="flex flex-col gap-4">
-          <div className="flex flex-row gap-2 w-full">
+        <div className="flex flex-col gap-8">
+          <div className="flex flex-col xl:flex-row gap-2 w-full">
             <div className="flex basis-11/12 xl:justify-center items-center">
               <VolunteeringCard
                 volunteeringName="Kropeczka"
@@ -52,13 +52,18 @@ const Volunteering: NextPage = () => {
                 volunteeringType="Hospicyjny"
                 volunteeringTerm="Cykliczny"
                 volunteeringImage="https://tinyurl.com/67swpcxj"
-              ></VolunteeringCard>
+              />
             </div>
-            <div className="flex justify-start items-center mr-2">
-              <CardEvents
-                isFavorite={false}
-                isNotifications={false}
-              ></CardEvents>
+            <div className="flex justify-center items-center px-6">
+              <CardEvents isFavorite={false} isNotifications={false} />
+            </div>
+          </div>
+          <div className="flex flex-col xl:flex-row gap-2 w-full">
+            <div className="flex basis-11/12 xl:justify-center items-center">
+              <SkeletonVolunteeringCard />
+            </div>
+            <div className="flex justify-start items-center px-6">
+              <SkeletonCardEvents />
             </div>
           </div>
         </div>
