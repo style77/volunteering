@@ -295,7 +295,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/submit">
+                <Link href="/add">
                   <a
                     className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"
