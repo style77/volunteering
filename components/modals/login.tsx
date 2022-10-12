@@ -5,7 +5,7 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
 import { useRef } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
@@ -72,14 +72,18 @@ const LoginModal = ({closeUserDropdown}: Props) => {
       console.log(user)
       if (user) {
         console.log(1)
-        const docSnap = await getDoc(doc(db, "users", user.uid))
-        if (!docSnap.exists()) {
+        const q = query(collection(db, "users"), where("uid", "==", user.uid));
+        const querySnapshot = await getDocs(q);
+        if (querySnapshot.empty) {
           // user doesn't exist in database
           // redirect to register modal
           registerUser(user.uid, user.displayName!, user.email!, user.photoURL!)
+          showAlert(`Zarejestrowano pomyślnie 🎉\nTeraz odśwież stronę`, "success");
+
+        } else {
+          showAlert(`Zalogowano pomyślnie 🎉`, "success");
         }
 
-        showAlert(`Zalogowano pomyślnie 🎉`, "success");
       }
       // can do something with this but its not that important rn
     });

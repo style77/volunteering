@@ -4,6 +4,11 @@ Zamysłem strony jest ułatwienie znajdywania wolonatriuszy dla wolontariatów i
 
 Strona jest dostępna na https://volunteering.pl/
 
+## Zastrzeżenia
+Mamy mnóstwo pomysłow na kolejne funkcjonalności strony, ale ze względu na ograniczony czas, nie jesteśmy w stanie wszystkich dodać - aczkolwiek dołożyliśmy wszelkich starań, aby strona była jak najlepsza i miała jak najwięcej funkcji urozmaicających jej działanie!
+
+Volunteering nie potrzebuje API - wszystko działa w oparciu o Firebase, a więc nie ma żadnych dodatkowych kosztów.
+
 ## Instalacja
 Aby uruchomić stronę lokalnie (używając yarna) należy:
 1. Pobrać repozytorium `git clone https://github.com/Style77/volunteering.git`

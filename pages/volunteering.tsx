@@ -7,8 +7,53 @@ import {
 import { CardEvents, SkeletonCardEvents } from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
 import { NextSeo } from "next-seo";
+import { useEffect, useState } from "react";
+import { collection, getDocs } from "firebase/firestore";
+import { db } from "../saas/firebase";
+import { volunteeringPaidToBoolean, volunteeringTerms, volunteeringTypes } from "../constants";
+import useAuth from "../hooks/useAuth";
+
+type VolunteeringData = {
+  volunteeringName: string;
+  fundationName: string;
+  city: string;
+  type: string;
+  term: string;
+  paid: string;
+  image: string;
+  description: string;
+  organisator: string;
+};
 
 const Volunteering: NextPage = () => {
+  const { user } = useAuth();
+
+  const [account, setUser] = useState({})
+  const [volunteeringsData, setVolunteeringsData]: any = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const getVolunteeringsData = async () => {
+      setIsLoading(true);
+
+      const querySnapshot = await getDocs(collection(db, "volunteering"));
+      const volunteeringsData = querySnapshot.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      console.log(volunteeringsData);
+
+      setVolunteeringsData(volunteeringsData);
+
+      setIsLoading(false);
+    };
+
+    if (volunteeringsData.length === 0) getVolunteeringsData();
+  }, []);
+
+  console.log(user)
+
   return (
     <>
       <NextSeo
@@ -45,30 +90,76 @@ const Volunteering: NextPage = () => {
         </div>
 
         <div className="flex flex-col gap-8">
-          <div className="flex flex-col xl:flex-row gap-2 w-full">
-            <div className="flex basis-11/12 xl:justify-center items-center">
-              <VolunteeringCard
-                volunteeringName="Kropeczka"
-                orgName="Fundacja drzewo"
-                city="Bydgoszcz"
-                isPaid={false}
-                volunteeringType="w hospicjum"
-                volunteeringTerm="Okresowy"
-                volunteeringImage="https://tinyurl.com/67swpcxj"
-              />
-            </div>
-            <div className="flex justify-center items-center px-6">
-              <CardEvents isFavorite={false} isNotifications={false} />
-            </div>
-          </div>
-          <div className="flex flex-col xl:flex-row gap-2 w-full">
-            <div className="flex basis-11/12 xl:justify-center items-center">
-              <SkeletonVolunteeringCard />
-            </div>
-            <div className="flex justify-start items-center px-6">
-              <SkeletonCardEvents />
-            </div>
-          </div>
+          {isLoading ? (
+            <>
+              <div className="flex flex-col xl:flex-row gap-2 w-full">
+                <div className="flex basis-11/12 xl:justify-center items-center">
+                  <SkeletonVolunteeringCard />
+                </div>
+                <div className="flex justify-start items-center px-6">
+                  <SkeletonCardEvents />
+                </div>
+              </div>
+              <div className="flex flex-col xl:flex-row gap-2 w-full">
+                <div className="flex basis-11/12 xl:justify-center items-center">
+                  <SkeletonVolunteeringCard />
+                </div>
+                <div className="flex justify-start items-center px-6">
+                  <SkeletonCardEvents />
+                </div>
+              </div>
+              <div className="flex flex-col xl:flex-row gap-2 w-full">
+                <div className="flex basis-11/12 xl:justify-center items-center">
+                  <SkeletonVolunteeringCard />
+                </div>
+                <div className="flex justify-start items-center px-6">
+                  <SkeletonCardEvents />
+                </div>
+              </div>
+              <div className="flex flex-col xl:flex-row gap-2 w-full">
+                <div className="flex basis-11/12 xl:justify-center items-center">
+                  <SkeletonVolunteeringCard />
+                </div>
+                <div className="flex justify-start items-center px-6">
+                  <SkeletonCardEvents />
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {volunteeringsData.map((volunteeringData: any) => (
+                <div className="flex flex-col xl:flex-row gap-2 w-full">
+                  <div className="flex basis-11/12 xl:justify-center items-center">
+                    <VolunteeringCard
+                      volunteeringName={volunteeringData.volunteeringName}
+                      orgName={volunteeringData.fundationName}
+                      city={volunteeringData.city}
+                      isPaid={volunteeringPaidToBoolean[volunteeringData.paid]}
+                      volunteeringType={
+                        volunteeringTypes[volunteeringData.type]
+                      }
+                      volunteeringTerm={volunteeringTerms[volunteeringData.term]}
+                      volunteeringImage={volunteeringData.image}
+                    />
+                  </div>
+                  <div className="flex justify-center items-center px-6">
+                    <CardEvents
+                      isFavorite={
+                        user.eventsData.favorite.includes(
+                          volunteeringData.id
+                        ) || false
+                      }
+                      isNotifications={
+                        user.eventsData.notifications.includes(
+                          volunteeringData.id
+                        ) || false
+                      }
+                    />
+                  </div>
+                </div>
+              ))}
+            </>
+          )}
         </div>
       </main>
     </>
