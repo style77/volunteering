@@ -13,20 +13,17 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const registerUser = async (userCredential: UserCredential, name: string, mail: string) => {
-  const user = userCredential.user;
+export const registerUser = async (uid: string, name: string, mail: string, photo?: string) => {
   await addDoc(collection(db, "users"), {
     name: name,
     email: mail,
-    uid: user.uid,
+    uid: uid,
     createdAt: new Date(),
     eventsData: {notifications: [], favorite: []}, // There will be saved id of volonteerings that are marked as favorite or that user is subscribed to notifications
     badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
-    photo: "https://volunteering.pl/blank.png",
+    photo: photo || "https://volunteering.pl/blank.png",
     isVerified: false, // This will be used to check if user has verified his phone number
   });
-
-  return user
 };
 
 const RegisterModal: NextPage = () => {
@@ -50,9 +47,9 @@ const RegisterModal: NextPage = () => {
   const registerWithEmailAndPassword = async () => {
     await createUserWithEmailAndPassword(auth, mail, password)
       .then(async (userCredential) => {
-        registerUser(userCredential, name, mail).then((user) => {
+        registerUser(userCredential.user.uid, name, mail).then(() => {
           showAlert("Zarejestrowano pomyślnie", "register-success");
-          return user;
+          return userCredential;
         })
       })
       .catch((error) => {

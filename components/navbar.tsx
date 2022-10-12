@@ -238,7 +238,7 @@ export const Navbar = () => {
                 </div>
               </div>
             ) : (
-              <LoginModal />
+              <LoginModal closeUserDropdown={hideDropdown} />
             )}
             <button
               data-collapse-toggle="navbar-sticky"

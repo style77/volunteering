@@ -5,16 +5,21 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { useRef } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import { humanizeError } from "../../constants";
-import { auth } from "../../saas/firebase";
+import { auth, db } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
 import ForgotModal from "./forgot";
-import RegisterModal from "./register";
+import RegisterModal, { registerUser } from "./register";
 
-const LoginModal = () => {
+type Props = {
+  closeUserDropdown: () => void;
+};
+
+const LoginModal = ({closeUserDropdown}: Props) => {
 
   const modal = useRef<HTMLDivElement>(null);
 
@@ -23,7 +28,12 @@ const LoginModal = () => {
   const remember = useRef<HTMLInputElement>(null);
 
   const handleToggleModal = (value: boolean) => {
-    document.body.classList.toggle("overflow-y-hidden");
+    if (!value) {
+      document.body.classList.remove("overflow-y-hidden")
+      closeUserDropdown()
+    } else {
+      document.body.classList.add("overflow-y-hidden")
+    }
 
     // There are some weird problems with "Dowiedz się więcej" button
     // It's not working properly when you open login modal
@@ -57,10 +67,23 @@ const LoginModal = () => {
 
   const handleGoogle = async () => {
     const googleProvider = new GoogleAuthProvider();
-    await signInWithPopup(auth, googleProvider).then((result) => {
+    await signInWithPopup(auth, googleProvider).then(async (result) => {
       const { user } = result;
+      console.log(user)
+      if (user) {
+        console.log(1)
+        const docSnap = await getDoc(doc(db, "users", user.uid))
+        if (!docSnap.exists()) {
+          // user doesn't exist in database
+          // redirect to register modal
+          registerUser(user.uid, user.displayName!, user.email!, user.photoURL!)
+        }
+
+        showAlert(`Zalogowano pomyślnie 🎉`, "success");
+      }
       // can do something with this but its not that important rn
     });
+    handleToggleModal(false);
   };
 
   const handleEmail = async () => {
@@ -76,26 +99,25 @@ const LoginModal = () => {
   };
 
   const handleAuth = async (provider: string) => {
-    let handle;
     if (provider == "google") {
-      handle = handleGoogle;
-    } else if (provider == "email") {
-      handle = handleEmail;
-    }
-    if (handle) {
-      handle()
+      handleGoogle()
         .then(() => {
           handleToggleModal(false);
         })
         .catch((error) => {
+          console.error(error);
+          showAlert(humanizeError[error.code], "error-alert");
+        });
+    } else if (provider == "email") {
+      handleEmail()
+        .then(() => {
+          handleToggleModal(false);
+        })
+        .catch((error) => {
+          console.error(error);
           showAlert(humanizeError[error.code], "error-alert");
         });
     }
-  };
-
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    handleAuth("email");
   };
 
   return (

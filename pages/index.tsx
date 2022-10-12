@@ -60,38 +60,36 @@ const Home: NextPage = () => {
             <div className="h-screen">
               <div className="flex flex-col">
                 <h1
-                  className="flex font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-1 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
                 </h1>
                 <h2
-                  className="flex font-inter text-main-color select-none text-xl xl:text-4xl -z-1 delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex font-inter text-main-color select-none text-xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
                 </h2>
 
                 <div
-                  className="flex justify-center items-center align-middle mt-56 cursor-pointer delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                  data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                  className="flex justify-center items-center align-middle mt-56 z-0 cursor-pointer"
+                  id="find-out-more"
                 >
                   <a
                     href="#what-is-volunteering"
-                    className="xl:w-full xl:h-full"
+                    className="xl:w-full xl:h-full delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
-                    <button
-                      id="find-out-more"
-                      className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg z-0"
-                    >
+                    <button className="h-16 w-52 text-xl relative font-semibold font-inter bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
                       Dowiedz się więcej!
                     </button>
                   </a>
                 </div>
               </div>
             </div>
-            <div className="flex absolute ml-48 mt-5 -z-10 opacity-50 xl:opacity-100 -rotate-[15deg] xl:relative xl:ml-0 xl:mt-0 xl:rotate-0">
-              <FaHandHoldingHeart className="flex text-8xl xl:text-[25rem] text-main-color" />
+            <div className="flex absolute ml-48 mt-5 -z-[1] opacity-50 xl:opacity-100 -rotate-[15deg] xl:relative xl:ml-0 xl:mt-0 xl:rotate-0">
+              <FaHandHoldingHeart className="flex text-8xl xl:text-[25rem] -z-[1] text-main-color" />
             </div>
           </div>
         </div>
@@ -205,7 +203,7 @@ const Home: NextPage = () => {
                 wolontariuszy w kilku krokach.{" "}
               </span>
               <span
-                className="absolute ml-20 -mt-4 xl:mt-0 -z-1 text-9xl text-main-color/50 text-inter text-bold delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="absolute ml-20 -mt-4 xl:mt-0 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 1
@@ -226,7 +224,7 @@ const Home: NextPage = () => {
                 wystawienie siebie lub znalezienie wolontariatu.
               </span>
               <span
-                className="absolute ml-20 xl:ml-40 -mt-8 xl:-mt-2 -z-1 text-9xl text-main-color/50 text-inter text-bold delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="absolute ml-20 xl:ml-40 -mt-8 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 2
@@ -247,7 +245,7 @@ const Home: NextPage = () => {
                 Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!
               </span>
               <span
-                className="absolute ml-20 xl:ml-40 -mt-6 xl:-mt-2 -z-1 text-9xl text-main-color/50 text-inter text-bold delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="absolute ml-20 xl:ml-40 -mt-6 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 3
