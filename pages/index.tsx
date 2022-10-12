@@ -6,8 +6,28 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiThumbsUp } from "react-icons/fi";
 import { AiOutlineEye } from "react-icons/ai";
 import { NextSeo } from "next-seo";
+import { useEffect } from "react";
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    const replace = () => {
+      setTimeout(function () {
+        var replacers = document.querySelectorAll("[data-replace]");
+        for (const replacer of replacers) {
+          if (replacer instanceof HTMLElement) {
+            const replacerDataset = replacer.dataset.replace!;
+            let replaceClasses = JSON.parse(replacerDataset.replace(/'/g, '"'));
+            Object.keys(replaceClasses).forEach(function (key) {
+              replacer.classList.remove(key);
+              replacer.classList.add(replaceClasses[key]);
+            });
+          }
+        }
+      }, 1);
+    };
+    replace();
+  }, []);
+
   return (
     <>
       <NextSeo
@@ -39,14 +59,23 @@ const Home: NextPage = () => {
           <div className="flex flex-row gap-42 2xl:gap-48 mt-20 justify-center">
             <div className="h-screen">
               <div className="flex flex-col">
-                <h1 className="flex font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-1">
+                <h1
+                  className="flex font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-1 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                >
                   Wolontariat
                 </h1>
-                <h2 className="flex font-inter text-main-color select-none text-xl xl:text-4xl -z-1">
+                <h2
+                  className="flex font-inter text-main-color select-none text-xl xl:text-4xl -z-1 delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                >
                   to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
                 </h2>
 
-                <div className="flex justify-center items-center align-middle mt-56 cursor-pointer">
+                <div
+                  className="flex justify-center items-center align-middle mt-56 cursor-pointer delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                >
                   <a
                     href="#what-is-volunteering"
                     className="xl:w-full xl:h-full"
@@ -76,7 +105,7 @@ const Home: NextPage = () => {
           </span>
         </div>
 
-        <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center pl-10">
+        <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center pl-10 select-none">
           <div className="flex flex-col">
             <div className="flex flex-row">
               <p className="text-3xl flex">Łatwość</p>
@@ -84,7 +113,7 @@ const Home: NextPage = () => {
             </div>
             <p className="font-regular text-md">
               Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
-              wolontariuszy w kilku krokach.{" "}
+              wolontariuszy w kilku krokach.
             </p>
           </div>
           <div className="flex flex-col">
@@ -103,12 +132,12 @@ const Home: NextPage = () => {
               <AiOutlineEye className="flex text-4xl ml-2"></AiOutlineEye>
             </div>
             <p className="font-regular text-md">
-              Nasza aplikacja jest intuicyjna
+              Nasza aplikacja jest prosta w użyciu i bardzo intuicyjna
             </p>
           </div>
         </div>
 
-        <div className="py-40">
+        <div className="py-40 select-none">
           <div className="ml-10">
             <span className="text-main-color text-7xl font-bold">
               Jak to działa?

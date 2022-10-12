@@ -75,10 +75,10 @@ const Contact: NextPage = () => {
       </Head>
       <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center justify-center xl:justify-start mt-8 md:mt-48">
         <div className="flex flex-col basis-1/3 ml-0 xl:ml-12 mb-52">
-          <h1 className="text-8xl font-inter font-semibold text-main-color z-[1]">
+          <h1 className="text-8xl font-inter font-semibold text-main-color">
             Twoje zdanie
           </h1>
-          <h6 className="flex mt-3 font-inter font-regular text-main-color z-[1]">
+          <h6 className="flex mt-3 font-inter font-regular text-main-color">
             jest dla nas bardzo ważne, więc jeżeli odkryłeś/aś jakiś błąd lub
             masz propozycję co możemy dodać, pisz śmiało!
           </h6>

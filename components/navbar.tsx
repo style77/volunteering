@@ -214,7 +214,7 @@ export const Navbar = () => {
                           </li>
                           <li>
                             <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                              coś do dodania
+                              Moja lista
                             </a>
                           </li>
                           <li>
