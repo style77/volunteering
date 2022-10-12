@@ -73,7 +73,7 @@ export const Navbar = () => {
       userDropdown.current!.classList.replace("opacity-0", "opacity-100");
       userMenuBackdrop.current!.classList.replace("opacity-0", "opacity-100");
     }, 1);
-  }
+  };
 
   const hideDropdown = () => {
     setUserDropdownShown(false);
@@ -86,13 +86,12 @@ export const Navbar = () => {
     setTimeout(() => {
       userDropdown.current!.classList.toggle("hidden");
     }, 300);
-  }
-
-  const handleDropdownToggle = () => {
-    if (!userDropdownShown) showDropdown()
-    else hideDropdown()
   };
 
+  const handleDropdownToggle = () => {
+    if (!userDropdownShown) showDropdown();
+    else hideDropdown();
+  };
 
   const showNavbar = () => {
     setShowNavbar(true);
@@ -105,7 +104,7 @@ export const Navbar = () => {
       navbar.current!.classList.replace("opacity-0", "opacity-100");
       navbar.current!.classList.replace("translate-y-0", "translate-y-1");
     }, 1);
-  }
+  };
 
   const hideNavbar = () => {
     setShowNavbar(false);
@@ -117,23 +116,23 @@ export const Navbar = () => {
     navbar.current!.classList.replace("translate-y-1", "translate-y-0");
     setTimeout(() => {
       navbar.current!.classList.add("hidden");
-    }, 300)
-  }
+    }, 300);
+  };
 
   const toggleNavbar = () => {
-    if (!navbarShown) showNavbar()
-    else hideNavbar()
+    if (!navbarShown) showNavbar();
+    else hideNavbar();
   };
 
   const handleBackdrop = () => {
     if (userDropdownShown) {
-      hideDropdown()
+      hideDropdown();
     }
 
     if (navbarShown) {
-      hideNavbar()
+      hideNavbar();
     }
-  }
+  };
 
   return (
     <>
@@ -208,9 +207,11 @@ export const Navbar = () => {
                         </div>
                         <ul className="py-1" aria-labelledby="user-menu-button">
                           <li>
-                            <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                              Profil
-                            </a>
+                            <Link href="profile">
+                              <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                                Profil
+                              </a>
+                            </Link>
                           </li>
                           <li>
                             <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
@@ -295,7 +296,7 @@ export const Navbar = () => {
                 </Link>
               </li>
               <li>
-                <Link href="/submit">
+                <Link href="/add">
                   <a
                     className="block py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
                     aria-current="page"

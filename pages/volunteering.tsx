@@ -1,6 +1,9 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { SkeletonVolunteeringCard, VolunteeringCard } from "../components/volunteeringCard";
+import {
+  SkeletonVolunteeringCard,
+  VolunteeringCard,
+} from "../components/volunteeringCard";
 import { CardEvents, SkeletonCardEvents } from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
 import { NextSeo } from "next-seo";
@@ -49,8 +52,8 @@ const Volunteering: NextPage = () => {
                 orgName="Fundacja drzewo"
                 city="Bydgoszcz"
                 isPaid={false}
-                volunteeringType="Hospicyjny"
-                volunteeringTerm="Cykliczny"
+                volunteeringType="w hospicjum"
+                volunteeringTerm="Okresowy"
                 volunteeringImage="https://tinyurl.com/67swpcxj"
               />
             </div>
