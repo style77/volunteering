@@ -22,7 +22,7 @@ import LoginModal from "./modals/login";
 
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth();
-  const [account, setAccount] = useState({ photo: "", name: "", email: "" });
+  const [data, setData]: any = useState({});
   const [loading, setLoading] = useState(false);
 
   const [userDropdownShown, setUserDropdownShown] = useState(false);
@@ -39,21 +39,13 @@ export const Navbar = () => {
       setLoading(true);
       if (user) {
         if (user.providerData[0].providerId === "google.com") {
-          setAccount({
-            name: user.displayName,
-            photo: user.photoURL,
-            email: user.email,
-          });
+          setData(user);
         } else if (user.providerData[0].providerId === "password") {
           const querySnapshot = await getDocs(
             query(collection(db, "users"), where("uid", "==", user.uid))
           );
           const data = querySnapshot.docs[0].data();
-          setAccount({
-            name: data.name,
-            photo: data.photo || "/blank.png",
-            email: data.email,
-          });
+          setData(data);
         }
       }
       setLoading(false);
@@ -79,12 +71,12 @@ export const Navbar = () => {
     setUserDropdownShown(false);
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("z-0", "-z-[1]");
+    userMenuBackdrop.current?.classList.replace("z-0", "-z-[1]");
 
-    userDropdown.current!.classList.replace("opacity-100", "opacity-0");
-    userMenuBackdrop.current!.classList.replace("opacity-100", "opacity-0");
+    userDropdown.current?.classList.replace("opacity-100", "opacity-0");
+    userMenuBackdrop.current?.classList.replace("opacity-100", "opacity-0");
     setTimeout(() => {
-      userDropdown.current!.classList.toggle("hidden");
+      userDropdown.current?.classList.toggle("hidden");
     }, 300);
   };
 
@@ -188,7 +180,7 @@ export const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="w-8 h-8 rounded-full"
-                          src={account.photo}
+                          src={data.photo}
                           alt="user photo"
                         />
                       </button>
@@ -199,16 +191,19 @@ export const Navbar = () => {
                       >
                         <div className="py-3 px-4">
                           <span className="block text-sm text-main-color-2 font-inter font-semibold">
-                            {account.name}
+                            {data.name}
                           </span>
                           <span className="block text-sm text-main-color font-inter font-regular">
-                            {account.email}
+                            {data.email}
                           </span>
                         </div>
                         <ul className="py-1" aria-labelledby="user-menu-button">
                           <li>
                             <Link href="profile">
-                              <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                              <a
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                onClick={() => hideDropdown()}
+                              >
                                 Profil
                               </a>
                             </Link>
@@ -226,6 +221,7 @@ export const Navbar = () => {
                                   "Wylogowano pomyślnie. Wracaj do nas jak najszybciej!",
                                   "logout-alert"
                                 );
+                                hideDropdown();
                               }}
                               className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                             >

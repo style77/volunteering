@@ -5,7 +5,14 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
 } from "firebase/auth";
-import { collection, doc, getDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  query,
+  where,
+} from "firebase/firestore";
 import { useRef } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
@@ -15,12 +22,16 @@ import { Alert, showAlert } from "../alert";
 import ForgotModal from "./forgot";
 import RegisterModal, { registerUser } from "./register";
 
+export const toggleLogin = () => {
+  const loginButton = document.getElementById("login-button");
+  loginButton?.click();
+};
+
 type Props = {
   closeUserDropdown: () => void;
 };
 
-const LoginModal = ({closeUserDropdown}: Props) => {
-
+const LoginModal = ({ closeUserDropdown }: Props) => {
   const modal = useRef<HTMLDivElement>(null);
 
   const email = useRef<HTMLInputElement>(null);
@@ -29,10 +40,10 @@ const LoginModal = ({closeUserDropdown}: Props) => {
 
   const handleToggleModal = (value: boolean) => {
     if (!value) {
-      document.body.classList.remove("overflow-y-hidden")
-      closeUserDropdown()
+      document.body.classList.remove("overflow-y-hidden");
+      closeUserDropdown();
     } else {
-      document.body.classList.add("overflow-y-hidden")
+      document.body.classList.add("overflow-y-hidden");
     }
 
     // There are some weird problems with "Dowiedz się więcej" button
@@ -69,21 +80,25 @@ const LoginModal = ({closeUserDropdown}: Props) => {
     const googleProvider = new GoogleAuthProvider();
     await signInWithPopup(auth, googleProvider).then(async (result) => {
       const { user } = result;
-      console.log(user)
+      console.log(user);
       if (user) {
-        console.log(1)
         const q = query(collection(db, "users"), where("uid", "==", user.uid));
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
-          // user doesn't exist in database
-          // redirect to register modal
-          registerUser(user.uid, user.displayName!, user.email!, user.photoURL!)
-          showAlert(`Zarejestrowano pomyślnie 🎉\nTeraz odśwież stronę`, "success");
-
+          registerUser(
+            user.uid,
+            user.displayName!,
+            user.email!,
+            0,
+            user.photoURL!
+          );
+          showAlert(
+            `Zarejestrowano pomyślnie 🎉\nTeraz odśwież stronę`,
+            "success"
+          );
         } else {
           showAlert(`Zalogowano pomyślnie 🎉`, "success");
         }
-
       }
       // can do something with this but its not that important rn
     });
@@ -91,15 +106,19 @@ const LoginModal = ({closeUserDropdown}: Props) => {
   };
 
   const handleEmail = async () => {
-    await signInWithEmailAndPassword(auth, email.current!.value, password.current!.value).then(
-      (userCredential) => {
-        const user = userCredential.user;
-        auth.setPersistence(
-          remember.current!.checked ? inMemoryPersistence : browserSessionPersistence
-        );
-        showAlert(`Zalogowano pomyślnie 🎉`, "success");
-      }
-    );
+    await signInWithEmailAndPassword(
+      auth,
+      email.current!.value,
+      password.current!.value
+    ).then((userCredential) => {
+      const user = userCredential.user;
+      auth.setPersistence(
+        remember.current!.checked
+          ? inMemoryPersistence
+          : browserSessionPersistence
+      );
+      showAlert(`Zalogowano pomyślnie 🎉`, "success");
+    });
   };
 
   const handleAuth = async (provider: string) => {
@@ -128,6 +147,7 @@ const LoginModal = ({closeUserDropdown}: Props) => {
     <>
       <a
         className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
+        id="login-button"
         onClick={(e) => {
           handleToggleModal(true);
         }}

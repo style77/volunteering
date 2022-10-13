@@ -13,7 +13,7 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const registerUser = async (uid: string, name: string, mail: string, photo?: string) => {
+export const registerUser = async (uid: string, name: string, mail: string, birthday: number, photo?: string) => {
   await addDoc(collection(db, "users"), {
     name: name,
     email: mail,
@@ -23,6 +23,10 @@ export const registerUser = async (uid: string, name: string, mail: string, phot
     badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
     photo: photo || "https://volunteering.pl/blank.png",
     isVerified: false, // This will be used to check if user has verified his phone number
+    location: "", // This will be used to save user location
+    birthday: birthday, // This will be used to calculate user age
+    description: "", // This will be used to save user description
+    heldVolunteering: [], // There will be saved id of volunteering that user has held
   });
 };
 
@@ -37,6 +41,7 @@ const RegisterModal: NextPage = () => {
 
   const [mail, setMail] = useState("");
   const [name, setName] = useState("");
+  const [birthday, setBirthday]: any = useState();  // timestamp
 
   useEffect(() => {
     setTimeout(() => {
@@ -47,10 +52,15 @@ const RegisterModal: NextPage = () => {
   const registerWithEmailAndPassword = async () => {
     await createUserWithEmailAndPassword(auth, mail, password)
       .then(async (userCredential) => {
-        registerUser(userCredential.user.uid, name, mail).then(() => {
+        registerUser(
+          userCredential.user.uid,
+          name,
+          mail,
+          birthday,
+        ).then(() => {
           showAlert("Zarejestrowano pomyślnie", "register-success");
           return userCredential;
-        })
+        });
       })
       .catch((error) => {
         showAlert(humanizeError[error.code], "register-error-alert");
@@ -209,7 +219,7 @@ const RegisterModal: NextPage = () => {
                     <input
                       type="password"
                       name="password"
-                      min={6}
+                      minLength={6}
                       id="register-password"
                       ref={passwordRef}
                       placeholder="••••••••"
@@ -219,8 +229,29 @@ const RegisterModal: NextPage = () => {
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       required
                     />
+                  </div>
+                  <div>
+                    <label
+                      htmlFor="register-password"
+                      className="block mb-2 text-sm font-medium text-gray-800"
+                    >
+                      Powtórz hasło
+                    </label>
+                    <input
+                      type="password"
+                      name="password"
+                      id="verify-register-password"
+                      ref={passwordVerification}
+                      placeholder="••••••••"
+                      onChange={(e) => {
+                        setVerifiedPassword(e.target.value);
+                      }}
+                      className="bg-gray-50 border border-red-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                      required
+                    />
                     <PasswordStrengthBar
                       password={password}
+                      minLength={6}
                       scoreWords={[
                         "słabe",
                         "słabe",
@@ -233,21 +264,16 @@ const RegisterModal: NextPage = () => {
                   </div>
                   <div>
                     <label
-                      htmlFor="register-password"
+                      htmlFor="birthday"
                       className="block mb-2 text-sm font-medium text-gray-800"
                     >
-                      Hasło
+                      Data urodzenia
                     </label>
                     <input
-                      type="password"
-                      name="password"
-                      id="verify-register-password"
-                      ref={passwordVerification}
-                      placeholder="••••••••"
-                      onChange={(e) => {
-                        setVerifiedPassword(e.target.value);
-                      }}
-                      className="bg-gray-50 border border-red-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"
+                      id="birthday"
+                      type="date"
+                      className="rounded-md w-full h-10 text-center"
+                      onChange={(e) => setBirthday(Date.parse(e.target.value))}
                       required
                     />
                   </div>

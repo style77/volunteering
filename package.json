@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
+    "@types/luxon": "^3.0.1",
     "firebase": "^9.11.0",
+    "luxon": "^3.0.4",
     "next": "latest",
     "next-seo": "^5.5.0",
     "next-sitemap": "^3.1.24",

@@ -5,10 +5,28 @@ import { MdNotificationsNone } from "react-icons/md";
 import { MdNotificationsActive } from "react-icons/md";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { EventButton } from "../components/eventButton";
+import { toggleLogin } from "./modals/login";
 
 type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
+};
+
+export const NotAuthorizedCardEvents = () => {
+  return (
+    <>
+      <div className="flex flex-col">
+        <div className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md">
+          <div
+            className="flex text-zinc-400 text-xl ml-8 justify-center cursor-pointer hover:text-background-color transition"
+            onClick={() => toggleLogin()}
+          >
+            Zaloguj się, aby wyświetlić opcję
+          </div>
+        </div>
+      </div>
+    </>
+  );
 };
 
 export const SkeletonCardEvents = () => {
@@ -18,12 +36,12 @@ export const SkeletonCardEvents = () => {
         <div className="flex flex-row rounded-lg bg-main-color h-20 w-full xl:h-36 xl:w-56 justify-center items-center shadow-md">
           <div className="flex flex-row gap-3 text-main-color">
             <div className="shadow-lg rounded-full">
-              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
+              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out duration-300" />
             </div>
             <div className="shadow-lg rounded-full">
-              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
+              <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out duration-300" />
             </div>
-            <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out hover:scale-110 duration-300" />
+            <div className="rounded-full bg-white h-12 w-12 animate-pulse text-4xl p-2 transition ease-in-out duration-300" />
           </div>
         </div>
       </div>

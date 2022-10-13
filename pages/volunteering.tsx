@@ -4,13 +4,17 @@ import {
   SkeletonVolunteeringCard,
   VolunteeringCard,
 } from "../components/volunteeringCard";
-import { CardEvents, SkeletonCardEvents } from "../components/cardEvents";
+import { CardEvents, NotAuthorizedCardEvents, SkeletonCardEvents } from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
 import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../saas/firebase";
-import { volunteeringPaidToBoolean, volunteeringTerms, volunteeringTypes } from "../constants";
+import {
+  volunteeringPaidToBoolean,
+  volunteeringTerms,
+  volunteeringTypes,
+} from "../constants";
 import useAuth from "../hooks/useAuth";
 
 type VolunteeringData = {
@@ -28,7 +32,7 @@ type VolunteeringData = {
 const Volunteering: NextPage = () => {
   const { user } = useAuth();
 
-  const [account, setUser] = useState({})
+  const [account, setUser] = useState({});
   const [volunteeringsData, setVolunteeringsData]: any = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,7 +56,7 @@ const Volunteering: NextPage = () => {
     if (volunteeringsData.length === 0) getVolunteeringsData();
   }, []);
 
-  console.log(user)
+  console.log(user);
 
   return (
     <>
@@ -138,23 +142,31 @@ const Volunteering: NextPage = () => {
                       volunteeringType={
                         volunteeringTypes[volunteeringData.type]
                       }
-                      volunteeringTerm={volunteeringTerms[volunteeringData.term]}
+                      volunteeringTerm={
+                        volunteeringTerms[volunteeringData.term]
+                      }
                       volunteeringImage={volunteeringData.image}
                     />
                   </div>
                   <div className="flex justify-center items-center px-6">
-                    <CardEvents
-                      isFavorite={
-                        user.eventsData.favorite.includes(
-                          volunteeringData.id
-                        ) || false
-                      }
-                      isNotifications={
-                        user.eventsData.notifications.includes(
-                          volunteeringData.id
-                        ) || false
-                      }
-                    />
+                    {user && user?.eventsData ? (
+                      <>
+                        <CardEvents
+                          isFavorite={
+                            user.eventsData.favorite.includes(
+                              volunteeringData.id
+                            ) || false
+                          }
+                          isNotifications={
+                            user.eventsData.notifications.includes(
+                              volunteeringData.id
+                            ) || false
+                          }
+                        />
+                      </>
+                    ) : (
+                      <NotAuthorizedCardEvents />
+                    )}
                   </div>
                 </div>
               ))}

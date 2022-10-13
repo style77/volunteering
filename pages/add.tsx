@@ -2,6 +2,8 @@ import { addDoc, collection, doc, terminate } from "firebase/firestore";
 import { NextPage } from "next";
 import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
+import { showAlert } from "../components/alert";
+import { toggleLogin } from "../components/modals/login";
 import { volunteeringTypesArray } from "../constants";
 import useAuth from "../hooks/useAuth";
 import { db } from "../saas/firebase";
@@ -29,18 +31,6 @@ const Add: NextPage = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    console.log({
-      volunteeringName,
-      fundationName,
-      city,
-      type: type || "hospice",
-      term: term || "one-time",
-      paid: paid || "unpaid",
-      image,
-      description,
-      organisator: user.uid,
-    })
-
     addDoc(collection(db, "volunteering"), {
       volunteeringName,
       fundationName,
@@ -51,7 +41,21 @@ const Add: NextPage = () => {
       image,
       description,
       organisator: user.uid,
-    });
+    })
+      .then(() => {
+        setVolunteeringName("");
+        setFundationName("");
+        setCity("");
+        setType("");
+        setTerm("");
+        setPaid("");
+        setImage("");
+        setDescription("");
+        showAlert("Dodano ogłoszenie wolontariatu!", "success");
+      })
+      .catch((error) => {
+        showAlert(error.message, "error");
+      });
   };
 
   return (
@@ -213,16 +217,22 @@ const Add: NextPage = () => {
         </main>
       ) : (
         <>
-          <main className="font-inter flex min-h-screen flex-col py-2">
-            <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
-              Zaloguj się, albo{" "}
+          <main className="font-inter flex min-h-screen flex-col items-center py-2">
+            <div className="font-semibold text-4xl text-main-color items-center my-6 ml-6">
+              <span
+                onClick={() => toggleLogin()}
+                className="text-main-color-2 hover:text-main-color-3 cursor-pointer transition"
+              >
+                Zaloguj się
+              </span>
+              , albo{" "}
               <a
                 href="/profile"
-                className="text-main-color-2 hover:underline transition"
+                className="text-main-color-2 hover:text-main-color-3 cursor-pointer transition"
               >
                 zweryfikuj konto
               </a>{" "}
-              numerem telefonu aby to wykonać
+              numerem telefonu aby dodać wolontariat
             </div>
           </main>
         </>

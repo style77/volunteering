@@ -65,7 +65,10 @@ export const VolunteeringCard = ({
         <div className="xl:ml-4 mt-6">
           <img
             src={volunteeringImage}
-            className="h-24 w-36 hidden xl:block rounded-full"
+            className="w-32 hidden xl:block rounded-full"
+            onError={(e) => {
+              e.currentTarget.src = "/images/placeholder.png";
+            }}
           />
         </div>
         <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">
@@ -99,10 +102,10 @@ export const VolunteeringCard = ({
             {isPaid ? "Płatny" : "Bezpłatny"}
           </div>
           <div className="flex flex-row gap-2 my-2">
-            <div className="rounded-lg bg-white w-28 px-2 py-2 text-center">
+            <div className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex">
               {volunteeringType}
             </div>
-            <div className="rounded-lg bg-white w-28 px-2 py-2 text-center">
+            <div className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex">
               {volunteeringTerm}
             </div>
           </div>
