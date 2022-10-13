@@ -57,17 +57,6 @@ const Profile: NextPage = () => {
     return DateTime.fromMillis(date * 1).toRelative({ locale: "pl" }); // BUG I have no idea why do i need to multiply timestamp by 1 to make it work. Probably some bug in JS
   };
 
-  console.log(data);
-
-  const getBirthday = (bday: number) => {
-    const date = new Date(bday*1)
-
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-
-    return `${date.getFullYear()}/${month}/${day}`;
-  }
-
   return (
     <>
       {isLoggedIn ? (
@@ -116,9 +105,11 @@ const Profile: NextPage = () => {
                 />
                 <input
                   type="date"
-                  value={getBirthday(data.birthday)}
-                  onChange={(e) =>
+                  value={data.birthday}
+                  onChange={(e) => {
+                    console.log(e.target.value)
                     setData({ ...data, birthday: e.target.value })
+                  }
                   }
                   placeholder="Wybierz swoją datę urodzenia"
                   disabled={!edit}

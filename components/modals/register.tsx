@@ -13,7 +13,7 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const registerUser = async (uid: string, name: string, mail: string, birthday: number, photo?: string) => {
+export const registerUser = async (uid: string, name: string, mail: string, birthday: string, photo?: string) => {
   await addDoc(collection(db, "users"), {
     name: name,
     email: mail,
@@ -273,7 +273,7 @@ const RegisterModal: NextPage = () => {
                       id="birthday"
                       type="date"
                       className="rounded-md w-full h-10 text-center"
-                      onChange={(e) => setBirthday(Date.parse(e.target.value))}
+                      onChange={(e) => setBirthday(e.target.value)}
                       required
                     />
                   </div>

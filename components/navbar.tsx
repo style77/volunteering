@@ -38,20 +38,18 @@ export const Navbar = () => {
     const getAccount = async () => {
       setLoading(true);
       if (user) {
-        if (user.providerData[0].providerId === "google.com") {
-          setData(user);
-        } else if (user.providerData[0].providerId === "password") {
-          const querySnapshot = await getDocs(
-            query(collection(db, "users"), where("uid", "==", user.uid))
-          );
-          const data = querySnapshot.docs[0].data();
-          setData(data);
-        }
+        const querySnapshot = await getDocs(
+          query(collection(db, "users"), where("uid", "==", user.uid))
+        );
+        const snapshotData = querySnapshot.docs[0].data();
+
+        setData(Object.assign({}, snapshotData, user));
       }
+
       setLoading(false);
     };
 
-    getAccount();
+    if (Object.keys(data).length === 0) getAccount();
   }, [user]);
 
   const showDropdown = () => {
