@@ -52,28 +52,28 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
     // It's junky code but what can I do :(
     const findOutMoreButton = document.getElementById("find-out-more");
 
-    setTimeout(() => {
-      if (value) {
-        // show modal
+    if (value) {
+      // show modal
+      modal.current!.classList.toggle("hidden");
+
+      setTimeout(() => {
         modal.current!.classList.replace("opacity-0", "opacity-100");
         email.current!.focus();
-
-        if (findOutMoreButton) {
-          findOutMoreButton.classList.replace("z-0", "-z-[1]");
-        }
-        modal.current!.classList.toggle("hidden");
-      } else {
-        // hide modal
-        if (findOutMoreButton) {
-          findOutMoreButton.classList.replace("-z-[1]", "z-0");
-        }
-
-        modal.current!.classList.replace("opacity-100", "opacity-0");
-        setTimeout(() => {
-          modal.current!.classList.toggle("hidden");
-        }, 500);
+      }, 1);
+      if (findOutMoreButton) {
+        findOutMoreButton.classList.replace("z-0", "-z-[1]");
       }
-    }, 1);
+    } else {
+      // hide modal
+      if (findOutMoreButton) {
+        findOutMoreButton.classList.replace("-z-[1]", "z-0");
+      }
+
+      modal.current?.classList.replace("opacity-100", "opacity-0");
+      setTimeout(() => {
+        modal.current!.classList.toggle("hidden");
+      }, 500);
+    }
   };
 
   const handleGoogle = async () => {
@@ -89,7 +89,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
             user.uid,
             user.displayName!,
             user.email!,
-            0,
+            "",
             user.photoURL!
           );
           showAlert(
@@ -161,7 +161,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
         <div
           ref={modal}
           tabIndex={-1}
-          className="opacity-0 hidden transition absolute inset-0 z-[100] font-inter"
+          className="opacity-0 hidden transition duration-300 absolute inset-0 z-[100] font-inter"
         >
           <div
             className="absolute inset-0 w-full h-screen bg-black/50"
