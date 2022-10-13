@@ -21,7 +21,7 @@ export const registerUser = async (uid: string, name: string, mail: string, birt
     createdAt: new Date(),
     eventsData: {notifications: [], favorite: []}, // There will be saved id of volonteerings that are marked as favorite or that user is subscribed to notifications
     badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
-    photo: photo || "https://volunteering.pl/blank.png",
+    photo: photo || "https://volunteering.pl/images/blank.png",
     isVerified: false, // This will be used to check if user has verified his phone number
     location: "", // This will be used to save user location
     birthday: birthday, // This will be used to calculate user age

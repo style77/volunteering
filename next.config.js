@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
-module.exports = {
+
+const withBundleAnalyzer = require("@next/bundle-analyzer")({
+  enabled: process.env.ANALYZE === "true",
+})
+
+module.exports = withBundleAnalyzer({
   reactStrictMode: true,
+  compress: true,
   env: {
     apiKey: `${process.env.apiKey}`,
     authDomain: `${process.env.authDomain}`,
@@ -14,4 +20,4 @@ module.exports = {
     emailJsTemplateId: `${process.env.emailJsTemplateId}`,
     emailJsPublicKey: `${process.env.emailJsPublicKey}`,
   },
-};
+});

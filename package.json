@@ -4,10 +4,12 @@
     "dev": "next dev",
     "build": "next build",
     "postbuild": "next-sitemap",
-    "start": "next start"
+    "start": "next start",
+    "analyze": "SET ANALYZE=true&&next build"
   },
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
+    "@next/bundle-analyzer": "^12.3.1",
     "@types/luxon": "^3.0.1",
     "firebase": "^9.11.0",
     "luxon": "^3.0.4",
