@@ -69,6 +69,7 @@ const Profile: NextPage = () => {
               <div className="flex flex-col items-center">
                 <img
                   className="h-32 w-32 bg-white rounded-full shadow-md"
+                  alt="user avatar"
                   src={data.photo}
                 />
                 <div className="flex flex-col items-center border-2 rounded-md bg-zinc-200 mt-2 px-4 pb-2 shadow-md">

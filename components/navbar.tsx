@@ -145,6 +145,7 @@ export const Navbar = () => {
                 style={{
                   filter: "invert(0.98)",
                 }}
+                alt="Volunteering logo"
               />
             </div>
           </a>
@@ -179,7 +180,7 @@ export const Navbar = () => {
                         <img
                           className="w-8 h-8 rounded-full"
                           src={data.photo}
-                          alt="user photo"
+                          alt="user avatar"
                         />
                       </button>
                       <div

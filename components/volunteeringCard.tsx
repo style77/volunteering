@@ -66,6 +66,7 @@ export const VolunteeringCard = ({
           <img
             src={volunteeringImage}
             className="w-32 hidden xl:block rounded-full"
+            alt={`${volunteeringName} logo`}
             onError={(e) => {
               e.currentTarget.src = "/images/placeholder.png";
             }}

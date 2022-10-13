@@ -31,12 +31,12 @@ const Home: NextPage = () => {
   return (
     <>
       <NextSeo
-        title="Volunteering - Strona główna"
+        title="Volunteering - Zacznij pomagać razem z nami!"
         description="Strona główna serwisu Volunteering. Znajdziesz tutaj informacje o tym jak serwis działa. Zacznij pomagać razem z nami już teraz!"
         canonical="https://volunteering.pl/"
         openGraph={{
           url: "https://volunteering.pl/",
-          title: "Volunteering - Strona główna",
+          title: "Volunteering - Zacznij pomagać razem z nami!",
           description:
             "Strona główna serwisu Volunteering. Znajdziesz tutaj informacje o tym jak serwis działa. Zacznij pomagać razem z nami już teraz!",
           images: [
@@ -44,7 +44,7 @@ const Home: NextPage = () => {
               url: "https://volunteering.pl/favicon.ico",
               width: 256,
               height: 256,
-              alt: "Volunteering - Strona główna",
+              alt: "Volunteering - Zacznij pomagać razem z nami!",
             },
           ],
           site_name: "Volunteering",
@@ -52,7 +52,7 @@ const Home: NextPage = () => {
       />
 
       <Head>
-        <title>Volunteering</title>
+        <title>Volunteering - Zacznij pomagać razem z nami!</title>
       </Head>
       <main className="flex min-h-screen flex-col py-2">
         <div className="flex flex-col">
@@ -60,17 +60,17 @@ const Home: NextPage = () => {
             <div className="h-screen">
               <div className="flex flex-col">
                 <h1
-                  className="flex font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
+                  <span
+                    className="flex font-inter text-main-color font-light select-none text-xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+                  >
+                    to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
+                  </span>
                 </h1>
-                <h2
-                  className="flex font-inter text-main-color select-none text-xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                  data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-                >
-                  to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
-                </h2>
 
                 <div
                   className="flex justify-center items-center align-middle mt-56 z-0 cursor-pointer"
@@ -95,7 +95,7 @@ const Home: NextPage = () => {
         </div>
 
         <div className="ml-10 select-none" id="what-is-volunteering">
-          <span
+          <h2
             className="text-main-color text-5xl xl:text-7xl font-bold duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
             data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
           >
@@ -103,7 +103,7 @@ const Home: NextPage = () => {
             <span className="text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2">
               wolontariat
             </span>
-          </span>
+          </h2>
         </div>
 
         <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center pl-10 select-none">
@@ -179,12 +179,12 @@ const Home: NextPage = () => {
 
         <div className="py-40 select-none">
           <div className="ml-10">
-            <span
+            <h2
               className="text-main-color text-7xl font-bold delay-700 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Jak to działa?
-            </span>
+            </h2>
           </div>
 
           <div className="flex flex-col xl:flex-row pl-10 select-none text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center">
