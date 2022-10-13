@@ -5,8 +5,8 @@ export default function Document() {
     <Html>
       <Head>
         <meta name="robots" content="all" />
-        <meta name="AdsBot-Google" content="all" />
         <meta name="googlebot" content="all" />
+        
         <link rel="icon" href="/favicon.ico" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" />
