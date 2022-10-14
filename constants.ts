@@ -15,20 +15,20 @@ const humanizeError: any = {
 
 
 const volunteeringTypes: any = {
-  "hospice": "Hospicjum",
-  "home": "Pomoc domowa",
-  "children": "Pomoc dzieciom",
-  "elderly": "Pomoc starszym",
-  "animals": "Pomoc zwierzętom",
+  "hospice": "Hospicyjny",
+  "sport":"Sportowy",
+  "ngo": "NGO",
+  "elderly": "Pomoc seniorom",
+  "animals": "Schronisko",
 
 } 
 
 const volunteeringTypesArray = [
-  { value: "hospice", label: "Hospicjum" },
-  { value: "home", label: "Pomoc domowa" },
-  { value: "children", label: "Pomoc dzieciom" },
-  { value: "elderly", label: "Pomoc starszym" },
-  { value: "animals", label: "Pomoc zwierzętom" },
+  { value: "hospice", label: "Hospicyjny" },
+  { value: "sport", label: "Sportowy" },
+  { value: "ngo", label: "NGO" },
+  { value: "elderly", label: "Pomoc seniorom" },
+  { value: "animals", label: "Schronisko" },
 ]
 
 const volunteeringPaidTypes = {
@@ -42,7 +42,7 @@ const volunteeringPaidToBoolean: any = {
 }
 
 const volunteeringTerms: any = {
-  "one-time": "Jednorazowo",
+  "one-time": "Jednorazowy",
   "periodic": "Okresowy",
 };
 

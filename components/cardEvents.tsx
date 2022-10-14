@@ -17,10 +17,10 @@ export const NotAuthorizedCardEvents = () => {
     <>
       <div className="flex flex-col">
         <button
-          className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md text-background-color transition ease-in-out hover:bg-main-color-2 duration-300"
+          className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md transition ease-in-out hover:bg-main-color-2 duration-300"
           onClick={() => toggleLogin()}
         >
-          <div className="flex text-xl justify-center cursor-pointer  transition">
+          <div className="flex text-white text-xl justify-center cursor-pointer  transition">
             Zaloguj się, aby wyświetlić opcję
           </div>
         </button>
