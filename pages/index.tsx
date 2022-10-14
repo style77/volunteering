@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { FaHandHoldingHeart } from "react-icons/fa";
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FiThumbsUp } from "react-icons/fi";
+import { BiTimer } from "react-icons/bi";
 import { AiOutlineEye } from "react-icons/ai";
 import { NextSeo } from "next-seo";
 import { useEffect } from "react";
@@ -68,7 +68,8 @@ const Home: NextPage = () => {
                     className="flex font-inter text-main-color font-light select-none text-xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
-                    to nie tylko zajęcie, lecz chęć <br /> pomagania społeczeństwu
+                    to nie tylko zajęcie, lecz chęć <br /> pomagania
+                    społeczeństwu
                   </span>
                 </h1>
 
@@ -108,22 +109,22 @@ const Home: NextPage = () => {
 
         <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center pl-10 select-none">
           <div className="flex flex-col">
-            <div className="flex flex-row">
-              <p
-                className="text-3xl flex delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                Łatwość
-              </p>
+            <div className="flex flex-row xl:justify-items-start justify-items-center">
               <div
                 className="delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
-                <FiThumbsUp className="flex text-4xl ml-2" />
+                <BiTimer className="flex text-5xl mr-2 my-2" />
               </div>
+              <p
+                className="text-5xl flex delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+              >
+                Szybkość
+              </p>
             </div>
             <p
-              className="font-regular text-md delay-200 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="font-regular text-lg delay-200 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
@@ -132,21 +133,21 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row">
+              <div
+                className="delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+              >
+                <AiOutlineInfoCircle className="flex text-5xl mr-2" />
+              </div>
               <p
-                className="text-3xl flex delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="text-5xl flex delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Przejrzystość
               </p>
-              <div
-                className="delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                <AiOutlineInfoCircle className="flex text-4xl ml-2" />
-              </div>
             </div>
             <p
-              className="font-regular text-md delay-[400ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="font-regular text-xl delay-[400ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Szukający jak i wystawiający się mają dostęp <br /> do informacji
@@ -155,21 +156,21 @@ const Home: NextPage = () => {
           </div>
           <div className="flex flex-col">
             <div className="flex flex-row">
+              <div
+                className="delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
+              >
+                <AiOutlineEye className="flex text-5xl mr-2" />
+              </div>
               <p
-                className="text-3xl flex delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="text-5xl flex delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Intuicja
               </p>
-              <div
-                className="delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                <AiOutlineEye className="flex text-4xl ml-2" />
-              </div>
             </div>
             <p
-              className="font-regular text-md delay-[600ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="font-regular text-xl delay-[600ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Nasza aplikacja jest prosta w użyciu i bardzo intuicyjna
@@ -183,73 +184,76 @@ const Home: NextPage = () => {
               className="text-main-color text-7xl font-bold delay-700 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
-              Jak to działa?
+              Jak to{" "}
+              <span className="text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2">
+                działa?
+              </span>
             </h2>
           </div>
 
           <div className="flex flex-col xl:flex-row pl-10 select-none text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center">
-            <div className="flex flex-col basis-1/5">
+            <div className="flex flex-col basis-1/3">
               <span
-                className="text-3xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Stwórz konto
               </span>
               <span
-                className="font-regular text-md z-10 delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="font-regular text-lg z-10 delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
                 wolontariuszy w kilku krokach.{" "}
               </span>
-              <span
+              {/* <span
                 className="absolute ml-20 -mt-4 xl:mt-0 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 1
-              </span>
+              </span> */}
             </div>
             <div className="flex flex-col basis-1/3">
               <span
-                className="text-3xl delay-1000 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="text-4xl delay-1000 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Wystaw się lub znajdź wolontariat
               </span>
               <span
-                className="font-regular text-md delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="font-regular text-lg delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Zadeklaruj swoją chęć do udziału w wolontariacie poprzez
                 wystawienie siebie lub znalezienie wolontariatu.
               </span>
-              <span
+              {/* <span
                 className="absolute ml-20 xl:ml-40 -mt-8 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 2
-              </span>
+              </span> */}
             </div>
             <div className="flex flex-col basis-1/3">
               <span
-                className="text-3xl delay-[1200ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="text-4xl delay-[1200ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Czekaj na odpowiedź i nieś dobro!
               </span>
               <span
-                className="font-regular text-md delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                className="font-regular text-lg delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Znajdź odpowiadający Tobie wolontariat, czekaj aż ktoś się do
                 Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!
               </span>
-              <span
+              {/* <span
                 className="absolute ml-20 xl:ml-40 -mt-6 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 3
-              </span>
+              </span> */}
             </div>
           </div>
         </div>

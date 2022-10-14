@@ -16,14 +16,14 @@ export const NotAuthorizedCardEvents = () => {
   return (
     <>
       <div className="flex flex-col">
-        <div className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md">
-          <div
-            className="flex text-zinc-400 text-xl ml-8 justify-center cursor-pointer hover:text-background-color transition"
-            onClick={() => toggleLogin()}
-          >
+        <button
+          className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md text-background-color transition ease-in-out hover:bg-main-color-2 duration-300"
+          onClick={() => toggleLogin()}
+        >
+          <div className="flex text-xl justify-center cursor-pointer  transition">
             Zaloguj się, aby wyświetlić opcję
           </div>
-        </div>
+        </button>
       </div>
     </>
   );
