@@ -74,7 +74,7 @@ const Contact: NextPage = () => {
         <title>Volunteering - Kontakt</title>
       </Head>
       <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center justify-center xl:justify-start mt-8 md:mt-48">
-        <div className="flex flex-col basis-1/3 ml-0 xl:ml-12 mb-52">
+        <div className="flex flex-col basis-1/3 ml-0 xl:ml-48 mb-52">
           <h1 className="text-8xl font-inter font-semibold text-main-color">
             Twoje zdanie
           </h1>
@@ -84,7 +84,7 @@ const Contact: NextPage = () => {
           </h6>
         </div>
         <div className="flex basis-1/3"></div>
-        <div className="flex basis-1/3 -mt-32 w-full mr-4">
+        <div className="flex basis-1/3 -mt-32 w-full mx-72">
           <form
             onSubmit={handleSubmit}
             ref={form}
