@@ -4,6 +4,12 @@ import {
   signInWithPopup,
   browserSessionPersistence,
   inMemoryPersistence,
+  getMultiFactorResolver,
+  PhoneAuthProvider,
+  RecaptchaVerifier,
+  MultiFactorError,
+  PhoneMultiFactorGenerator,
+  MultiFactorResolver,
 } from "firebase/auth";
 import {
   collection,
@@ -13,13 +19,14 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { MdOutlineLogin } from "react-icons/md";
 import { humanizeError } from "../../constants";
 import { auth, db } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
 import ForgotModal from "./forgot";
+import { MfaModal } from "./mfa";
 import RegisterModal, { registerUser } from "./register";
 
 export const toggleLogin = () => {
@@ -37,6 +44,10 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
   const email = useRef<HTMLInputElement>(null);
   const password = useRef<HTMLInputElement>(null);
   const remember = useRef<HTMLInputElement>(null);
+
+  const [showMfaModal, setShowMfaModal] = useState(false);
+  const [mfError, setMfError] = useState<MultiFactorError>();
+  const [mfaResolver, setMfaResolver] = useState<MultiFactorResolver>();
 
   const handleToggleModal = (value: boolean) => {
     if (!value) {
@@ -102,7 +113,6 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
       }
       // can do something with this but its not that important rn
     });
-    handleToggleModal(false);
   };
 
   const handleEmail = async () => {
@@ -111,7 +121,6 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
       email.current!.value,
       password.current!.value
     ).then((userCredential) => {
-      const user = userCredential.user;
       auth.setPersistence(
         remember.current!.checked
           ? inMemoryPersistence
@@ -128,8 +137,14 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
           handleToggleModal(false);
         })
         .catch((error) => {
-          console.error(error);
           showAlert(humanizeError[error.code], "error-alert");
+
+          if (error.code === "auth/multi-factor-auth-required") {
+            const resolver = getMultiFactorResolver(auth, error);
+            setMfaResolver(resolver);
+            setMfError(error);
+            setShowMfaModal(true);
+          }
         });
     } else if (provider == "email") {
       handleEmail()
@@ -137,8 +152,13 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
           handleToggleModal(false);
         })
         .catch((error) => {
-          console.error(error);
           showAlert(humanizeError[error.code], "error-alert");
+
+          if (error.code === "auth/multi-factor-auth-required") {
+            const resolver = getMultiFactorResolver(auth, error);
+            setMfaResolver(resolver);
+            setShowMfaModal(true);
+          }
         });
     }
   };
@@ -163,6 +183,15 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
           tabIndex={-1}
           className="opacity-0 hidden transition duration-300 absolute inset-0 z-[100] font-inter"
         >
+          {showMfaModal && (
+            <MfaModal
+              setShowMfaModal={setShowMfaModal}
+              handleParentModalToggle={handleToggleModal}
+              mfError={mfError!}
+              mfaResolver={mfaResolver!}
+            />
+          )}
+
           <div
             className="absolute inset-0 w-full h-screen bg-black/50"
             onClick={() => handleToggleModal(false)}

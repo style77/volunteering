@@ -137,14 +137,18 @@ export const Navbar = () => {
         id="nav"
       >
         <div className="container flex justify-between items-center mx-auto">
-          <a href="/" className="flex items-center ">
-            <div className="h-8 bg-main-color rounded-full px-2 py-2 hidden lg:block">
+          <a href="/" className="flex items-center">
+            <div className="ml-2 hidden lg:block">
               <img
                 src="/volunteering.svg"
+                className="h-6"
+                alt="Volunteering logo"
+              />
+            </div>
+            <div className="p-3 ml-2 block lg:hidden">
+              <img
+                src="/icon.svg"
                 className="h-5"
-                style={{
-                  filter: "invert(0.98)",
-                }}
                 alt="Volunteering logo"
               />
             </div>

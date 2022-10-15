@@ -1,6 +1,7 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { Layout } from "../components/layout";
+import { RecaptchaVerifier } from "firebase/auth";
 
 // if (
 //   typeof window !== "undefined" &&
@@ -10,6 +11,16 @@ import { Layout } from "../components/layout";
 //   import("vivid-studio").then((v) => v.run());
 //   import("vivid-studio/style.css");
 // }
+
+export {};
+
+declare global {
+  interface Window {
+    MfaVerificationId: string;
+    recaptchaVerifier: RecaptchaVerifier;
+    verificationId: string;
+  }
+}
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

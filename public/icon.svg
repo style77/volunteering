@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
-<!-- Created with Vectornator (http://vectornator.io/) -->
-<svg height="100%" stroke-miterlimit="10" style="fill-rule:nonzero;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;" version="1.1" viewBox="0 0 1024 1024" width="100%" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:vectornator="http://vectornator.io" xmlns:xlink="http://www.w3.org/1999/xlink">
-<defs/>
-<g id="Layer-1" vectornator:layerName="Layer 1">
-<path d="M76.375 92.3438L140.938 274.594L403.531 302.312L340.156 92.3438L76.375 92.3438ZM707.844 92.3438L637.031 326.938L856.812 350.125L947.656 92.3438L707.844 92.3438ZM204 452.625L206.469 459.594L373.719 931.656L651.906 931.656L798.594 515.344L586.906 493.031L524 701.438L456.969 479.312L204 452.625Z" fill="#000000" fill-rule="nonzero" opacity="1" stroke="#1d1d1b" stroke-linecap="butt" stroke-linejoin="miter" stroke-width="0.616"/>
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Warstwa_1" xmlns:vectornator="http://vectornator.io"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 653.46 629.48"
+	 style="enable-background:new 0 0 653.46 629.48;" xml:space="preserve">
+<g>
+	<polygon points="335.72,456.82 384.97,629.48 431.65,629.48 541.66,317.25 382.9,300.52 	"/>
+	<polygon points="197.84,0 0,0 48.42,136.69 245.37,157.48 	"/>
+	<polygon points="473.6,0 420.49,175.95 585.33,193.34 653.46,0 	"/>
+	<polygon points="384.97,629.48 226.43,629.48 98.19,269.97 289.17,289.99 	"/>
 </g>
 </svg>

@@ -27,6 +27,7 @@ const humanizeError: any = {
   "auth/captcha-check-failed": "Nie udało się zweryfikować reCAPTCHA",
   "auth/invalid-app-credential": "Niepoprawne dane logowania",
   "auth/invalid-app-id": "Niepoprawne dane logowania",
+  "auth/multi-factor-auth-required": "Wymagane uwierzytelnienie dwuetapowe",
 };
 
 // TODO: change types from any to Map/Array (im getting some errors and its 12:20 am so im not gonna fix it rn)

@@ -2,11 +2,20 @@
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
-})
+});
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   compress: true,
+
+  webpack: (config, { isServer }) => {
+    if (!isServer) {
+      config.resolve.fallback.fs = false;
+      config.resolve.fallback.child_process = false;
+    }
+
+    return config;
+  },
 
   env: {
     apiKey: `${process.env.apiKey}`,
