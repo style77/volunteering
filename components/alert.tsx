@@ -35,7 +35,7 @@ export const showAlert = (text: string, alertId: string = "alert") => {
 export const Alert = (props: Props) => {
   return (
     <div
-      className="fixed bottom-5 right-5 transition-opacity block opacity-0 hidden"
+      className="fixed bottom-5 right-5 transition-opacity block opacity-0 hidden z-[1000]"
       id={props.alertId}
     >
       <div

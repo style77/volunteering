@@ -1,4 +1,8 @@
 # Volunteering
+[![Build Status](https://travis-ci.org/style77/volunteering.svg?branch=main)](https://travis-ci.org/style77/volunteering)
+<!-- <div style="display: flex; gap: 12px; height:48px; margin-bottom: 20px">
+<a href="https://freetools.seobility.net/en/seocheck/volunteering.pl"><img src="https://freetools.seobility.net/widget/widget.png?url=volunteering.pl" alt="Seobility Score für volunteering.pl"></a>
+</div> -->
 
 Strona napisana na konkurs [Hack Heroes](https://hackheroes.pl/) organizowany przez Fundacje Media 3.0 i SAP SE z partnerami - firmą HP Inc. i programem Nowa Akademia.
 Zamysłem strony jest ułatwienie znajdywania wolonatriuszy dla wolontariatów i vice versa. Jest to coś nowego - nie ma takiej strony w Polsce, oprócz stron rządowych, które i tak nie są konkretnie skupione na wolontariach, a obok ogłoszeń takowych są też np. ogłoszenia pracy, nasza strona jest skierowana stricte do wolontariuszy i wolontariatów.
@@ -59,6 +63,7 @@ Po wolontariacie, organizator może zaznaczyć na stronie, że wolontariusz wzi�
 **Lista odznak:**
 
 **Dla wolontariuszy**
+
 <details>
 <summary>"Pierwszy krok"</summary> 
 - za pierwszy udział w wolontariacie (ID: 1001)
@@ -85,6 +90,7 @@ Po wolontariacie, organizator może zaznaczyć na stronie, że wolontariusz wzi�
 </details>
 
 **Dla organizatorów**
+
 <details>
 <summary>"Organizator"</summary>
 - za utworzenie pierwszego wolontariatu (ID: 2001)

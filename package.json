@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@emailjs/browser": "^3.7.0",
+    "@googleapis/identitytoolkit": "^0.3.1",
     "@next/bundle-analyzer": "^12.3.1",
     "@types/luxon": "^3.0.1",
+    "axios": "^1.1.2",
     "firebase": "^9.11.0",
     "luxon": "^3.0.4",
     "next": "latest",
@@ -20,6 +22,7 @@
     "react-dom": "18.1.0",
     "react-icons": "^4.4.0",
     "react-password-strength-bar": "^0.4.1",
+    "react-phone-number-input": "^3.2.11",
     "vivid-studio": "^0.9.1"
   },
   "devDependencies": {

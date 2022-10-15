@@ -6,7 +6,9 @@ import { Alert, showAlert } from "../alert";
 
 const ForgotModal = () => {
     const emailRef = useRef<HTMLInputElement | null>(null);
+    const forgotPasswordModalRef = useRef<HTMLDivElement | null>(null);
 
+    const [email, setEmail] = useState("")
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,7 +17,7 @@ const ForgotModal = () => {
   }, []);
 
   const handleToggleModal = (value: boolean) => {
-    const modal = document.getElementById("forgot-password-modal");
+    const modal = forgotPasswordModalRef.current
 
     if (modal) {
       if (value) modal.classList.toggle("hidden");
@@ -33,18 +35,14 @@ const ForgotModal = () => {
   };
 
   const handleSendPasswordResetEmail = async () => {
-    const email = document.getElementById("forgot-mail") as HTMLInputElement;
-    await sendPasswordResetEmail(auth, email.value)
-        .then(() => {
-            showAlert(
-              "Wysłano link do resetowania hasła",
-              "forgot-success-alert"
-            );
-        })
-        .catch((error) => {
-            console.log(error)
-            showAlert(humanizeError[error.code], "forgot-error-alert");
-        })
+    await sendPasswordResetEmail(auth, email)
+      .then(() => {
+        showAlert("Wysłano link do resetowania hasła", "forgot-success-alert");
+      })
+      .catch((error) => {
+        console.log(error);
+        showAlert(humanizeError[error.code], "forgot-error-alert");
+      });
         handleToggleModal(false)
     }
 
@@ -59,6 +57,7 @@ const ForgotModal = () => {
       {
         <div
           id="forgot-password-modal"
+          ref={forgotPasswordModalRef}
           tabIndex={-1}
           className="opacity-0 hidden transition fixed inset-0 z-[100] font-inter"
         >
@@ -106,6 +105,7 @@ const ForgotModal = () => {
                       name="forgot-mail"
                       id="forgot-mail"
                       ref={emailRef}
+                      onChange={(e) => setEmail(e.target.value)}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full h-12 p-2.5"
                       placeholder="m.krasucki@gmail.com"
                       required

@@ -9,6 +9,24 @@ const humanizeError: any = {
   "auth/too-many-requests":
     "Zbyt wiele prób logowania. Spróbuj ponownie później",
   "auth/missing-email": "Nie znaleziono konta z podanym adresem email",
+  "auth/popup-closed-by-user": "Okno logowania zostało zamknięte",
+  "auth/account-exists-with-different-credential":
+    "Konto z podanym adresem email już istnieje",
+  "auth/credential-already-in-use":
+    "Konto z podanym adresem email już istnieje",
+  "auth/invalid-credential": "Niepoprawne dane logowania",
+  "auth/invalid-verification-code": "Niepoprawny kod weryfikacyjny",
+  "auth/invalid-verification-id": "Niepoprawny kod weryfikacyjny",
+  "auth/missing-verification-code": "Niepoprawny kod weryfikacyjny",
+  "auth/missing-verification-id": "Niepoprawny kod weryfikacyjny",
+  "auth/phone-number-already-exists":
+    "Konto z podanym numerem telefonu już istnieje",
+  "auth/invalid-phone-number": "Niepoprawny numer telefonu",
+  "auth/missing-phone-number": "Niepoprawny numer telefonu",
+  "auth/quota-exceeded": "Zbyt wiele prób logowania. Spróbuj ponownie później",
+  "auth/captcha-check-failed": "Nie udało się zweryfikować reCAPTCHA",
+  "auth/invalid-app-credential": "Niepoprawne dane logowania",
+  "auth/invalid-app-id": "Niepoprawne dane logowania",
 };
 
 // TODO: change types from any to Map/Array (im getting some errors and its 12:20 am so im not gonna fix it rn)

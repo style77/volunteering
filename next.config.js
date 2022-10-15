@@ -7,6 +7,7 @@ const withBundleAnalyzer = require("@next/bundle-analyzer")({
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   compress: true,
+
   env: {
     apiKey: `${process.env.apiKey}`,
     authDomain: `${process.env.authDomain}`,
@@ -19,5 +20,7 @@ module.exports = withBundleAnalyzer({
     emailJsServiceId: `${process.env.emailJsServiceId}`,
     emailJsTemplateId: `${process.env.emailJsTemplateId}`,
     emailJsPublicKey: `${process.env.emailJsPublicKey}`,
+
+    googleApiKey: `${process.env.googleApiKey}`,
   },
 });

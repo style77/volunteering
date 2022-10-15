@@ -132,7 +132,7 @@ const Volunteering: NextPage = () => {
           ) : (
             <>
               {volunteeringsData.map((volunteeringData: any) => (
-                <div className="flex flex-col xl:flex-row gap-2 w-full">
+                <div className="flex flex-col xl:flex-row gap-2 w-full" key={volunteeringData.volunteeringName}>
                   <div className="flex basis-11/12 xl:justify-center items-center">
                     <VolunteeringCard
                       volunteeringName={volunteeringData.volunteeringName}

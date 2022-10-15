@@ -54,7 +54,7 @@ const Add: NextPage = () => {
         showAlert("Dodano ogłoszenie wolontariatu!", "success");
       })
       .catch((error) => {
-        showAlert(error.message, "error");
+        showAlert(error.message, "error-alert");
       });
   };
 
