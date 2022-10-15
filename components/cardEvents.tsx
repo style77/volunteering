@@ -20,7 +20,7 @@ export const NotAuthorizedCardEvents = () => {
           className="flex flex-row rounded-lg bg-main-color h-20 xl:h-36 xl:w-56 justify-center items-center shadow-md transition ease-in-out hover:bg-main-color-2 duration-300"
           onClick={() => toggleLogin()}
         >
-          <div className="flex text-white text-xl justify-center cursor-pointer  transition">
+          <div className="flex text-white text-xl xl:px-0 px-3 justify-center cursor-pointer  transition">
             Zaloguj się, aby wyświetlić opcję
           </div>
         </button>

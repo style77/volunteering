@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             <div className="h-screen">
               <div className="flex flex-col">
                 <h1
-                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-7xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
@@ -97,12 +97,12 @@ const Home: NextPage = () => {
 
         <div className="ml-10 select-none" id="what-is-volunteering">
           <h2
-            className="text-main-color text-5xl xl:text-7xl font-bold duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+            className="text-main-color text-5xl xl:text-6xl font-bold duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
             data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
           >
-            Jak ułatwimy Tobie{" "}
+            Nasze zalety podczas szukania{" "}
             <span className="text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2">
-              wolontariat
+              wolontariatu
             </span>
           </h2>
         </div>
@@ -114,10 +114,10 @@ const Home: NextPage = () => {
                 className="delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
-                <BiTimer className="flex text-5xl mr-2 my-2" />
+                <BiTimer className="flex text-4xl mr-2 my-2" />
               </div>
               <p
-                className="text-5xl flex delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                className="text-4xl flex delay-100 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Szybkość
@@ -137,17 +137,17 @@ const Home: NextPage = () => {
                 className="delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
-                <AiOutlineInfoCircle className="flex text-5xl mr-2" />
+                <AiOutlineInfoCircle className="flex text-4xl mr-2" />
               </div>
               <p
-                className="text-5xl flex delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                className="text-4xl flex delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Przejrzystość
               </p>
             </div>
             <p
-              className="font-regular text-xl delay-[400ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="font-regular text-lg delay-[400ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Szukający jak i wystawiający się mają dostęp <br /> do informacji
@@ -160,17 +160,17 @@ const Home: NextPage = () => {
                 className="delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
-                <AiOutlineEye className="flex text-5xl mr-2" />
+                <AiOutlineEye className="flex text-4xl mr-2" />
               </div>
               <p
-                className="text-5xl flex delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                className="text-4xl flex delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
               >
                 Intuicja
               </p>
             </div>
             <p
-              className="font-regular text-xl delay-[600ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="font-regular text-lg delay-[600ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Nasza aplikacja jest prosta w użyciu i bardzo intuicyjna
@@ -181,7 +181,7 @@ const Home: NextPage = () => {
         <div className="py-40 select-none">
           <div className="ml-10">
             <h2
-              className="text-main-color text-7xl font-bold delay-700 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+              className="text-main-color text-6xl font-bold delay-700 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
               Jak to{" "}
@@ -191,8 +191,8 @@ const Home: NextPage = () => {
             </h2>
           </div>
 
-          <div className="flex flex-col xl:flex-row pl-10 select-none text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center">
-            <div className="flex flex-col basis-1/3">
+          <div className="flex flex-col xl:flex-row pl-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center">
+            <div className="flex flex-col basis-1/3 ">
               <span
                 className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
                 data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
