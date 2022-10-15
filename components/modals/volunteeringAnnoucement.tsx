@@ -50,9 +50,10 @@ export const VolunteeringAnnoucement = ({volunteeringName,orgName,city,isPaid,vo
             </div>
             <span className="text-white mx-6">Opis</span>
             <div className="rounded-lg bg-white h-[20rem] w-1/2 mx-6 my-2 text-main-color p-2">{description}</div>
-            <div className="flex w-full items-center">
+            
+          </div>
+          <div className="flex w-full justify-center">
               <CardEvents isFavorite={isFavorite} isNotifications={isNotifications} />
-            </div>
           </div>
         </div>
       </main>
