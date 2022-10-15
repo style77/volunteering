@@ -7,6 +7,7 @@ import { toggleLogin } from "../components/modals/login";
 import { volunteeringTypesArray } from "../constants";
 import useAuth from "../hooks/useAuth";
 import { db } from "../saas/firebase";
+import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
 
 const Add: NextPage = () => {
   const { user, isLoggedIn } = useAuth();
@@ -214,6 +215,7 @@ const Add: NextPage = () => {
               </form>
             </div>
           </div>
+          
         </main>
       ) : (
         <>
@@ -234,6 +236,7 @@ const Add: NextPage = () => {
               </a>{" "}
               numerem telefonu aby dodać wolontariat
             </div>
+            
           </main>
         </>
       )}

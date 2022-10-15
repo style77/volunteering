@@ -76,11 +76,11 @@ export const VolunteeringCard = ({
           <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
-              <MdOutlineCorporateFare className="flex mr-1"></MdOutlineCorporateFare>
+              <MdOutlineCorporateFare className="flex mr-1 my-1"></MdOutlineCorporateFare>
               <span className="">{orgName}</span>
             </div>
             <div className="flex flex-row items-center">
-              <IoLocationOutline className="flex mr-1"></IoLocationOutline>
+              <IoLocationOutline className="flex mr-1 my-1"></IoLocationOutline>
               <span className="">{city}</span>
             </div>
           </div>

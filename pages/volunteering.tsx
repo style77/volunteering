@@ -16,6 +16,7 @@ import {
   volunteeringTypes,
 } from "../constants";
 import useAuth from "../hooks/useAuth";
+import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
 
 type VolunteeringData = {
   volunteeringName: string;
@@ -146,7 +147,9 @@ const Volunteering: NextPage = () => {
                         volunteeringTerms[volunteeringData.term]
                       }
                       volunteeringImage={volunteeringData.image}
+                      
                     />
+                    {/* <VolunteeringAnnoucement volunteeringName={volunteeringData.volunteeringName} orgName={volunteeringData.fundationName} city={volunteeringData.city} isPaid={volunteeringPaidToBoolean[volunteeringData.paid]} volunteeringType={volunteeringData.image} volunteeringTerm={volunteeringTerms[volunteeringData.term]} volunteeringImage={volunteeringData.image} isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement> */}
                   </div>
                   <div className="flex justify-center items-center px-6">
                     {user && user?.eventsData ? (
@@ -173,6 +176,7 @@ const Volunteering: NextPage = () => {
             </>
           )}
         </div>
+        <VolunteeringAnnoucement volunteeringName="kupa" orgName="kupa" city="kupa" isPaid={false} volunteeringType="Ddad" volunteeringTerm="dd" volunteeringImage="" isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement>
       </main>
     </>
   );
