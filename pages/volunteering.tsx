@@ -4,7 +4,11 @@ import {
   SkeletonVolunteeringCard,
   VolunteeringCard,
 } from "../components/volunteeringCard";
-import { CardEvents, NotAuthorizedCardEvents, SkeletonCardEvents } from "../components/cardEvents";
+import {
+  CardEvents,
+  NotAuthorizedCardEvents,
+  SkeletonCardEvents,
+} from "../components/cardEvents";
 import { SearchBar } from "../components/searchBar";
 import { NextSeo } from "next-seo";
 import { useEffect, useState } from "react";
@@ -47,8 +51,6 @@ const Volunteering: NextPage = () => {
         ...doc.data(),
       }));
 
-      console.log(volunteeringsData);
-
       setVolunteeringsData(volunteeringsData);
 
       setIsLoading(false);
@@ -56,8 +58,6 @@ const Volunteering: NextPage = () => {
 
     if (volunteeringsData.length === 0) getVolunteeringsData();
   }, []);
-
-  console.log(user);
 
   return (
     <>
@@ -133,7 +133,10 @@ const Volunteering: NextPage = () => {
           ) : (
             <>
               {volunteeringsData.map((volunteeringData: any) => (
-                <div className="flex flex-col xl:flex-row gap-2 w-full" key={volunteeringData.volunteeringName}>
+                <div
+                  className="flex flex-col xl:flex-row gap-2 w-full"
+                  key={volunteeringData.id}
+                >
                   <div className="flex basis-11/12 xl:justify-center items-center">
                     <VolunteeringCard
                       volunteeringName={volunteeringData.volunteeringName}
@@ -147,7 +150,6 @@ const Volunteering: NextPage = () => {
                         volunteeringTerms[volunteeringData.term]
                       }
                       volunteeringImage={volunteeringData.image}
-                      
                     />
                     {/* <VolunteeringAnnoucement volunteeringName={volunteeringData.volunteeringName} orgName={volunteeringData.fundationName} city={volunteeringData.city} isPaid={volunteeringPaidToBoolean[volunteeringData.paid]} volunteeringType={volunteeringData.image} volunteeringTerm={volunteeringTerms[volunteeringData.term]} volunteeringImage={volunteeringData.image} isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement> */}
                   </div>
@@ -156,15 +158,16 @@ const Volunteering: NextPage = () => {
                       <>
                         <CardEvents
                           isFavorite={
-                            user.eventsData.favorite.includes(
+                            user.eventsData?.favorite?.includes(
                               volunteeringData.id
                             ) || false
                           }
                           isNotifications={
-                            user.eventsData.notifications.includes(
+                            user.eventsData?.notifications?.includes(
                               volunteeringData.id
                             ) || false
                           }
+                          volunteeringData={volunteeringData}
                         />
                       </>
                     ) : (
@@ -176,7 +179,18 @@ const Volunteering: NextPage = () => {
             </>
           )}
         </div>
-        <VolunteeringAnnoucement volunteeringName="kupa" orgName="kupa" city="kupa" isPaid={false} volunteeringType="Ddad" volunteeringTerm="dd" volunteeringImage="" isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement>
+        <VolunteeringAnnoucement
+          volunteeringName="kupa"
+          orgName="kupa"
+          city="kupa"
+          isPaid={false}
+          volunteeringType="Ddad"
+          volunteeringTerm="dd"
+          volunteeringImage=""
+          isFavorite={false}
+          isNotifications={false}
+          description="test"
+        ></VolunteeringAnnoucement>
       </main>
     </>
   );

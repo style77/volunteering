@@ -1,3 +1,11 @@
+import {
+  collection,
+  doc,
+  getDocs,
+  query,
+  updateDoc,
+  where,
+} from "firebase/firestore";
 import { useState } from "react";
 import { MdOutlineFavoriteBorder } from "react-icons/md";
 import { MdOutlineFavorite } from "react-icons/md";
@@ -5,11 +13,14 @@ import { MdNotificationsNone } from "react-icons/md";
 import { MdNotificationsActive } from "react-icons/md";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { EventButton } from "../components/eventButton";
+import useAuth from "../hooks/useAuth";
+import { db } from "../saas/firebase";
 import { toggleLogin } from "./modals/login";
 
 type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
+  volunteeringData: any;
 };
 
 export const NotAuthorizedCardEvents = () => {
@@ -49,20 +60,58 @@ export const SkeletonCardEvents = () => {
   );
 };
 
-export const CardEvents = ({ isFavorite, isNotifications }: Props) => {
+export const CardEvents = ({
+  isFavorite,
+  isNotifications,
+  volunteeringData,
+}: Props) => {
   const [favorite, setFavorite] = useState(isFavorite);
   const [notification, setNotification] = useState(isNotifications);
+
+  const { user } = useAuth();
+
+  const updateEventsData = (type: string, action: string) => {
+    if (user) {
+      if (action === "add") {
+        getDocs(
+          query(collection(db, "users"), where("uid", "==", user.uid))
+        ).then((querySnapshot: any) => {
+          querySnapshot.forEach((doc: any) => {
+            updateDoc(doc.ref, {
+              eventsData: {
+                [type]: [...user.eventsData[type], volunteeringData.id],
+              },
+            });
+          });
+        });
+      } else if (action === "remove") {
+        getDocs(
+          query(collection(db, "users"), where("uid", "==", user.uid))
+        ).then((querySnapshot: any) => {
+          querySnapshot.forEach((doc: any) => {
+            updateDoc(doc.ref, {
+              eventsData: {
+                [type]: [...user.eventsData[type].filter((id: string) => id !== volunteeringData.id)],
+              },
+            });
+          });
+        });
+      }
+    }
+  };
 
   const handleNotifications = (isSelected: boolean) => {
     setNotification(isSelected);
 
     // there will be all the logic to handle the notifications switch
+    updateEventsData("notifications", isSelected ? "add" : "remove");
   };
 
   const handleFavorite = (isSelected: boolean) => {
     setFavorite(isSelected);
 
     // there will be all the logic to handle the favorite switch
+    updateEventsData("favorite", isSelected ? "add" : "remove");
   };
 
   return (
