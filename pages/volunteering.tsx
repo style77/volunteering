@@ -100,7 +100,11 @@ const Volunteering: NextPage = () => {
         <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
           Wyszukiwanie wolontariatu
         </div>
-        <SearchBar allVolunteeringsData={allVolunteeringsData} volunteeringsData={volunteeringsData} setVolunteeringsData={setVolunteeringsData} />
+        <SearchBar
+          allVolunteeringsData={allVolunteeringsData}
+          volunteeringsData={volunteeringsData}
+          setVolunteeringsData={setVolunteeringsData}
+        />
         <div className="text-main-color text-3xl text-regular my-6 ml-6">
           Wyniki wyszukiwania
         </div>
@@ -143,30 +147,38 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
-              {showVolunteeringAnnoucementModal ? (
-                <VolunteeringAnnoucement
-                  volunteeringName={selectedVolunteeringData.volunteeringName}
-                  orgName={selectedVolunteeringData.fundationName}
-                  city={selectedVolunteeringData.city}
-                  isPaid={
-                    volunteeringPaidToBoolean[selectedVolunteeringData.paid]
-                  }
-                  volunteeringType={selectedVolunteeringData.image}
-                  volunteeringTerm={
-                    volunteeringTerms[selectedVolunteeringData.term]
-                  }
-                  volunteeringImage={selectedVolunteeringData.image}
-                  isFavorite={false}
-                  isNotifications={false}
-                  description="test"
-                  showVolunteeringAnnoucementModal={
-                    showVolunteeringAnnoucementModal
-                  }
-                  setShowVolunteeringAnnoucementModal={
-                    setShowVolunteeringAnnoucementModal
-                  }
-                ></VolunteeringAnnoucement>
-              ) : null}
+              <VolunteeringAnnoucement
+                volunteeringName={selectedVolunteeringData.volunteeringName}
+                orgName={selectedVolunteeringData.fundationName}
+                city={selectedVolunteeringData.city}
+                isPaid={
+                  volunteeringPaidToBoolean[selectedVolunteeringData.paid]
+                }
+                volunteeringType={
+                  volunteeringTypes[selectedVolunteeringData.type]
+                }
+                volunteeringTerm={
+                  volunteeringTerms[selectedVolunteeringData.term]
+                }
+                volunteeringImage={selectedVolunteeringData.image}
+                isFavorite={
+                  user.eventsData?.favorite?.includes(
+                    selectedVolunteeringData.id
+                  ) || false
+                }
+                isNotifications={
+                  user.eventsData?.notifications?.includes(
+                    selectedVolunteeringData.id
+                  ) || false
+                }
+                description={selectedVolunteeringData.description}
+                showVolunteeringAnnoucementModal={
+                  showVolunteeringAnnoucementModal
+                }
+                setShowVolunteeringAnnoucementModal={
+                  setShowVolunteeringAnnoucementModal
+                }
+              ></VolunteeringAnnoucement>
 
               {volunteeringsData.map((volunteeringData: any) => (
                 <div
@@ -178,6 +190,7 @@ const Volunteering: NextPage = () => {
                     onClick={() => {
                       setSelectedVolunteeringData(volunteeringData);
                       setShowVolunteeringAnnoucementModal(true);
+                      console.log(123);
                     }}
                   >
                     <VolunteeringCard

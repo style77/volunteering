@@ -4,7 +4,6 @@ import {
   cities,
   volunteeringTerms,
   volunteeringTypes,
-  volunteeringTypesArray,
 } from "../constants";
 
 type Props = {

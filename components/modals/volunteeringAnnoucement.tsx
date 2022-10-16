@@ -35,6 +35,7 @@ export const VolunteeringAnnoucement = ({
   setShowVolunteeringAnnoucementModal,
 }: Props) => {
   const modal = useRef<HTMLDivElement>(null);
+  const backdrop = useRef<HTMLDivElement>(null);
 
   const [favorite, setFavorite] = useState(isFavorite);
   const [notification, setNotification] = useState(isNotifications);
@@ -53,7 +54,13 @@ export const VolunteeringAnnoucement = ({
 
   const handleToggleModal = (value: boolean) => {
     if (modal.current) {
-      if (value) modal.current.classList.toggle("hidden");
+      if (value) {
+        modal.current.classList.toggle("hidden");
+        backdrop.current?.classList.remove("hidden");
+      } else {
+        backdrop.current?.classList.add("hidden");
+      }
+
       setTimeout(() => {
         if (value) {
           modal.current!.classList.replace("opacity-0", "opacity-100");
@@ -68,11 +75,13 @@ export const VolunteeringAnnoucement = ({
   };
 
   useEffect(() => {
-    if (showVolunteeringAnnoucementModal) {
-      handleToggleModal(true);
-    } else {
-      handleToggleModal(false);
-    }
+    setTimeout(() => {
+      if (showVolunteeringAnnoucementModal) {
+        handleToggleModal(true);
+      } else {
+        handleToggleModal(false);
+      }
+    }, 1);
   }, [showVolunteeringAnnoucementModal]);
 
   return (
@@ -81,16 +90,20 @@ export const VolunteeringAnnoucement = ({
         id="forgot-password-modal"
         ref={modal}
         tabIndex={-1}
-        className="opacity-0 hidden transition fixed inset-0 z-[1000] font-inter"
+        className="opacity-0 hidden transition fixed inset-0 font-inter justify-center items-center h-screen w-screen"
       >
         <div
-          className="fixed w-screen h-screen bg-black opacity-50"
+          className="fixed hidden w-screen h-screen -z-[1] bg-black opacity-50"
           onClick={() => setShowVolunteeringAnnoucementModal(false)}
+          ref={backdrop}
         ></div>
-        <div className="bg-main-color rounded-lg h-2/3 w-2/3 fixed hidden opacity-0">
+        <div className="bg-main-color rounded-lg h-2/3 w-2/3 z-20 justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
-              <button className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100">
+              <button
+                className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100"
+                onClick={() => setShowVolunteeringAnnoucementModal(false)}
+              >
                 <AiOutlineCloseCircle />
               </button>
             </div>

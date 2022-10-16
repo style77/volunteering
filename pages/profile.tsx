@@ -13,7 +13,7 @@ import { FormEvent, useEffect, useRef, useState } from "react";
 import { FaCheck, FaEdit } from "react-icons/fa";
 import { showAlert } from "../components/alert";
 import useAuth from "../hooks/useAuth";
-import { db } from "../saas/firebase";
+import { db, storage } from "../saas/firebase";
 
 import { DateTime } from "luxon";
 import { toggleLogin } from "../components/modals/login";
@@ -22,10 +22,12 @@ import { VerificationModal } from "../components/modals/verification";
 import { EditableInput } from "../components/editableInput";
 import { updateProfile } from "firebase/auth";
 import { humanizeError } from "../constants";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Profile: NextPage = () => {
   const { user, isLoggedIn } = useAuth();
   const [loading, setLoading] = useState(false);
+  const inputFile = useRef<any>(); // for image upload
 
   const [data, setData]: any = useState({});
 
@@ -39,7 +41,7 @@ const Profile: NextPage = () => {
     const getAccount = async () => {
       setLoading(true);
       if (user) {
-        setData(user)
+        setData(user);
 
         setDisplayName(user.displayName);
       }
@@ -77,14 +79,13 @@ const Profile: NextPage = () => {
                   );
                 })
                 .catch((error: any) => {
-                  console.log(error)
+                  console.log(error);
                   showAlert(humanizeError[error.code], "error-alert");
                 });
             })
             .catch((error: any) => {
               showAlert(humanizeError[error.code], "error-alert");
             });
-
         });
       }
     );
@@ -100,20 +101,59 @@ const Profile: NextPage = () => {
     return DateTime.fromISO(date).diffNow("years").toObject().years;
   };
 
+  const uploadNewAvatar = (e: any) => {
+    const file = e.target.files[0]
+    let ext = file.type.replace(/(.*)\//g, '')
+    const storageRef = ref(storage, 'avatars/' + user.uid + ext)
+    uploadBytes(storageRef, file).then((snapshot) => {
+        getDownloadURL(storageRef)
+          .then((imageURL: string) => {
+            updateProfile(user.auth.currentUser, { photoURL: imageURL })
+              .then(() => {
+                showAlert("Zaktualizowano awatar pomyślnie 🎉", "success");
+
+              })
+              setData({ ...data, photoURL: imageURL })
+
+              .catch((error: any) => {
+                console.error(error);
+                showAlert("Wystąpił błąd podczas aktualizacji awatara", "error-alert");
+              });
+          })
+          .catch((error: any) => {
+            console.error(error)
+            showAlert("Wystąpił błąd podczas aktualizacji awatara", "error-alert");
+          });
+    })
+  };
+
+  const openFileBrowser = () => {
+    inputFile.current!.click();
+  };
+
   return (
     <>
       {isLoggedIn ? (
         <main className="font-inter flex flex-col py-2 mx-6 items-center text-main-color">
-          <div className="font-semibold text-4xl xl:text-6xl my-6">
+          <div className="font-semibold text-4xl xl:text-6xl mt-6">
             Twój profil
           </div>
-          <div className="flex flex-row my-20">
+          <div className="flex flex-row mt-10">
             <div className="flex flex-col gap-4 rounded-md border-2 p-6 pb-10 bg-background-color-2">
               <div className="flex flex-col items-center">
+                <input
+                  type="file"
+                  id="file"
+                  ref={inputFile}
+                  accept="image/*"
+                  onChange={(e) => uploadNewAvatar(e)}
+                  style={{ display: "none" }}
+                />
                 <img
-                  className="h-32 w-32 bg-white rounded-full shadow-md"
+                  className="h-32 w-32 bg-white rounded-full shadow-md cursor-pointer"
                   alt="user avatar"
-                  src={data.photo}
+                  src={data.photoURL}
+                  onClick={() => openFileBrowser()}
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">
                   {data.isVerified ? (

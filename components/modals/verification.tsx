@@ -122,7 +122,7 @@ export const VerificationModal = ({ user }: Props) => {
             }
             setTimeout(() => {
               console.log(error.code);
-              showAlert(humanizeError[error.code], "error-alert")
+              showAlert(humanizeError[error.code], "error-alert");
             }, 3500);
           });
       });
@@ -132,13 +132,13 @@ export const VerificationModal = ({ user }: Props) => {
     let provider;
     if (user.providerData[0].providerId === "google.com") {
       provider = new GoogleAuthProvider();
-      reauthenticateWithPopup(user.auth.currentUser, provider).then(
-        (userCredential: UserCredential) => {
+      reauthenticateWithPopup(user.auth.currentUser, provider)
+        .then((userCredential: UserCredential) => {
           handleOTP(userCredential.user);
-        }
-      ).catch((error: any) => {
-        showAlert(humanizeError[error.code], "error-alert");
-      });
+        })
+        .catch((error: any) => {
+          showAlert(humanizeError[error.code], "error-alert");
+        });
     } else {
       provider = new EmailAuthProvider();
       handleOTP(user.auth.currentUser);
@@ -170,13 +170,13 @@ export const VerificationModal = ({ user }: Props) => {
       )
         .then((querySnapshot: any) => {
           if (querySnapshot.empty) {
-            onSolvedRecaptcha()
+            onSolvedRecaptcha();
           } else {
             showAlert("Ten numer telefonu jest już w użyciu", "error-alert");
           }
         })
         .catch((error: any) => {
-          console.log(error)
+          console.log(error);
           showAlert(humanizeError[error.code], "error-alert");
         });
     }
@@ -184,6 +184,10 @@ export const VerificationModal = ({ user }: Props) => {
 
   return (
     <>
+      <div className="flex">
+        <span className="animate-ping ml-1 -mt-1 z-50 absolute inline-flex h-3 w-3 rounded-full bg-main-color opacity-75"></span>
+        <span className="absolute z-50 ml-1 -mt-1 inline-flex rounded-full h-3 w-3 bg-main-color"></span>
+      </div>
       <Badge bgColor="bg-zinc-400">
         <a onClick={() => handleToggleModal(true)} className="cursor-pointer">
           Niezweryfikowany
