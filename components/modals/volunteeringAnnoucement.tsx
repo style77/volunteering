@@ -53,7 +53,7 @@ export const VolunteeringAnnoucement = ({
   return (
     <>
       <main className="flex min-h-screen font-inter">
-        <div className="bg-main-color rounded-lg h-2/3 xl:h-[46rem] w-2/3">
+        <div className="bg-main-color rounded-lg h-2/3  w-2/3">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
               <button className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100">
