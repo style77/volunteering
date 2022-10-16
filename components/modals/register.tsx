@@ -172,7 +172,7 @@ const RegisterModal: NextPage = () => {
                   Dołącz do{" "}
                   <span className="text-main-color-2">Volunteering</span>
                 </h3>
-                <form className="space-y-6" onSubmit={(e) => handleSubmit(e)}>
+                <form className="space-y-6" onSubmit={handleSubmit}>
                   <div>
                     <label
                       htmlFor="register-username"
@@ -182,7 +182,6 @@ const RegisterModal: NextPage = () => {
                     </label>
                     <input
                       type="username"
-                      name="username"
                       min={6}
                       id="register-username"
                       ref={username}
@@ -201,7 +200,6 @@ const RegisterModal: NextPage = () => {
                     </label>
                     <input
                       type="email"
-                      name="email"
                       id="register-email"
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="m.krasucki@gmail.com"
@@ -218,7 +216,6 @@ const RegisterModal: NextPage = () => {
                     </label>
                     <input
                       type="password"
-                      name="password"
                       minLength={6}
                       id="register-password"
                       ref={passwordRef}
@@ -239,7 +236,6 @@ const RegisterModal: NextPage = () => {
                     </label>
                     <input
                       type="password"
-                      name="password"
                       id="verify-register-password"
                       ref={passwordVerification}
                       placeholder="••••••••"
