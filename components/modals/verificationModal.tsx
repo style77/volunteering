@@ -15,6 +15,7 @@ import {
 } from "firebase/auth";
 import {
   collection,
+  getDoc,
   getDocs,
   query,
   setDoc,
@@ -135,7 +136,9 @@ export const VerificationModal = ({ user }: Props) => {
         (userCredential: UserCredential) => {
           handleOTP(userCredential.user);
         }
-      );
+      ).catch((error: any) => {
+        showAlert(humanizeError[error.code], "error-alert");
+      });
     } else {
       provider = new EmailAuthProvider();
       handleOTP(user.auth.currentUser);
@@ -161,7 +164,21 @@ export const VerificationModal = ({ user }: Props) => {
         },
         auth
       );
-      onSolvedRecaptcha();
+
+      getDocs(
+        query(collection(db, "users"), where("phoneNumber", "==", phoneNumber))
+      )
+        .then((querySnapshot: any) => {
+          if (querySnapshot.empty) {
+            onSolvedRecaptcha()
+          } else {
+            showAlert("Ten numer telefonu jest już w użyciu", "error-alert");
+          }
+        })
+        .catch((error: any) => {
+          console.log(error)
+          showAlert(humanizeError[error.code], "error-alert");
+        });
     }
   };
 
