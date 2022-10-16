@@ -40,6 +40,7 @@ const Volunteering: NextPage = () => {
   const [account, setUser] = useState({});
   const [volunteeringsData, setVolunteeringsData]: any = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [allVolunteeringsData, setAllVolunteeringsData]:any=useState([])
 
   const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
     {}
@@ -54,12 +55,14 @@ const Volunteering: NextPage = () => {
       setIsLoading(true);
 
       const querySnapshot = await getDocs(collection(db, "volunteering"));
-      const volunteeringsData = querySnapshot.docs.map((doc) => ({
+      const staticVolunteeringsData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       }));
 
-      setVolunteeringsData(volunteeringsData);
+      setVolunteeringsData(staticVolunteeringsData);
+
+      setAllVolunteeringsData(staticVolunteeringsData)
 
       setIsLoading(false);
     };
@@ -97,7 +100,7 @@ const Volunteering: NextPage = () => {
         <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
           Wyszukiwanie wolontariatu
         </div>
-        <SearchBar />
+        <SearchBar allVolunteeringsData={allVolunteeringsData} volunteeringsData={volunteeringsData} setVolunteeringsData={setVolunteeringsData} />
         <div className="text-main-color text-3xl text-regular my-6 ml-6">
           Wyniki wyszukiwania
         </div>

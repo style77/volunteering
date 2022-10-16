@@ -84,7 +84,7 @@ export const VolunteeringCard = ({
               <span className="">{city}</span>
             </div>
           </div>
-          <div className="xl:hidden select-none flex text-sm flex-row gap-2 mt-5 font-regular text-main-color w-full items-end">
+          <div className="xl:hidden select-none flex text-sm flex-row gap-2 mt-5 px-2 font-regular text-main-color w-full items-end">
             <div className="rounded-lg bg-white text-center py-2 px-2 my-6">
               {isPaid ? "Płatny" : "Bezpłatny"}
             </div>
@@ -99,14 +99,14 @@ export const VolunteeringCard = ({
           </div>
         </div>
         <div className="hidden xl:flex text-md gap-2 flex-col mt-0 font-regular text-main-color justify-center mr-6 w-full items-end select-none">
-          <div className="rounded-lg bg-white text-center w-[14.5rem] py-2">
+          <div className="rounded-lg bg-white text-center w-[15.5rem] py-2">
             {isPaid ? "Płatny" : "Bezpłatny"}
           </div>
           <div className="flex flex-row gap-2 my-2">
             <div className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex">
               {volunteeringType}
             </div>
-            <div className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex">
+            <div className="rounded-lg bg-white w-32 px-4 py-2 text-center justify-center items-center flex">
               {volunteeringTerm}
             </div>
           </div>
