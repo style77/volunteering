@@ -19,6 +19,9 @@ import { DateTime } from "luxon";
 import { toggleLogin } from "../components/modals/login";
 import { Badge } from "../components/badge";
 import { VerificationModal } from "../components/modals/verificationModal";
+import { EditableInput } from "../components/editableInput";
+import { updateProfile } from "firebase/auth";
+import { humanizeError } from "../constants";
 
 const Profile: NextPage = () => {
   const { user, isLoggedIn } = useAuth();
@@ -30,16 +33,15 @@ const Profile: NextPage = () => {
 
   const [saveButtonType, setSaveButtonType]: any = useState("button");
 
+  const [displayName, setDisplayName] = useState("");
+
   useEffect(() => {
     const getAccount = async () => {
       setLoading(true);
       if (user) {
-        const querySnapshot = await getDocs(
-          query(collection(db, "users"), where("uid", "==", user.uid))
-        );
-        const snapshotData = querySnapshot.docs[0].data();
+        setData(user)
 
-        setData(Object.assign({}, snapshotData, user));
+        setDisplayName(user.displayName);
       }
 
       setLoading(false);
@@ -56,14 +58,32 @@ const Profile: NextPage = () => {
     getDocs(query(collection(db, "users"), where("uid", "==", user.uid))).then(
       (querySnapshot: any) => {
         querySnapshot.forEach((doc: any) => {
-          updateDoc(doc.ref, data)
+          let dataToSave = {
+            birthday: data.birthday,
+            description: data.description,
+            location: data.location,
+          };
+
+          updateDoc(doc.ref, dataToSave)
             .then(() => {
-              setEdit(false);
-              showAlert("Zaaktualizowano informacje pomyślnie 🎉", "success");
+              updateProfile(user, {
+                displayName: displayName,
+              })
+                .then(() => {
+                  setEdit(false);
+                  showAlert(
+                    "Zaaktualizowano informacje pomyślnie 🎉",
+                    "success"
+                  );
+                })
+                .catch((error: any) => {
+                  showAlert(humanizeError[error.code], "error-alert");
+                });
             })
             .catch((error: any) => {
-              showAlert(error.message, "error-alert");
+              showAlert(humanizeError[error.code], "error-alert");
             });
+
         });
       }
     );
@@ -109,9 +129,7 @@ const Profile: NextPage = () => {
                   ))}
                 </div>
                 <div className="flex flex-col items-center border-2 rounded-md bg-zinc-200 mt-2 px-4 pb-2 shadow-md">
-                  <span className="font-semibold text-3xl mt-2">
-                    {data.name}
-                  </span>
+                  <EditableInput label={displayName} setText={setDisplayName} />
                   <span>
                     Konto na Volunteering założone{" "}
                     {data.metadata?.createdAt &&

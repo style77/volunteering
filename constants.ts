@@ -28,6 +28,8 @@ const humanizeError: any = {
   "auth/invalid-app-credential": "Niepoprawne dane logowania",
   "auth/invalid-app-id": "Niepoprawne dane logowania",
   "auth/multi-factor-auth-required": "Wymagane uwierzytelnienie dwuetapowe",
+  "auth/unverified-email": "Email nie jest zweryfikowany",
+  "auth/second-factor-already-in-use": "Uwierzytelnienie dwuetapowe jest już aktywne",
 };
 
 // TODO: change types from any to Map/Array (im getting some errors and its 12:20 am so im not gonna fix it rn)

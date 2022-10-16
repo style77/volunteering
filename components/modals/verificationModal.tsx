@@ -10,6 +10,8 @@ import {
   EmailAuthProvider,
   UserCredential,
   reauthenticateWithPopup,
+  User,
+  sendEmailVerification,
 } from "firebase/auth";
 import {
   collection,
@@ -26,8 +28,9 @@ import { auth, db } from "../../saas/firebase";
 import { showAlert } from "../alert";
 import { Badge } from "../badge";
 
-import PhoneInput, { isValidPhoneNumber } from "react-phone-number-input";
-import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
+
 import useAuth from "../../hooks/useAuth";
 
 type Props = {
@@ -65,7 +68,7 @@ export const VerificationModal = ({ user }: Props) => {
     getDocs(query(collection(db, "users"), where("uid", "==", user.uid))).then(
       (querySnapshot: any) => {
         querySnapshot.forEach((doc: any) => {
-          updateDoc(doc.ref, { verified: true })
+          updateDoc(doc.ref, { isVerified: true, phoneNumber: phoneNumber })
             .then(() => {
               showAlert("Zweryfikowano konto!", "success");
               handleToggleModal(false);
@@ -80,49 +83,69 @@ export const VerificationModal = ({ user }: Props) => {
 
   const verifyOTP = (verificationId: string, verificationCode: string) => {
     const cred = PhoneAuthProvider.credential(verificationId, verificationCode);
-    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred)
-    multiFactor(user.proactiveRefresh.currentUser).enroll(multiFactorAssertion).then(() => {
-      updateUser();
-      showAlert("Zweryfikowano konto!", "error-alert")
-    }).catch((error: any) => {
-      showAlert(humanizeError[error.code], "error-alert");
-    })
+    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
+    multiFactor(user.auth.currentUser)
+      .enroll(multiFactorAssertion)
+      .then(() => {
+        updateUser();
+        showAlert("Zweryfikowano konto!", "error-alert");
+      })
+      .catch((error: any) => {
+        showAlert(humanizeError[error.code], "error-alert");
+      });
+  };
 
+  const handleOTP = (user: User) => {
+    multiFactor(user)
+      .getSession()
+      .then((multiFactorSession) => {
+        const phoneInfoOptions = {
+          phoneNumber: "+" + phoneNumber,
+          session: multiFactorSession,
+        };
+        const phoneProvider = new PhoneAuthProvider(auth);
+        phoneProvider
+          .verifyPhoneNumber(phoneInfoOptions, window.recaptchaVerifier)
+          .then((verificationId) => {
+            window.verificationId = verificationId;
+            setShowOTPInput(true);
+          })
+          .catch((error: any) => {
+            if (error.code === "auth/unverified-email") {
+              sendEmailVerification(user).then(() => {
+                showAlert(
+                  "Na twój email została wysłana wiadomość z linkiem do weryfikacji.",
+                  "error-alert"
+                );
+              });
+            }
+            setTimeout(() => {
+              console.log(error.code);
+              showAlert(humanizeError[error.code], "error-alert")
+            }, 3500);
+          });
+      });
   };
 
   const onSolvedRecaptcha = () => {
-      let provider;
-      if (user.providerData[0].providerId === "google.com") {
-        provider = new GoogleAuthProvider();
-      } else {
-        provider = new EmailAuthProvider();
-      }
-
+    let provider;
+    if (user.providerData[0].providerId === "google.com") {
+      provider = new GoogleAuthProvider();
       reauthenticateWithPopup(user.auth.currentUser, provider).then(
         (userCredential: UserCredential) => {
-          multiFactor(userCredential.user)
-            .getSession()
-            .then((multiFactorSession) => {
-              const phoneInfoOptions = {
-                phoneNumber: phoneNumber,
-                session: multiFactorSession,
-              };
-              const phoneProvider = new PhoneAuthProvider(auth);
-              phoneProvider
-                .verifyPhoneNumber(phoneInfoOptions, window.recaptchaVerifier)
-                .then((verificationId) => {
-                  window.verificationId = verificationId;
-                  setShowOTPInput(true);
-                });
-            });
+          handleOTP(userCredential.user);
         }
       );
+    } else {
+      provider = new EmailAuthProvider();
+      handleOTP(user.auth.currentUser);
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
 
-    console.log(123)
+    console.log(123);
 
     if (OTPCode.length === 6) {
       verifyOTP(window.verificationId, OTPCode);
@@ -199,10 +222,8 @@ export const VerificationModal = ({ user }: Props) => {
 
                     <PhoneInput
                       onChange={(e) => setPhoneNumber(e)}
-                      defaultCountry="PL"
-                      id="phone-input"
-                      className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full h-12 p-2.5"
-                      placeholder="+48503245945"
+                      country={"pl"}
+                      placeholder="503245945"
                       value={phoneNumber}
                     />
 
@@ -232,7 +253,9 @@ export const VerificationModal = ({ user }: Props) => {
                         <button
                           id="verify-button"
                           className="w-full text-white bg-main-color transition hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                          onClick={() => verifyOTP(window.verificationId, OTPCode)}
+                          onClick={() =>
+                            verifyOTP(window.verificationId, OTPCode)
+                          }
                         >
                           Weryfikuj
                         </button>

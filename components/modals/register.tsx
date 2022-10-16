@@ -2,6 +2,8 @@ import {
   createUserWithEmailAndPassword,
   EmailAuthCredential,
   signInWithEmailAndPassword,
+  updateProfile,
+  User,
   UserCredential,
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
@@ -13,20 +15,22 @@ import { Alert, showAlert } from "../alert";
 
 import PasswordStrengthBar from "react-password-strength-bar";
 
-export const registerUser = async (uid: string, name: string, mail: string, birthday: string, photo?: string) => {
+export const registerUser = async (user: User, uid: string, name: string, mail: string, birthday: string, photo?: string) => {
   await addDoc(collection(db, "users"), {
-    name: name,
     email: mail,
     uid: uid,
     createdAt: new Date(),
     eventsData: {notifications: [], favorite: []}, // There will be saved id of volonteerings that are marked as favorite or that user is subscribed to notifications
     badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
-    photo: photo || "https://volunteering.pl/images/blank.png",
     isVerified: false, // This will be used to check if user has verified his phone number
     location: "", // This will be used to save user location
     birthday: birthday, // This will be used to calculate user age
     description: "", // This will be used to save user description
     heldVolunteering: [], // There will be saved id of volunteering that user has held
+  });
+  updateProfile(user, {
+    displayName: name,
+    photoURL: photo || "https://volunteering.pl/images/blank.png",
   });
 };
 
@@ -53,6 +57,7 @@ const RegisterModal: NextPage = () => {
     await createUserWithEmailAndPassword(auth, mail, password)
       .then(async (userCredential) => {
         registerUser(
+          userCredential.user,
           userCredential.user.uid,
           name,
           mail,

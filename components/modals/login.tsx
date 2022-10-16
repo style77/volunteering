@@ -99,6 +99,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
         const querySnapshot = await getDocs(q);
         if (querySnapshot.empty) {
           registerUser(
+            user,
             user.uid,
             user.displayName!,
             user.email!,

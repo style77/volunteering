@@ -15,6 +15,10 @@ Mamy mnóstwo pomysłow na kolejne funkcjonalności strony, ale ze względu na o
 
 Volunteering nie potrzebuje API - wszystko działa w oparciu o Firebase, a więc nie ma żadnych dodatkowych kosztów (do czasu, aż nie osiągniemy [limitów](https://cloud.google.com/firestore/quotas) 😁).
 
+Problematyczne może być logowanie się użytkownika, który zweryfikował swoje konto numerem telefonu - wtedy musi on zawsze logować się przy pomocy weryfikacji dwuetapowej, gdzie mamy wrażenie, że aplikacja nie wymaga, aż takich zabezpieczeń.
+Niestety nie jest to możliwe do zrobienia inaczej przy użyciu firebase, w Volunteering weryfikacja działa na zasadzie właczenia weryfikacji dwuetapowej z numerem telefonu, a przy okazji użytkownik jest zmieniany na zweryfikowanego.
+Alternatywą do tego rozwiązania mogłoby być użycie Twillio/verify, aczkolwiek to też nie jest idealne rozwiązanie, ponieważ wymagałoby to dodatkowych kosztów.
+
 ## Instalacja
 
 Aby uruchomić stronę lokalnie (używając yarna) należy:

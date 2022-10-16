@@ -195,7 +195,7 @@ export const Navbar = () => {
                       >
                         <div className="py-3 px-4">
                           <span className="block text-sm text-main-color-2 font-inter font-semibold">
-                            {data.name}
+                            {data.displayName}
                           </span>
                           <span className="block text-sm text-main-color font-inter font-regular">
                             {data.email}
