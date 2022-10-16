@@ -227,13 +227,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                   Zaloguj się do{" "}
                   <span className="text-main-color-2">Volunteering</span>
                 </h3>
-                <form
-                  className="space-y-6"
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    handleAuth(authType);
-                  }}
-                >
+                <div className="space-y-6">
                   <div>
                     <label
                       htmlFor="email"
@@ -289,8 +283,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                   <div className="flex flex-col items-center justify-center">
                     <button
                       className="w-full text-white bg-main-color transition hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => setAuthType("email")}
-                      type="submit"
+                      onClick={() => handleAuth("email")}
                     >
                       Zaloguj się
                     </button>
@@ -301,14 +294,13 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
 
                     <button
                       className="w-full flex mt-1 items-center transition justify-center text-white bg-main-color hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => setAuthType("google")}
-                      type="submit"
+                      onClick={() => handleAuth("google")}
                     >
                       Zaloguj się z <FaGoogle className="ml-1 text-xl" />
                     </button>
                   </div>
                   <RegisterModal />
-                </form>
+                </div>
               </div>
             </div>
           </div>
