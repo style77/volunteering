@@ -66,7 +66,7 @@ const Profile: NextPage = () => {
 
           updateDoc(doc.ref, dataToSave)
             .then(() => {
-              updateProfile(user, {
+              updateProfile(user.auth.currentUser, {
                 displayName: displayName,
               })
                 .then(() => {
@@ -77,6 +77,7 @@ const Profile: NextPage = () => {
                   );
                 })
                 .catch((error: any) => {
+                  console.log(error)
                   showAlert(humanizeError[error.code], "error-alert");
                 });
             })
