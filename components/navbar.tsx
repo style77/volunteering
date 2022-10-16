@@ -13,6 +13,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { FiMenu } from "react-icons/fi";
 import { MdOutlineLogin } from "react-icons/md";
 import useAuth from "../hooks/useAuth";
 import Volunteering from "../pages/volunteering";
@@ -157,7 +158,7 @@ export const Navbar = () => {
             <Link href="/contact">
               <button
                 type="button"
-                className="text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center"
+                className="hidden xl:block text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Napisz do nas
               </button>
@@ -251,19 +252,7 @@ export const Navbar = () => {
               <span className="sr-only font-inter font-semibold">
                 Otwórz menu
               </span>
-              <svg
-                className="w-6 h-6"
-                aria-hidden="true"
-                fill="currentColor"
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  fillRule="evenodd"
-                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                  clipRule="evenodd"
-                ></path>
-              </svg>
+              <FiMenu className="text-main-color hover:text-main-color-2 text-xl" />
             </button>
           </div>
           <div
@@ -302,6 +291,17 @@ export const Navbar = () => {
                     onClick={() => toggleNavbar()}
                   >
                     ZGŁOŚ WOLONTARIAT
+                  </a>
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact">
+                  <a
+                    className="block xl:hidden py-2 pr-4 pl-3 rounded xl:bg-transparent xl:p-0 text-main-color hover:text-main-color-2 transition font-inter font-semibold"
+                    aria-current="page"
+                    onClick={() => toggleNavbar()}
+                  >
+                    KONTAKT
                   </a>
                 </Link>
               </li>

@@ -60,7 +60,7 @@ const Home: NextPage = () => {
             <div className="h-screen">
               <div className="flex flex-col">
                 <h1
-                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-7xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
@@ -107,7 +107,7 @@ const Home: NextPage = () => {
           </h2>
         </div>
 
-        <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center pl-10 select-none">
+        <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center px-10 select-none">
           <div className="flex flex-col">
             <div className="flex flex-row xl:justify-items-start justify-items-center">
               <div
@@ -191,7 +191,7 @@ const Home: NextPage = () => {
             </h2>
           </div>
 
-          <div className="flex flex-col xl:flex-row pl-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center">
+          <div className="flex flex-col xl:flex-row px-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center items-center">
             <div className="flex flex-col basis-1/3 ">
               <span
                 className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"

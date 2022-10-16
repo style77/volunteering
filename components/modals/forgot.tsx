@@ -12,7 +12,7 @@ const ForgotModal = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (emailRef.current) emailRef.current!.focus();
+      if (emailRef?.current) emailRef.current!.focus();
     }, 500);
   }, []);
 
@@ -108,7 +108,6 @@ const ForgotModal = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full h-12 p-2.5"
                       placeholder="m.krasucki@gmail.com"
-                      required
                     />
                   </div>
                   <div className="flex flex-col items-center justify-center">

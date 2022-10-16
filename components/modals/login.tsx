@@ -49,6 +49,8 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
   const [mfError, setMfError] = useState<MultiFactorError>();
   const [mfaResolver, setMfaResolver] = useState<MultiFactorResolver>();
 
+  const [authType, setAuthType] = useState("")
+
   const handleToggleModal = (value: boolean) => {
     if (!value) {
       document.body.classList.remove("overflow-y-hidden");
@@ -157,6 +159,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
           if (error.code === "auth/multi-factor-auth-required") {
             const resolver = getMultiFactorResolver(auth, error);
             setMfaResolver(resolver);
+            setMfError(error);
             setShowMfaModal(true);
           }
         });
@@ -224,7 +227,13 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                   Zaloguj się do{" "}
                   <span className="text-main-color-2">Volunteering</span>
                 </h3>
-                <div className="space-y-6">
+                <form
+                  className="space-y-6"
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleAuth(authType);
+                  }}
+                >
                   <div>
                     <label
                       htmlFor="email"
@@ -239,7 +248,6 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                       ref={email}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       placeholder="m.krasucki@gmail.com"
-                      required
                     />
                   </div>
                   <div>
@@ -256,7 +264,6 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                       placeholder="••••••••"
                       ref={password}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
-                      required
                     />
                   </div>
                   <div className="flex justify-between">
@@ -282,7 +289,8 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
                   <div className="flex flex-col items-center justify-center">
                     <button
                       className="w-full text-white bg-main-color transition hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => handleAuth("email")}
+                      onClick={() => setAuthType("email")}
+                      type="submit"
                     >
                       Zaloguj się
                     </button>
@@ -293,13 +301,14 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
 
                     <button
                       className="w-full flex mt-1 items-center transition justify-center text-white bg-main-color hover:bg-main-color-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                      onClick={() => handleAuth("google")}
+                      onClick={() => setAuthType("google")}
+                      type="submit"
                     >
                       Zaloguj się z <FaGoogle className="ml-1 text-xl" />
                     </button>
                   </div>
                   <RegisterModal />
-                </div>
+                </form>
               </div>
             </div>
           </div>
