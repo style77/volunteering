@@ -20,6 +20,8 @@ const Add: NextPage = () => {
   const [paid, setPaid] = useState("");
   const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhone] = useState("");
 
   const [isVerified, setIsVerified] = useState(false);
 
@@ -67,13 +69,16 @@ const Add: NextPage = () => {
 
       {isLoggedIn && isVerified ? (
         <main className="font-inter flex min-h-screen flex-col py-2">
-          <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
+          <h1 className="text-4xl xl:text-6xl font-semibold text-main-color my-6 ml-6">
             Dodawanie nowego wolonariatu
-          </div>
+          </h1>
           <div className="flex flex-row basis-3/5 mx-0 xl:mx-6 justify-center">
             <div className="flex flex-col w-4/5 xl:w-4/6 gap-3">
               <form className="space-y-2" onSubmit={(e) => handleSubmit(e)}>
                 <div className="flex flex-col w-full">
+                  <h2 className="text-2xl xl:text-4xl font-regular pt-6 text-main-color">
+                    Informacje o wolontariacie
+                  </h2>
                   <label
                     htmlFor="volunteering-name"
                     className="text-main-color "
@@ -129,7 +134,7 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected disabled>
+                    <option selected>
                       Wybierz
                     </option>
                     {volunteeringTypesArray.map((type) => (
@@ -153,7 +158,7 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected disabled>
+                    <option selected>
                       Wybierz
                     </option>
                     <option value="one-time">Jednorazowy</option>
@@ -172,7 +177,7 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected disabled>
+                    <option selected>
                       Wybierz
                     </option>
                     <option value="unpaid">Bezpłatne</option>
@@ -208,6 +213,41 @@ const Add: NextPage = () => {
                     onChange={(e) => setDescription(e.target.value)}
                     className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2 h-32"
                   />
+                  <h2 className="text-2xl xl:text-4xl font-regular pt-6 text-main-color">
+                    Dane kontaktowe
+                  </h2>
+                  <div className="flex flex-col w-full">
+                    <label
+                      htmlFor="email"
+                      className="text-main-color "
+                    >
+                      Adres e-mail
+                    </label>
+                    <input
+                      id="email"
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
+                      placeholder="volunteering@mail.com"
+                      className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
+                      required
+                    />
+                  </div>
+                  <div className="flex flex-col w-full">
+                    <label
+                      htmlFor="phone"
+                      className="text-main-color "
+                    >
+                      Numer telefonu
+                    </label>
+                    <input
+                      id="phone"
+                      onChange={(e) => setPhone(e.target.value)}
+                      value={phone}
+                      placeholder="000-000-000"
+                      className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
+                      required
+                    />
+                  </div>
                 </div>
                 <button className="flex flex-row rounded-lg bg-main-color text-white h-12 w-full text-xl justify-center items-center mt-[1.9rem] transition ease-in-out hover:scale-110 hover:bg-main-color-2 duration-300 my-2">
                   <div className="px-2">Dodaj</div>
@@ -215,7 +255,6 @@ const Add: NextPage = () => {
               </form>
             </div>
           </div>
-          
         </main>
       ) : (
         <>
@@ -236,7 +275,6 @@ const Add: NextPage = () => {
               </a>{" "}
               numerem telefonu aby dodać wolontariat
             </div>
-            
           </main>
         </>
       )}
