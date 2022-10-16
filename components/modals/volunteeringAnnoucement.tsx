@@ -1,12 +1,7 @@
-import { CardEvents } from "../cardEvents";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 import { MdOutlineCorporateFare } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { EventButton } from "../eventButton";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdOutlineFavorite } from "react-icons/md";
-import { MdNotificationsNone } from "react-icons/md";
-import { MdNotificationsActive } from "react-icons/md";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { useState } from "react";
 
@@ -63,7 +58,7 @@ export const VolunteeringAnnoucement = ({
             <span className="text-white text-4xl font-semibold ml-6 my-2">
               {volunteeringName}
             </span>
-            <div className="flex  md:flex-row lg:flex-row xl:flex-row justify-end mr-4 xl:mr-12 gap-3 text-main-color">
+            <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-end mr-4 xl:mr-12 gap-3 text-main-color">
               <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
                 {isPaid ? "Płatny" : "Bezpłatny"}
               </span>

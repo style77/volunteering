@@ -44,13 +44,26 @@ const volunteeringTypes: any = {
 
 } 
 
-const volunteeringTypesArray = [
-  { value: "hospice", label: "Hospicyjny" },
-  { value: "sport", label: "Sportowy" },
-  { value: "ngo", label: "NGO" },
-  { value: "elderly", label: "Pomoc seniorom" },
-  { value: "animals", label: "Schronisko" },
+const cities:Array<String> = [
+  "Bydgoszcz",
+  "Gdańsk",
+  "Warszawa",
+  "Kraków",
+  "Poznań",
+  "Wrocław",
+  "Szczecin",
+  "Olsztyn",
+  "Toruń"
 ]
+
+const volunteeringTypesArray = {
+  "hospice":"Hospicyjny",
+  "sport": "Sportowy",
+  "ngo": "NGO",
+  "elderly":"Pomoc seniorom",
+  "animals":"Schronisko",
+}
+
 
 const volunteeringPaidTypes = {
   "paid": "Płatna",
@@ -64,7 +77,7 @@ const volunteeringPaidToBoolean: any = {
 
 const volunteeringTerms: any = {
   "one-time": "Jednorazowy",
-  "periodic": "Okresowy",
+  "periodic": "Długoterminowy",
 };
 
 export {
@@ -74,4 +87,5 @@ export {
   volunteeringPaidTypes,
   volunteeringPaidToBoolean,
   volunteeringTerms,
+  cities
 };
