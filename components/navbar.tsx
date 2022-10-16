@@ -147,18 +147,14 @@ export const Navbar = () => {
               />
             </div>
             <div className="p-3 ml-2 block lg:hidden">
-              <img
-                src="/icon.svg"
-                className="h-5"
-                alt="Volunteering logo"
-              />
+              <img src="/icon.svg" className="h-5" alt="Volunteering logo" />
             </div>
           </a>
           <div className="flex xl:order-2">
             <Link href="/contact">
               <button
                 type="button"
-                className="hidden xl:block text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center"
+                className="hidden xl:block shadow-md text-background-color bg-main-color hover:bg-main-color-2 transition focus:outline-none font-medium font-inter rounded-lg text-sm px-5 py-2.5 text-center"
               >
                 Napisz do nas
               </button>
@@ -168,13 +164,13 @@ export const Navbar = () => {
                 <div className="flex flex-row justify-center items-center">
                   {loading ? (
                     <>
-                      <div className="animate-pulse rounded-full h-10 w-10 flex mr-2 bg-zinc-400"></div>
+                      <div className="animate-pulse rounded-full h-10 w-10 flex mr-2 bg-zinc-400 shadow-md"></div>
                     </>
                   ) : (
                     <>
                       <button
                         type="button"
-                        className="flex mr-3 text-sm bg-gray-600 rounded-full xl:mr-0 focus:ring-2 focus:ring-main-color"
+                        className="flex mr-3 text-sm bg-gray-600 rounded-full xl:mr-0 focus:ring-2 shadow-md focus:ring-main-color"
                         id="user-menu-button"
                         aria-expanded="false"
                         data-dropdown-toggle="user-dropdown"
