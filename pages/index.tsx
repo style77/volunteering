@@ -60,12 +60,13 @@ const Home: NextPage = () => {
             <div className="h-screen">
               <div className="flex flex-col">
                 <h1
-                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color text-6xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color 
+                  text-7xl lg:text-7xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
                   <span
-                    className="flex font-inter text-main-color font-light select-none text-xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    className="flex font-inter text-main-color font-light select-none text-2xl xl:text-4xl -z-[1] delay-300 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     to nie tylko zajęcie, lecz chęć <br /> pomagania
@@ -107,7 +108,7 @@ const Home: NextPage = () => {
           </h2>
         </div>
 
-        <div className="flex flex-col xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center px-10 select-none">
+        <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row text-main-color gap-20 xl:gap-48 font-inter my-10 w-full justify-center xl:items-center px-10 select-none">
           <div className="flex flex-col">
             <div className="flex flex-row xl:justify-items-start justify-items-center">
               <div
@@ -173,7 +174,7 @@ const Home: NextPage = () => {
               className="font-regular text-lg delay-[600ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
               data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
             >
-              Nasza aplikacja jest prosta w użyciu i bardzo intuicyjna
+              Nasza aplikacja jest prosta w użyciu i bardzo intuicyjna.
             </p>
           </div>
         </div>
@@ -191,7 +192,7 @@ const Home: NextPage = () => {
             </h2>
           </div>
 
-          <div className="flex flex-col xl:flex-row px-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center items-center">
+          <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row px-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center items-start">
             <div className="flex flex-col basis-1/3 ">
               <span
                 className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
@@ -206,12 +207,6 @@ const Home: NextPage = () => {
                 Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
                 wolontariuszy w kilku krokach.{" "}
               </span>
-              {/* <span
-                className="absolute ml-20 -mt-4 xl:mt-0 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                1
-              </span> */}
             </div>
             <div className="flex flex-col basis-1/3">
               <span
@@ -227,12 +222,6 @@ const Home: NextPage = () => {
                 Zadeklaruj swoją chęć do udziału w wolontariacie poprzez
                 wystawienie siebie lub znalezienie wolontariatu.
               </span>
-              {/* <span
-                className="absolute ml-20 xl:ml-40 -mt-8 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                2
-              </span> */}
             </div>
             <div className="flex flex-col basis-1/3">
               <span
@@ -248,16 +237,9 @@ const Home: NextPage = () => {
                 Znajdź odpowiadający Tobie wolontariat, czekaj aż ktoś się do
                 Ciebie odezwie, dogadaj szczegóły i nieś dobro ludziom!
               </span>
-              {/* <span
-                className="absolute ml-20 xl:ml-40 -mt-6 xl:-mt-2 -z-[1] text-9xl text-main-color/50 text-inter text-bold delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
-                data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
-              >
-                3
-              </span> */}
             </div>
           </div>
         </div>
-        
       </main>
       <div
         className="hidden xl:block w-full h-8 absolute  -bottom-3 bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2"
