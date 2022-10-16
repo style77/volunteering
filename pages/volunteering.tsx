@@ -41,6 +41,14 @@ const Volunteering: NextPage = () => {
   const [volunteeringsData, setVolunteeringsData]: any = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
+    {}
+  );
+  const [
+    showVolunteeringAnnoucementModal,
+    setShowVolunteeringAnnoucementModal,
+  ] = useState(false);
+
   useEffect(() => {
     const getVolunteeringsData = async () => {
       setIsLoading(true);
@@ -132,12 +140,43 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
+              {showVolunteeringAnnoucementModal ? (
+                <VolunteeringAnnoucement
+                  volunteeringName={selectedVolunteeringData.volunteeringName}
+                  orgName={selectedVolunteeringData.fundationName}
+                  city={selectedVolunteeringData.city}
+                  isPaid={
+                    volunteeringPaidToBoolean[selectedVolunteeringData.paid]
+                  }
+                  volunteeringType={selectedVolunteeringData.image}
+                  volunteeringTerm={
+                    volunteeringTerms[selectedVolunteeringData.term]
+                  }
+                  volunteeringImage={selectedVolunteeringData.image}
+                  isFavorite={false}
+                  isNotifications={false}
+                  description="test"
+                  showVolunteeringAnnoucementModal={
+                    showVolunteeringAnnoucementModal
+                  }
+                  setShowVolunteeringAnnoucementModal={
+                    setShowVolunteeringAnnoucementModal
+                  }
+                ></VolunteeringAnnoucement>
+              ) : null}
+
               {volunteeringsData.map((volunteeringData: any) => (
                 <div
                   className="flex flex-col xl:flex-row gap-2 w-full"
                   key={volunteeringData.id}
                 >
-                  <div className="flex basis-11/12 xl:justify-center items-center">
+                  <div
+                    className="flex basis-11/12 xl:justify-center items-center cursor-pointer"
+                    onClick={() => {
+                      setSelectedVolunteeringData(volunteeringData);
+                      setShowVolunteeringAnnoucementModal(true);
+                    }}
+                  >
                     <VolunteeringCard
                       volunteeringName={volunteeringData.volunteeringName}
                       orgName={volunteeringData.fundationName}
@@ -151,7 +190,6 @@ const Volunteering: NextPage = () => {
                       }
                       volunteeringImage={volunteeringData.image}
                     />
-                    {/* <VolunteeringAnnoucement volunteeringName={volunteeringData.volunteeringName} orgName={volunteeringData.fundationName} city={volunteeringData.city} isPaid={volunteeringPaidToBoolean[volunteeringData.paid]} volunteeringType={volunteeringData.image} volunteeringTerm={volunteeringTerms[volunteeringData.term]} volunteeringImage={volunteeringData.image} isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement> */}
                   </div>
                   <div className="flex justify-center items-center px-6">
                     {user && user?.eventsData ? (
@@ -179,18 +217,6 @@ const Volunteering: NextPage = () => {
             </>
           )}
         </div>
-        <VolunteeringAnnoucement
-          volunteeringName="kupa"
-          orgName="kupa"
-          city="kupa"
-          isPaid={false}
-          volunteeringType="Ddad"
-          volunteeringTerm="dd"
-          volunteeringImage=""
-          isFavorite={false}
-          isNotifications={false}
-          description="test"
-        ></VolunteeringAnnoucement>
       </main>
     </>
   );

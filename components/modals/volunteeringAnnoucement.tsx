@@ -8,7 +8,7 @@ import { MdOutlineFavorite } from "react-icons/md";
 import { MdNotificationsNone } from "react-icons/md";
 import { MdNotificationsActive } from "react-icons/md";
 import { MdChatBubbleOutline } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   volunteeringName: string;
@@ -21,6 +21,8 @@ type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
   description: string;
+  showVolunteeringAnnoucementModal: boolean;
+  setShowVolunteeringAnnoucementModal: any;
 };
 
 export const VolunteeringAnnoucement = ({
@@ -34,7 +36,11 @@ export const VolunteeringAnnoucement = ({
   isFavorite,
   isNotifications,
   description,
+  showVolunteeringAnnoucementModal,
+  setShowVolunteeringAnnoucementModal,
 }: Props) => {
+  const modal = useRef<HTMLDivElement>(null);
+
   const [favorite, setFavorite] = useState(isFavorite);
   const [notification, setNotification] = useState(isNotifications);
 
@@ -50,10 +56,43 @@ export const VolunteeringAnnoucement = ({
     // there will be all the logic to handle the favorite switch
   };
 
+  const handleToggleModal = (value: boolean) => {
+    if (modal.current) {
+      if (value) modal.current.classList.toggle("hidden");
+      setTimeout(() => {
+        if (value) {
+          modal.current!.classList.replace("opacity-0", "opacity-100");
+        } else {
+          modal.current!.classList.replace("opacity-100", "opacity-0");
+          setTimeout(() => {
+            modal.current?.classList.toggle("hidden");
+          }, 500);
+        }
+      }, 1);
+    }
+  };
+
+  useEffect(() => {
+    if (showVolunteeringAnnoucementModal) {
+      handleToggleModal(true);
+    } else {
+      handleToggleModal(false);
+    }
+  }, [showVolunteeringAnnoucementModal]);
+
   return (
     <>
-      <main className="flex min-h-screen font-inter">
-        <div className="bg-main-color rounded-lg h-2/3  w-2/3">
+      <div
+        id="forgot-password-modal"
+        ref={modal}
+        tabIndex={-1}
+        className="opacity-0 hidden transition fixed inset-0 z-[1000] font-inter"
+      >
+        <div
+          className="fixed w-screen h-screen bg-black opacity-50"
+          onClick={() => setShowVolunteeringAnnoucementModal(false)}
+        ></div>
+        <div className="bg-main-color rounded-lg h-2/3 w-2/3 fixed hidden opacity-0">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
               <button className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100">
@@ -87,7 +126,7 @@ export const VolunteeringAnnoucement = ({
             </div>
           </div>
           <div className="flex w-full justify-center gap-3 text-main-color my-6">
-          <EventButton
+            <EventButton
               icon="favorite"
               isSelected={favorite}
               handleEvent={handleFavorite}
@@ -102,7 +141,7 @@ export const VolunteeringAnnoucement = ({
             </button>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

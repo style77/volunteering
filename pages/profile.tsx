@@ -18,7 +18,7 @@ import { db } from "../saas/firebase";
 import { DateTime } from "luxon";
 import { toggleLogin } from "../components/modals/login";
 import { Badge } from "../components/badge";
-import { VerificationModal } from "../components/modals/verificationModal";
+import { VerificationModal } from "../components/modals/verification";
 import { EditableInput } from "../components/editableInput";
 import { updateProfile } from "firebase/auth";
 import { humanizeError } from "../constants";
