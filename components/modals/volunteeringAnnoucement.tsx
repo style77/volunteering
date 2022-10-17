@@ -18,7 +18,6 @@ type Props = {
   description: string;
   showVolunteeringAnnoucementModal: boolean;
   setShowVolunteeringAnnoucementModal: any;
-
 };
 
 export const VolunteeringAnnoucement = ({
@@ -54,25 +53,22 @@ export const VolunteeringAnnoucement = ({
   };
 
   const handleToggleModal = (value: boolean) => {
-    if (modal.current) {
-      if (value) {
-        modal.current.classList.toggle("hidden");
-        backdrop.current!.classList.remove("hidden");
-      } else {
-        backdrop.current!.classList.add("hidden");
-      }
-
-      setTimeout(() => {
-        if (value) {
-          modal.current!.classList.replace("opacity-0", "opacity-100");
-        } else {
-          modal.current!.classList.replace("opacity-100", "opacity-0");
-          setTimeout(() => {
-            modal.current?.classList.toggle("hidden");
-          }, 500);
-        }
-      }, 1);
+    if (value) {
+      modal.current!.classList.remove("hidden");
+      backdrop.current!.classList.remove("hidden");
     }
+
+    setTimeout(() => {
+      if (value) {
+        modal.current!.classList.replace("opacity-0", "opacity-100");
+      } else {
+        modal.current!.classList.replace("opacity-100", "opacity-0");
+        setTimeout(() => {
+          modal.current!.classList.add("hidden");
+          backdrop.current!.classList.add("hidden");
+        }, 500);
+      }
+    }, 1);
   };
 
   useEffect(() => {
@@ -95,7 +91,10 @@ export const VolunteeringAnnoucement = ({
       >
         <div
           className="fixed hidden w-screen h-screen -z-[1] bg-black opacity-50"
-          onClick={() => setShowVolunteeringAnnoucementModal(false)}
+          onClick={() => {
+            setShowVolunteeringAnnoucementModal(false);
+            handleToggleModal(false);
+          }}
           ref={backdrop}
         ></div>
         <div className="bg-main-color rounded-lg h-2/3 w-2/3 z-20 justify-center items-center">

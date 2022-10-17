@@ -61,7 +61,7 @@ const Home: NextPage = () => {
               <div className="flex flex-col">
                 <h1
                   className="flex flex-col font-inter font-semibold select-none text-transparent animate-ltr-linear-infinite bg-clip-text bg-gradient-to-r from-main-color via-main-color-2 to-main-color 
-                  text-7xl lg:text-7xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                  text-5xl lg:text-7xl xl:text-9xl -z-[1] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                   data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                 >
                   Wolontariat
