@@ -202,7 +202,7 @@ const Add: NextPage = () => {
                   <input
                     id="volunteering-image"
                     type="file"
-                    onChange={(e) => setAvatar(e.target.files[0])}
+                    onChange={(e:any) => setAvatar(e.target?.files[0])}
                     placeholder="wymiary obrazu muszą być kwadratem np. 64px x 64px"
                     className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
