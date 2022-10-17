@@ -180,7 +180,7 @@ export const Navbar = () => {
                         <span className="sr-only">Open user menu</span>
                         <img
                           className="w-8 h-8 rounded-full"
-                          src={data.photo}
+                          src={data.photoURL}
                           alt="user avatar"
                         />
                       </button>

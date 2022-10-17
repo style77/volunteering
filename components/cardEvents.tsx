@@ -77,9 +77,12 @@ export const CardEvents = ({
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: any) => {
           querySnapshot.forEach((doc: any) => {
+            console.log(user)
+            let z = user.eventsData[type] || []
             updateDoc(doc.ref, {
               eventsData: {
-                [type]: [...user.eventsData[type], volunteeringData.id],
+                [type]: [...z, volunteeringData.id],
+                ...user.eventsData,
               },
             });
           });
@@ -91,7 +94,12 @@ export const CardEvents = ({
           querySnapshot.forEach((doc: any) => {
             updateDoc(doc.ref, {
               eventsData: {
-                [type]: [...user.eventsData[type].filter((id: string) => id !== volunteeringData.id)],
+                [type]: [
+                  ...user.eventsData[type].filter(
+                    (id: string) => id !== volunteeringData.id
+                  ),
+                ],
+                ...user.eventsData,
               },
             });
           });

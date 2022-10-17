@@ -3,7 +3,7 @@ import { MdOutlineCorporateFare } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import { EventButton } from "../eventButton";
 import { MdChatBubbleOutline } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 type Props = {
   volunteeringName: string;
@@ -16,6 +16,8 @@ type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
   description: string;
+  showVolunteeringAnnoucementModal: boolean;
+  setShowVolunteeringAnnoucementModal: any;
 };
 
 export const VolunteeringAnnoucement = ({
@@ -29,7 +31,12 @@ export const VolunteeringAnnoucement = ({
   isFavorite,
   isNotifications,
   description,
+  showVolunteeringAnnoucementModal,
+  setShowVolunteeringAnnoucementModal,
 }: Props) => {
+  const modal = useRef<HTMLDivElement>(null);
+  const backdrop = useRef<HTMLDivElement>(null);
+
   const [favorite, setFavorite] = useState(isFavorite);
   const [notification, setNotification] = useState(isNotifications);
 
@@ -45,13 +52,58 @@ export const VolunteeringAnnoucement = ({
     // there will be all the logic to handle the favorite switch
   };
 
+  const handleToggleModal = (value: boolean) => {
+    if (modal.current) {
+      if (value) {
+        modal.current.classList.toggle("hidden");
+        backdrop.current?.classList.remove("hidden");
+      } else {
+        backdrop.current?.classList.add("hidden");
+      }
+
+      setTimeout(() => {
+        if (value) {
+          modal.current!.classList.replace("opacity-0", "opacity-100");
+        } else {
+          modal.current!.classList.replace("opacity-100", "opacity-0");
+          setTimeout(() => {
+            modal.current?.classList.toggle("hidden");
+          }, 500);
+        }
+      }, 1);
+    }
+  };
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (showVolunteeringAnnoucementModal) {
+        handleToggleModal(true);
+      } else {
+        handleToggleModal(false);
+      }
+    }, 1);
+  }, [showVolunteeringAnnoucementModal]);
+
   return (
     <>
-      <main className="flex min-h-screen font-inter">
-        <div className="bg-main-color rounded-lg h-2/3  w-2/3">
+      <div
+        id="forgot-password-modal"
+        ref={modal}
+        tabIndex={-1}
+        className="opacity-0 hidden transition fixed inset-0 font-inter justify-center items-center h-screen w-screen"
+      >
+        <div
+          className="fixed hidden w-screen h-screen -z-[1] bg-black opacity-50"
+          onClick={() => setShowVolunteeringAnnoucementModal(false)}
+          ref={backdrop}
+        ></div>
+        <div className="bg-main-color rounded-lg h-2/3 w-2/3 z-20 justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
-              <button className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100">
+              <button
+                className="text-4xl text-white transition ease-in-out hover:scale-110 duration-300 delay-100"
+                onClick={() => setShowVolunteeringAnnoucementModal(false)}
+              >
                 <AiOutlineCloseCircle />
               </button>
             </div>
@@ -82,7 +134,7 @@ export const VolunteeringAnnoucement = ({
             </div>
           </div>
           <div className="flex w-full justify-center gap-3 text-main-color my-6">
-          <EventButton
+            <EventButton
               icon="favorite"
               isSelected={favorite}
               handleEvent={handleFavorite}
@@ -97,7 +149,7 @@ export const VolunteeringAnnoucement = ({
             </button>
           </div>
         </div>
-      </main>
+      </div>
     </>
   );
 };

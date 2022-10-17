@@ -2,16 +2,6 @@ import { MdOutlineCorporateFare } from "react-icons/md";
 import { IoLocationOutline } from "react-icons/io5";
 import Image from "next/image";
 
-type Props = {
-  volunteeringName: string;
-  orgName: string;
-  city: string;
-  isPaid: boolean;
-  volunteeringType: string;
-  volunteeringTerm: string;
-  volunteeringImage: string;
-};
-
 export const SkeletonVolunteeringCard = () => {
   return (
     <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
@@ -49,6 +39,15 @@ export const SkeletonVolunteeringCard = () => {
   );
 };
 
+type Props = {
+  volunteeringName: string;
+  orgName: string;
+  city: string;
+  isPaid: boolean;
+  volunteeringType: string;
+  volunteeringTerm: string;
+  volunteeringImage: string;
+};
 
 export const VolunteeringCard = ({
   volunteeringName,
@@ -61,7 +60,9 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
+      <div
+        className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md"
+      >
         <div className="xl:ml-4 mt-6">
           <img
             src={volunteeringImage}

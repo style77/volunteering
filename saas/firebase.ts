@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: `${process.env.apiKey}`,
@@ -18,4 +19,6 @@ const auth = getAuth(app);
 auth.languageCode = "pl"
 
 const db = getFirestore(app);
-export { auth, db };
+const storage = getStorage(app)
+
+export { auth, db, storage };

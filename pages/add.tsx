@@ -4,7 +4,7 @@ import Head from "next/head";
 import { FormEvent, useEffect, useState } from "react";
 import { showAlert } from "../components/alert";
 import { toggleLogin } from "../components/modals/login";
-import { volunteeringTypesArray } from "../constants";
+import { volunteeringTypes, volunteeringTypesArray } from "../constants";
 import useAuth from "../hooks/useAuth";
 import { db } from "../saas/firebase";
 import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
@@ -134,10 +134,8 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected>
-                      Wybierz
-                    </option>
-                    {volunteeringTypesArray.map((type) => (
+                    <option selected>Wybierz</option>
+                    {volunteeringTypes.map((type: any) => (
                       <option key={type.value} value={type.value}>
                         {type.label}
                       </option>
@@ -158,9 +156,7 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected>
-                      Wybierz
-                    </option>
+                    <option selected>Wybierz</option>
                     <option value="one-time">Jednorazowy</option>
                     <option value="periodic">Okresowy</option>
                   </select>
@@ -177,9 +173,7 @@ const Add: NextPage = () => {
                     className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
                   >
-                    <option selected>
-                      Wybierz
-                    </option>
+                    <option selected>Wybierz</option>
                     <option value="unpaid">Bezpłatne</option>
                     <option value="paid">Płatne </option>
                   </select>
@@ -217,10 +211,7 @@ const Add: NextPage = () => {
                     Dane kontaktowe
                   </h2>
                   <div className="flex flex-col w-full">
-                    <label
-                      htmlFor="email"
-                      className="text-main-color "
-                    >
+                    <label htmlFor="email" className="text-main-color ">
                       Adres e-mail
                     </label>
                     <input
@@ -233,10 +224,7 @@ const Add: NextPage = () => {
                     />
                   </div>
                   <div className="flex flex-col w-full">
-                    <label
-                      htmlFor="phone"
-                      className="text-main-color "
-                    >
+                    <label htmlFor="phone" className="text-main-color ">
                       Numer telefonu
                     </label>
                     <input

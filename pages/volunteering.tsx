@@ -42,6 +42,14 @@ const Volunteering: NextPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [allVolunteeringsData, setAllVolunteeringsData]:any=useState([])
 
+  const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
+    {}
+  );
+  const [
+    showVolunteeringAnnoucementModal,
+    setShowVolunteeringAnnoucementModal,
+  ] = useState(false);
+
   useEffect(() => {
     const getVolunteeringsData = async () => {
       setIsLoading(true);
@@ -92,7 +100,11 @@ const Volunteering: NextPage = () => {
         <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
           Wyszukiwanie wolontariatu
         </div>
-        <SearchBar allVolunteeringsData={allVolunteeringsData} volunteeringsData={volunteeringsData} setVolunteeringsData={setVolunteeringsData} />
+        <SearchBar
+          allVolunteeringsData={allVolunteeringsData}
+          volunteeringsData={volunteeringsData}
+          setVolunteeringsData={setVolunteeringsData}
+        />
         <div className="text-main-color text-3xl text-regular my-6 ml-6">
           Wyniki wyszukiwania
         </div>
@@ -135,12 +147,52 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
+              <VolunteeringAnnoucement
+                volunteeringName={selectedVolunteeringData.volunteeringName}
+                orgName={selectedVolunteeringData.fundationName}
+                city={selectedVolunteeringData.city}
+                isPaid={
+                  volunteeringPaidToBoolean[selectedVolunteeringData.paid]
+                }
+                volunteeringType={
+                  volunteeringTypes[selectedVolunteeringData.type]
+                }
+                volunteeringTerm={
+                  volunteeringTerms[selectedVolunteeringData.term]
+                }
+                volunteeringImage={selectedVolunteeringData.image}
+                isFavorite={
+                  user.eventsData?.favorite?.includes(
+                    selectedVolunteeringData.id
+                  ) || false
+                }
+                isNotifications={
+                  user.eventsData?.notifications?.includes(
+                    selectedVolunteeringData.id
+                  ) || false
+                }
+                description={selectedVolunteeringData.description}
+                showVolunteeringAnnoucementModal={
+                  showVolunteeringAnnoucementModal
+                }
+                setShowVolunteeringAnnoucementModal={
+                  setShowVolunteeringAnnoucementModal
+                }
+              ></VolunteeringAnnoucement>
+
               {volunteeringsData.map((volunteeringData: any) => (
                 <div
                   className="flex flex-col xl:flex-row gap-2 w-full"
                   key={volunteeringData.id}
                 >
-                  <div className="flex basis-11/12 xl:justify-center items-center">
+                  <div
+                    className="flex basis-11/12 xl:justify-center items-center cursor-pointer"
+                    onClick={() => {
+                      setSelectedVolunteeringData(volunteeringData);
+                      setShowVolunteeringAnnoucementModal(true);
+                      console.log(123);
+                    }}
+                  >
                     <VolunteeringCard
                       volunteeringName={volunteeringData.volunteeringName}
                       orgName={volunteeringData.fundationName}
@@ -154,7 +206,6 @@ const Volunteering: NextPage = () => {
                       }
                       volunteeringImage={volunteeringData.image}
                     />
-                    {/* <VolunteeringAnnoucement volunteeringName={volunteeringData.volunteeringName} orgName={volunteeringData.fundationName} city={volunteeringData.city} isPaid={volunteeringPaidToBoolean[volunteeringData.paid]} volunteeringType={volunteeringData.image} volunteeringTerm={volunteeringTerms[volunteeringData.term]} volunteeringImage={volunteeringData.image} isFavorite={false} isNotifications={false} description="test"></VolunteeringAnnoucement> */}
                   </div>
                   <div className="flex justify-center items-center px-6">
                     {user && user?.eventsData ? (
@@ -182,18 +233,6 @@ const Volunteering: NextPage = () => {
             </>
           )}
         </div>
-        <VolunteeringAnnoucement
-          volunteeringName="kupa"
-          orgName="kupa"
-          city="kupa"
-          isPaid={false}
-          volunteeringType="Ddad"
-          volunteeringTerm="dd"
-          volunteeringImage=""
-          isFavorite={false}
-          isNotifications={false}
-          description="test"
-        ></VolunteeringAnnoucement>
       </main>
     </>
   );
