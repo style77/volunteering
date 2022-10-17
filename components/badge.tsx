@@ -12,7 +12,7 @@ export const Badge = ({ children, bgColor = "bg-violet-500", leftIcon }: Props) 
       <div
         id="badge"
         className={
-          "rounded-lg px-2 py-1 flex items-center justify-center z-10 " +
+          "rounded-lg px-2 py-1 flex items-center justify-center z-10 select-none " +
           bgColor
         }
       >
