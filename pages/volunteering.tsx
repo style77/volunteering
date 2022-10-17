@@ -162,12 +162,10 @@ const Volunteering: NextPage = () => {
                 }
                 volunteeringImage={selectedVolunteeringData.image}
                 isFavorite={
-                  user.eventsData?.favorite?.includes(
-                    selectedVolunteeringData.id
-                  ) || false
+                  user.favorites?.includes(selectedVolunteeringData.id) || false
                 }
                 isNotifications={
-                  user.eventsData?.notifications?.includes(
+                  user.notifications?.includes(
                     selectedVolunteeringData.id
                   ) || false
                 }
@@ -208,16 +206,16 @@ const Volunteering: NextPage = () => {
                     />
                   </div>
                   <div className="flex justify-center items-center px-6">
-                    {user && user?.eventsData ? (
+                    {user ? (
                       <>
                         <CardEvents
                           isFavorite={
-                            user.eventsData?.favorite?.includes(
+                            user.favorites?.includes(
                               volunteeringData.id
                             ) || false
                           }
                           isNotifications={
-                            user.eventsData?.notifications?.includes(
+                            user.notifications?.includes(
                               volunteeringData.id
                             ) || false
                           }

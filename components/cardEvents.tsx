@@ -77,13 +77,8 @@ export const CardEvents = ({
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: any) => {
           querySnapshot.forEach((doc: any) => {
-            console.log(user)
-            let z = user.eventsData[type] || []
             updateDoc(doc.ref, {
-              eventsData: {
-                [type]: [...z, volunteeringData.id],
-                ...user.eventsData,
-              },
+              [type]: [...doc.data()[type], volunteeringData.id],
             });
           });
         });
@@ -93,14 +88,9 @@ export const CardEvents = ({
         ).then((querySnapshot: any) => {
           querySnapshot.forEach((doc: any) => {
             updateDoc(doc.ref, {
-              eventsData: {
-                [type]: [
-                  ...user.eventsData[type].filter(
-                    (id: string) => id !== volunteeringData.id
-                  ),
-                ],
-                ...user.eventsData,
-              },
+              [type]: doc
+                .data()
+                [type].filter((id: string) => id !== volunteeringData.id),
             });
           });
         });
@@ -119,7 +109,7 @@ export const CardEvents = ({
     setFavorite(isSelected);
 
     // there will be all the logic to handle the favorite switch
-    updateEventsData("favorite", isSelected ? "add" : "remove");
+    updateEventsData("favorites", isSelected ? "add" : "remove");
   };
 
   return (

@@ -20,7 +20,8 @@ export const registerUser = async (user: User, uid: string, name: string, mail: 
     email: mail,
     uid: uid,
     createdAt: new Date(),
-    eventsData: {notifications: [], favorite: []}, // There will be saved id of volonteerings that are marked as favorite or that user is subscribed to notifications
+    notifications: [],
+    favorites: [],
     badges: [], // There will be saved badges that user has earned. Hopefully we will have enough time to implement it cuz im obsessed with badges :(
     isVerified: false, // This will be used to check if user has verified his phone number
     location: "", // This will be used to save user location
