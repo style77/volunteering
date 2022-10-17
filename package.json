@@ -27,6 +27,7 @@
     "react-password-strength-bar": "^0.4.1",
     "react-phone-input-2": "^2.15.1",
     "tls": "^0.0.1",
+    "uuid": "^9.0.0",
     "vivid-studio": "^0.9.1"
   },
   "devDependencies": {

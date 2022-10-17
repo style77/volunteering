@@ -18,6 +18,7 @@ type Props = {
   description: string;
   showVolunteeringAnnoucementModal: boolean;
   setShowVolunteeringAnnoucementModal: any;
+
 };
 
 export const VolunteeringAnnoucement = ({
@@ -87,7 +88,7 @@ export const VolunteeringAnnoucement = ({
   return (
     <>
       <div
-        id="forgot-password-modal"
+        id="annucement-modal"
         ref={modal}
         tabIndex={-1}
         className="opacity-0 hidden transition fixed inset-0 font-inter justify-center items-center h-screen w-screen"

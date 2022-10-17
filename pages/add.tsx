@@ -6,8 +6,10 @@ import { showAlert } from "../components/alert";
 import { toggleLogin } from "../components/modals/login";
 import { volunteeringTypes, volunteeringTypesArray } from "../constants";
 import useAuth from "../hooks/useAuth";
-import { db } from "../saas/firebase";
+import { db, storage } from "../saas/firebase";
 import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
+import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
+import { v4 as uuidv4 } from "uuid";
 
 const Add: NextPage = () => {
   const { user, isLoggedIn } = useAuth();
@@ -18,10 +20,10 @@ const Add: NextPage = () => {
   const [type, setType] = useState("");
   const [term, setTerm] = useState("");
   const [paid, setPaid] = useState("");
-  const [image, setImage] = useState("");
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [avatar, setAvatar]: any = useState(null);
 
   const [isVerified, setIsVerified] = useState(false);
 
@@ -33,32 +35,37 @@ const Add: NextPage = () => {
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-
-    addDoc(collection(db, "volunteering"), {
-      volunteeringName,
-      fundationName,
-      city,
-      type: type || "hospice",
-      term: term || "one-time",
-      paid: paid || "unpaid",
-      image,
-      description,
-      organisator: user.uid,
-    })
-      .then(() => {
-        setVolunteeringName("");
-        setFundationName("");
-        setCity("");
-        setType("");
-        setTerm("");
-        setPaid("");
-        setImage("");
-        setDescription("");
-        showAlert("Dodano ogłoszenie wolontariatu!", "success");
-      })
-      .catch((error) => {
-        showAlert(error.message, "error-alert");
+    let ext = avatar.type.replace(/(.*)\//g, "");
+    const storageRef = ref(storage, "volunteeringAvatars/" + uuidv4() + ext);
+    uploadBytes(storageRef, avatar).then((snapshot) => {
+      getDownloadURL(storageRef).then((url) => {
+        addDoc(collection(db, "volunteering"), {
+          volunteeringName,
+          fundationName,
+          city,
+          type: type || "hospice",
+          term: term || "one-time",
+          paid: paid || "unpaid",
+          image: url,
+          description,
+          organisator: user.uid,
+        })
+          .then(() => {
+            setVolunteeringName("");
+            setFundationName("");
+            setCity("");
+            setType("");
+            setTerm("");
+            setPaid("");
+            setAvatar(null);
+            setDescription("");
+            showAlert("Dodano ogłoszenie wolontariatu!", "success");
+          })
+          .catch((error) => {
+            showAlert(error.message, "error-alert");
+          });
       });
+    });
   };
 
   return (
@@ -74,7 +81,12 @@ const Add: NextPage = () => {
           </h1>
           <div className="flex flex-row basis-3/5 mx-0 xl:mx-6 justify-center">
             <div className="flex flex-col w-4/5 xl:w-4/6 gap-3">
-              <form className="space-y-2" onSubmit={(e) => handleSubmit(e)}>
+              <form
+                className="space-y-2"
+                onSubmit={(e) => {
+                  handleSubmit(e);
+                }}
+              >
                 <div className="flex flex-col w-full">
                   <h2 className="text-2xl xl:text-4xl font-regular pt-6 text-main-color">
                     Informacje o wolontariacie
@@ -135,11 +147,13 @@ const Add: NextPage = () => {
                     required
                   >
                     <option selected>Wybierz</option>
-                    {volunteeringTypes.map((type: any) => (
-                      <option key={type.value} value={type.value}>
-                        {type.label}
-                      </option>
-                    ))}
+                    {Object.entries(volunteeringTypes).map(
+                      ([key, value]: any, i) => (
+                        <option value={key} key={key}>
+                          {value}
+                        </option>
+                      )
+                    )}
                   </select>
                 </div>
                 <div className="flex flex-col w-full">
@@ -187,8 +201,8 @@ const Add: NextPage = () => {
                   </label>
                   <input
                     id="volunteering-image"
-                    onChange={(e) => setImage(e.target.value)}
-                    value={image}
+                    type="file"
+                    onChange={(e) => setAvatar(e.target.files[0])}
                     placeholder="wymiary obrazu muszą być kwadratem np. 64px x 64px"
                     className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
