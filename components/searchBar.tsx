@@ -26,8 +26,6 @@ export const SearchBar = ({
   useEffect(() => {
     console.log(allVolunteeringsData);
       let toFiltered = allVolunteeringsData.filter((data: any) => {
-        console.log(data)
-        console.log(searchCity, searchTerm, searchType)
         return data.city === searchCity && data.type===searchType && data.term===searchTerm
       });
       
