@@ -57,9 +57,9 @@ export const VolunteeringAnnoucement = ({
     if (modal.current) {
       if (value) {
         modal.current.classList.toggle("hidden");
-        backdrop.current?.classList.remove("hidden");
+        backdrop.current!.classList.remove("hidden");
       } else {
-        backdrop.current?.classList.add("hidden");
+        backdrop.current!.classList.add("hidden");
       }
 
       setTimeout(() => {
@@ -88,10 +88,10 @@ export const VolunteeringAnnoucement = ({
   return (
     <>
       <div
-        id="annucement-modal"
+        id="annoucement-modal"
         ref={modal}
         tabIndex={-1}
-        className="opacity-0 hidden transition fixed inset-0 font-inter justify-center items-center h-screen w-screen"
+        className="opacity-0 transition fixed inset-0 font-inter justify-center items-center h-screen w-screen hidden"
       >
         <div
           className="fixed hidden w-screen h-screen -z-[1] bg-black opacity-50"

@@ -48,6 +48,8 @@ const Add: NextPage = () => {
           paid: paid || "unpaid",
           image: url,
           description,
+          phone: phone,
+          email: email,
           organisator: user.uid,
         })
           .then(() => {

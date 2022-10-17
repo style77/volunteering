@@ -162,10 +162,10 @@ const Volunteering: NextPage = () => {
                 }
                 volunteeringImage={selectedVolunteeringData.image}
                 isFavorite={
-                  user.favorites?.includes(selectedVolunteeringData.id) || false
+                  user?.favorites?.includes(selectedVolunteeringData.id) || false
                 }
                 isNotifications={
-                  user.notifications?.includes(
+                  user?.notifications?.includes(
                     selectedVolunteeringData.id
                   ) || false
                 }
