@@ -103,3 +103,4 @@ Po wolontariacie, organizator może zaznaczyć na stronie, że wolontariusz wzi�
 <summary>"Organizator doświadczony"</summary>
 - za utworzenie 5 wolontariatów (ID: 2005)
 </details>
+

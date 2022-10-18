@@ -66,7 +66,7 @@ export const VolunteeringAnnoucement = ({
         setTimeout(() => {
           modal.current!.classList.add("hidden");
           backdrop.current!.classList.add("hidden");
-        }, 500);
+        }, 300);
       }
     }, 1);
   };
@@ -87,7 +87,7 @@ export const VolunteeringAnnoucement = ({
         id="annoucement-modal"
         ref={modal}
         tabIndex={-1}
-        className="opacity-0 transition fixed inset-0 font-inter justify-center items-center h-screen w-screen hidden"
+        className="opacity-0 transition fixed inset-0 font-inter justify-center items-center h-screen w-screen hidden flex"
       >
         <div
           className="fixed hidden w-screen h-screen -z-[1] bg-black opacity-50"
@@ -97,7 +97,7 @@ export const VolunteeringAnnoucement = ({
           }}
           ref={backdrop}
         ></div>
-        <div className="bg-main-color rounded-lg h-2/3 w-2/3 z-20 justify-center items-center">
+        <div className="bg-main-color rounded-lg h-[70vh] w-[80vw] z-20 justify-center items-center">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
               <button
@@ -107,29 +107,30 @@ export const VolunteeringAnnoucement = ({
                 <AiOutlineCloseCircle />
               </button>
             </div>
-            <span className="text-white text-4xl font-semibold ml-6 my-2">
+            <span className="text-white text-4xl font-semibold ml-6">
               {volunteeringName}
             </span>
-            <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-end mr-4 xl:mr-12 gap-3 text-main-color">
-              <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
-                {isPaid ? "Płatny" : "Bezpłatny"}
-              </span>
-              <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
-                {volunteeringTerm}
-              </span>
-              <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
-                {volunteeringType}
-              </span>
+            <div className="flex flex-row">
+              <div className="flex flex-row text-white mx-6 my-3 basis-1/2">
+                <MdOutlineCorporateFare className="flex mr-1 my-1" />
+                <span>{orgName}</span>
+                <IoLocationOutline className="flex mr-1 my-1" />
+                <span>{city}</span>
+              </div>
+              <div className="flex flex-col md:flex-row lg:flex-row xl:flex-row justify-end mr-4 xl:mr-12 gap-3 text-main-color">
+                <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
+                  {isPaid ? "Płatny" : "Bezpłatny"}
+                </span>
+                <span className="rounded-lg bg-white w-28 px-20 py-2 text-center justify-center items-center flex my-2 select-none">
+                  {volunteeringTerm}
+                </span>
+                <span className="rounded-lg bg-white w-28 px-2 py-2 text-center justify-center items-center flex my-2 select-none">
+                  {volunteeringType}
+                </span>
+              </div>
             </div>
-
-            <div className="flex flex-row text-white mx-6 my-3">
-              <MdOutlineCorporateFare className="flex mr-1 my-1" />
-              <span>{orgName}</span>
-              <IoLocationOutline className="flex mr-1 my-1" />
-              <span>{city}</span>
-            </div>
-            <span className="text-white mx-6">Opis</span>
-            <div className="rounded-lg bg-white h-[20rem] w-2/3 xl:w-1/2 mx-6 my-2 text-main-color p-2">
+            <span className="text-white mx-6 flex">Opis</span>
+            <div className="rounded-lg bg-white h-[30vh] w-[40vw] mx-6 my-2 text-main-color p-2">
               {description}
             </div>
           </div>

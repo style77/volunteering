@@ -10,21 +10,23 @@ type Props = {
   volunteeringsData: any;
   setVolunteeringsData: any;
   allVolunteeringsData: any;
+  setIsLoading: any;
 };
 
 export const SearchBar = ({
   allVolunteeringsData,
   volunteeringsData,
   setVolunteeringsData,
+  setIsLoading,
 }: Props) => {
   const [searchCity, setSearchCity] = useState("");
   const [searchType, setSearchType] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
-  const [filtered, setFiltered]: any = useState([]);
-  
+
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault()
-    let filtered = allVolunteeringsData
+    setIsLoading(true)
+    e.preventDefault();
+    let filtered = allVolunteeringsData;
     if (searchCity) {
       filtered = filtered.filter((volunteering: any) =>
         volunteering.city.toLowerCase().includes(searchCity.toLowerCase())
@@ -41,13 +43,13 @@ export const SearchBar = ({
       );
     }
     setVolunteeringsData(filtered);
-  }
+    setIsLoading(false)
+  };
 
   return (
     <>
       <div className="flex flex-col md:flex-row font-inter font-light justify-center mx-12">
         <div className="flex flex-col md:flex-row gap-3 w-full items-center">
-          
           <div className="flex flex-col w-80">
             <label htmlFor="search-city" className="text-main-color ">
               Miasto
@@ -57,7 +59,7 @@ export const SearchBar = ({
               onChange={(e) => setSearchCity(e.target.value)}
               className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
             >
-              <option selected disabled>
+              <option selected value="">
                 Wybierz
               </option>
               {cities.map((city: any) => (
@@ -76,7 +78,7 @@ export const SearchBar = ({
               onChange={(e) => setSearchType(e.target.value)}
               className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
             >
-              <option selected disabled>
+              <option selected value="">
                 Wybierz
               </option>
               {Object.entries(volunteeringTypes).map(([key, value]: any, i) => (
@@ -95,7 +97,7 @@ export const SearchBar = ({
               onChange={(e) => setSearchTerm(e.target.value)}
               className="h-12 rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
             >
-              <option selected disabled>
+              <option selected value="">
                 Wybierz
               </option>
 
@@ -109,7 +111,6 @@ export const SearchBar = ({
           <button
             className="flex flex-row rounded-lg bg-main-color disabled:bg-zinc-300 disabled:hover:scale-100 text-white h-12 w-40 text-xl justify-center items-center mt-[1.9rem] transition ease-in-out hover:scale-110 hover:bg-main-color-2 duration-300 my-2"
             onClick={handleSubmit}
-            disabled={(searchCity === "" && searchType === "" && searchTerm === "")}
           >
             <div className="px-2">Szukaj</div>
             <div>

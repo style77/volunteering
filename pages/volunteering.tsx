@@ -22,25 +22,13 @@ import {
 import useAuth from "../hooks/useAuth";
 import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
 
-type VolunteeringData = {
-  volunteeringName: string;
-  fundationName: string;
-  city: string;
-  type: string;
-  term: string;
-  paid: string;
-  image: string;
-  description: string;
-  organisator: string;
-};
-
 const Volunteering: NextPage = () => {
   const { user } = useAuth();
 
   const [account, setUser] = useState({});
   const [volunteeringsData, setVolunteeringsData]: any = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [allVolunteeringsData, setAllVolunteeringsData]:any=useState([])
+  const [allVolunteeringsData, setAllVolunteeringsData]: any = useState([]);
 
   const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
     {}
@@ -62,7 +50,7 @@ const Volunteering: NextPage = () => {
 
       setVolunteeringsData(staticVolunteeringsData);
 
-      setAllVolunteeringsData(staticVolunteeringsData)
+      setAllVolunteeringsData(staticVolunteeringsData);
 
       setIsLoading(false);
     };
@@ -104,9 +92,10 @@ const Volunteering: NextPage = () => {
           allVolunteeringsData={allVolunteeringsData}
           volunteeringsData={volunteeringsData}
           setVolunteeringsData={setVolunteeringsData}
+          setIsLoading={setIsLoading}
         />
         <div className="text-main-color text-3xl text-regular my-6 ml-6">
-          Wyniki wyszukiwania
+          Wyniki wyszukiwania: {volunteeringsData.length}
         </div>
 
         <div className="flex flex-col gap-8">
@@ -147,36 +136,39 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
-              <VolunteeringAnnoucement
-                volunteeringName={selectedVolunteeringData.volunteeringName}
-                orgName={selectedVolunteeringData.fundationName}
-                city={selectedVolunteeringData.city}
-                isPaid={
-                  volunteeringPaidToBoolean[selectedVolunteeringData.paid]
-                }
-                volunteeringType={
-                  volunteeringTypes[selectedVolunteeringData.type]
-                }
-                volunteeringTerm={
-                  volunteeringTerms[selectedVolunteeringData.term]
-                }
-                volunteeringImage={selectedVolunteeringData.image}
-                isFavorite={
-                  user?.favorites?.includes(selectedVolunteeringData.id) || false
-                }
-                isNotifications={
-                  user?.notifications?.includes(
-                    selectedVolunteeringData.id
-                  ) || false
-                }
-                description={selectedVolunteeringData.description}
-                showVolunteeringAnnoucementModal={
-                  showVolunteeringAnnoucementModal
-                }
-                setShowVolunteeringAnnoucementModal={
-                  setShowVolunteeringAnnoucementModal
-                }
-              ></VolunteeringAnnoucement>
+              <div className="hidden xl:flex">
+                <VolunteeringAnnoucement
+                  volunteeringName={selectedVolunteeringData.volunteeringName}
+                  orgName={selectedVolunteeringData.fundationName}
+                  city={selectedVolunteeringData.city}
+                  isPaid={
+                    volunteeringPaidToBoolean[selectedVolunteeringData.paid]
+                  }
+                  volunteeringType={
+                    volunteeringTypes[selectedVolunteeringData.type]
+                  }
+                  volunteeringTerm={
+                    volunteeringTerms[selectedVolunteeringData.term]
+                  }
+                  volunteeringImage={selectedVolunteeringData.image}
+                  isFavorite={
+                    user?.favorites?.includes(selectedVolunteeringData.id) ||
+                    false
+                  }
+                  isNotifications={
+                    user?.notifications?.includes(
+                      selectedVolunteeringData.id
+                    ) || false
+                  }
+                  description={selectedVolunteeringData.description}
+                  showVolunteeringAnnoucementModal={
+                    showVolunteeringAnnoucementModal
+                  }
+                  setShowVolunteeringAnnoucementModal={
+                    setShowVolunteeringAnnoucementModal
+                  }
+                ></VolunteeringAnnoucement>
+              </div>
 
               {volunteeringsData.map((volunteeringData: any) => (
                 <div
@@ -184,7 +176,7 @@ const Volunteering: NextPage = () => {
                   key={volunteeringData.id}
                 >
                   <div
-                    className="flex basis-11/12 xl:justify-center items-center cursor-pointer"
+                    className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
                     onClick={() => {
                       setSelectedVolunteeringData(volunteeringData);
                       setShowVolunteeringAnnoucementModal(true);
@@ -210,14 +202,12 @@ const Volunteering: NextPage = () => {
                       <>
                         <CardEvents
                           isFavorite={
-                            user.favorites?.includes(
-                              volunteeringData.id
-                            ) || false
+                            user.favorites?.includes(volunteeringData.id) ||
+                            false
                           }
                           isNotifications={
-                            user.notifications?.includes(
-                              volunteeringData.id
-                            ) || false
+                            user.notifications?.includes(volunteeringData.id) ||
+                            false
                           }
                           volunteeringData={volunteeringData}
                         />

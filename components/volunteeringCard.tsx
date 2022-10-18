@@ -60,13 +60,11 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div
-        className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md"
-      >
+      <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
         <div className="xl:ml-4 mt-6">
           <img
             src={volunteeringImage}
-            className="w-32 hidden xl:block rounded-full"
+            className="w-32 hidden xl:block rounded-full shadow-md"
             alt={`${volunteeringName} logo`}
             onError={(e) => {
               e.currentTarget.src = "/images/placeholder.png";
@@ -74,7 +72,9 @@ export const VolunteeringCard = ({
           />
         </div>
         <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">
-          <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
+          <div className="font-semibold text-3xl mb-6">
+            {volunteeringName}
+          </div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
               <MdOutlineCorporateFare className="flex mr-1 my-1"></MdOutlineCorporateFare>
@@ -86,14 +86,14 @@ export const VolunteeringCard = ({
             </div>
           </div>
           <div className="xl:hidden select-none flex text-sm flex-row gap-2 mt-5 px-2 font-regular text-main-color w-full items-end">
-            <div className="rounded-lg bg-white text-center py-2 px-2 my-6">
+            <div className="rounded-lg bg-white text-center py-2 px-2 my-6 shadow-md">
               {isPaid ? "Płatny" : "Bezpłatny"}
             </div>
             <div className="flex flex-row gap-2 my-6">
-              <div className="rounded-lg bg-white px-2 py-2 text-center">
+              <div className="rounded-lg bg-white px-2 py-2 text-center shadow-md">
                 {volunteeringType}
               </div>
-              <div className="rounded-lg bg-white px-2 py-2 text-center">
+              <div className="rounded-lg bg-white px-2 py-2 text-center shadow-md">
                 {volunteeringTerm}
               </div>
             </div>
