@@ -209,9 +209,11 @@ export const Navbar = () => {
                             </Link>
                           </li>
                           <li>
-                            <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
-                              Moja lista
-                            </a>
+                            <Link href="myList">
+                              <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                                Moja lista
+                              </a>
+                            </Link>
                           </li>
                           <li>
                             <a
