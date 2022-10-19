@@ -1,237 +1,234 @@
-import { NextPage } from "next";
-import Head from "next/head";
+/* eslint-disable react/react-in-jsx-scope */
+import { NextPage } from "next"
+import Head from "next/head"
 import {
-  SkeletonVolunteeringCard,
-  VolunteeringCard,
-} from "../components/volunteeringCard";
+	SkeletonVolunteeringCard,
+	VolunteeringCard,
+} from "../components/volunteeringCard"
 import {
-  CardEvents,
-  NotAuthorizedCardEvents,
-  SkeletonCardEvents,
-} from "../components/cardEvents";
-import { SearchBar } from "../components/searchBar";
-import { NextSeo } from "next-seo";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../saas/firebase";
+	CardEvents,
+	NotAuthorizedCardEvents,
+	SkeletonCardEvents,
+} from "../components/cardEvents"
+import { SearchBar } from "../components/searchBar"
+import { NextSeo } from "next-seo"
+import { useEffect, useState } from "react"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../saas/firebase"
 import {
-  volunteeringPaidToBoolean,
-  volunteeringTerms,
-  volunteeringTypes,
-} from "../constants";
-import useAuth from "../hooks/useAuth";
-import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
+	volunteeringPaidToBoolean,
+	volunteeringTerms,
+	volunteeringTypes,
+} from "../constants"
+import useAuth from "../hooks/useAuth"
+import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement"
 
 const Volunteering: NextPage = () => {
-  const { user } = useAuth();
+	const { user } = useAuth()
 
-  const [account, setUser] = useState({});
-  const [volunteeringsData, setVolunteeringsData]: any = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [allVolunteeringsData, setAllVolunteeringsData]: any = useState([]);
+	const [volunteeringsData, setVolunteeringsData] = useState<Array<Record<string, any>>>([])
+	const [isLoading, setIsLoading] = useState<boolean>(true)
+	const [allVolunteeringsData, setAllVolunteeringsData] = useState<Array<Record<string, any>>>([])
 
-  const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
-    {}
-  );
-  const [
-    showVolunteeringAnnoucementModal,
-    setShowVolunteeringAnnoucementModal,
-  ] = useState(false);
+	const [selectedVolunteeringData, setSelectedVolunteeringData] = useState<Record<string, any>>({})
+	const [
+		showVolunteeringAnnoucementModal,
+		setShowVolunteeringAnnoucementModal,
+	] = useState<boolean>(false)
 
-  useEffect(() => {
-    const getVolunteeringsData = async () => {
-      setIsLoading(true);
+	useEffect(() => {
+		const getVolunteeringsData = async () => {
+			setIsLoading(true)
 
-      const querySnapshot = await getDocs(collection(db, "volunteering"));
-      const staticVolunteeringsData = querySnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      }));
+			const querySnapshot = await getDocs(collection(db, "volunteering"))
+			const staticVolunteeringsData = querySnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			}))
 
-      setVolunteeringsData(staticVolunteeringsData);
+			setVolunteeringsData(staticVolunteeringsData)
 
-      setAllVolunteeringsData(staticVolunteeringsData);
+			setAllVolunteeringsData(staticVolunteeringsData)
 
-      setIsLoading(false);
-    };
+			setIsLoading(false)
+		}
 
-    if (volunteeringsData.length === 0) getVolunteeringsData();
-  }, []);
+		if (volunteeringsData.length === 0) getVolunteeringsData()
+	}, [])
 
-  return (
-    <>
-      <NextSeo
-        title="Volunteering - Wolontariaty"
-        description="Wyszukiwarka wolontariatów w Polsce. Znajdź wolontariat dla siebie i zacznij pomagać razem z Volunteering już teraz!"
-        canonical="https://volunteering.pl/"
-        openGraph={{
-          url: "https://volunteering.pl/volunteering",
-          title: "Volunteering - Wolontariaty",
-          description:
+	return (
+		<>
+			<NextSeo
+				title="Volunteering - Wolontariaty"
+				description="Wyszukiwarka wolontariatów w Polsce. Znajdź wolontariat dla siebie i zacznij pomagać razem z Volunteering już teraz!"
+				canonical="https://volunteering.pl/"
+				openGraph={{
+					url: "https://volunteering.pl/volunteering",
+					title: "Volunteering - Wolontariaty",
+					description:
             "Wyszukiwarka wolontariatów w Polsce. Znajdź wolontariat dla siebie i zacznij pomagać razem z Volunteering już teraz!",
-          images: [
-            {
-              url: "https://volunteering.pl/favicon.ico",
-              width: 256,
-              height: 256,
-              alt: "Volunteering - Wolontariaty",
-            },
-          ],
-          site_name: "Volunteering",
-        }}
-      />
+					images: [
+						{
+							url: "https://volunteering.pl/favicon.ico",
+							width: 256,
+							height: 256,
+							alt: "Volunteering - Wolontariaty",
+						},
+					],
+					site_name: "Volunteering",
+				}}
+			/>
 
-      <Head>
-        <title>Volunteering - Wolontariaty</title>
-      </Head>
-      <main className="font-inter flex min-h-screen flex-col py-2">
-        <div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
+			<Head>
+				<title>Volunteering - Wolontariaty</title>
+			</Head>
+			<main className="font-inter flex min-h-screen flex-col py-2">
+				<div className="font-semibold text-4xl xl:text-6xl text-main-color my-6 ml-6">
           Wyszukiwanie wolontariatu
-        </div>
-        <SearchBar
-          allVolunteeringsData={allVolunteeringsData}
-          volunteeringsData={volunteeringsData}
-          setVolunteeringsData={setVolunteeringsData}
-          setIsLoading={setIsLoading}
-        />
-        <div className="text-main-color text-3xl text-regular my-6 ml-6">
+				</div>
+				<SearchBar
+					allVolunteeringsData={allVolunteeringsData}
+					volunteeringsData={volunteeringsData}
+					setVolunteeringsData={setVolunteeringsData}
+					setIsLoading={setIsLoading}
+				/>
+				<div className="text-main-color text-3xl text-regular my-6 ml-6">
           Wyniki wyszukiwania: {volunteeringsData.length}
-        </div>
+				</div>
 
-        <div className="flex flex-col gap-8">
-          {isLoading ? (
-            <>
-              <div className="flex flex-col xl:flex-row gap-2 w-full">
-                <div className="flex basis-11/12 xl:justify-center items-center">
-                  <SkeletonVolunteeringCard />
-                </div>
-                <div className="flex justify-start items-center px-6">
-                  <SkeletonCardEvents />
-                </div>
-              </div>
-              <div className="flex flex-col xl:flex-row gap-2 w-full">
-                <div className="flex basis-11/12 xl:justify-center items-center">
-                  <SkeletonVolunteeringCard />
-                </div>
-                <div className="flex justify-start items-center px-6">
-                  <SkeletonCardEvents />
-                </div>
-              </div>
-              <div className="flex flex-col xl:flex-row gap-2 w-full">
-                <div className="flex basis-11/12 xl:justify-center items-center">
-                  <SkeletonVolunteeringCard />
-                </div>
-                <div className="flex justify-start items-center px-6">
-                  <SkeletonCardEvents />
-                </div>
-              </div>
-              <div className="flex flex-col xl:flex-row gap-2 w-full">
-                <div className="flex basis-11/12 xl:justify-center items-center">
-                  <SkeletonVolunteeringCard />
-                </div>
-                <div className="flex justify-start items-center px-6">
-                  <SkeletonCardEvents />
-                </div>
-              </div>
-            </>
-          ) : (
-            <>
-              <div>
-                <VolunteeringAnnoucement
-                  volunteeringName={selectedVolunteeringData.volunteeringName}
-                  orgName={selectedVolunteeringData.fundationName}
-                  city={selectedVolunteeringData.city}
-                  isPaid={
-                    volunteeringPaidToBoolean[selectedVolunteeringData.paid]
-                  }
-                  volunteeringType={
-                    volunteeringTypes[selectedVolunteeringData.type]
-                  }
-                  volunteeringTerm={
-                    volunteeringTerms[selectedVolunteeringData.term]
-                  }
-                  volunteeringImage={selectedVolunteeringData.image}
-                  isFavorite={
-                    user?.favorites?.includes(selectedVolunteeringData.id) ||
+				<div className="flex flex-col gap-8">
+					{isLoading ? (
+						<>
+							<div className="flex flex-col xl:flex-row gap-2 w-full">
+								<div className="flex basis-11/12 xl:justify-center items-center">
+									<SkeletonVolunteeringCard />
+								</div>
+								<div className="flex justify-start items-center px-6">
+									<SkeletonCardEvents />
+								</div>
+							</div>
+							<div className="flex flex-col xl:flex-row gap-2 w-full">
+								<div className="flex basis-11/12 xl:justify-center items-center">
+									<SkeletonVolunteeringCard />
+								</div>
+								<div className="flex justify-start items-center px-6">
+									<SkeletonCardEvents />
+								</div>
+							</div>
+							<div className="flex flex-col xl:flex-row gap-2 w-full">
+								<div className="flex basis-11/12 xl:justify-center items-center">
+									<SkeletonVolunteeringCard />
+								</div>
+								<div className="flex justify-start items-center px-6">
+									<SkeletonCardEvents />
+								</div>
+							</div>
+							<div className="flex flex-col xl:flex-row gap-2 w-full">
+								<div className="flex basis-11/12 xl:justify-center items-center">
+									<SkeletonVolunteeringCard />
+								</div>
+								<div className="flex justify-start items-center px-6">
+									<SkeletonCardEvents />
+								</div>
+							</div>
+						</>
+					) : (
+						<>
+							<div>
+								<VolunteeringAnnoucement
+									volunteeringName={selectedVolunteeringData.volunteeringName}
+									orgName={selectedVolunteeringData.fundationName}
+									city={selectedVolunteeringData.city}
+									isPaid={
+										volunteeringPaidToBoolean[selectedVolunteeringData.paid]
+									}
+									volunteeringType={
+										volunteeringTypes[selectedVolunteeringData.type]
+									}
+									volunteeringTerm={
+										volunteeringTerms[selectedVolunteeringData.term]
+									}
+									isFavorite={
+										user?.favorites?.includes(selectedVolunteeringData.id) ||
                     false
-                  }
-                  isNotifications={
-                    user?.notifications?.includes(selectedVolunteeringData.id) ||
+									}
+									isNotifications={
+										user?.notifications?.includes(selectedVolunteeringData.id) ||
                     false
-                  }
-                  description={selectedVolunteeringData.description}
-                  showVolunteeringAnnoucementModal={
-                    showVolunteeringAnnoucementModal
-                  }
-                  setShowVolunteeringAnnoucementModal={
-                    setShowVolunteeringAnnoucementModal
-                  }
-                  volunteeringId={selectedVolunteeringData.id}
-                  user={user}
-                  phone={selectedVolunteeringData.phone}
-                  email={selectedVolunteeringData.email}
-                />
-              </div>
+									}
+									description={selectedVolunteeringData.description}
+									showVolunteeringAnnoucementModal={
+										showVolunteeringAnnoucementModal
+									}
+									setShowVolunteeringAnnoucementModal={
+										setShowVolunteeringAnnoucementModal
+									}
+									volunteeringId={selectedVolunteeringData.id}
+									user={user!}
+									phone={selectedVolunteeringData.phone}
+									email={selectedVolunteeringData.email}
+								/>
+							</div>
 
-              {volunteeringsData.map((volunteeringData: any) => (
-                <div
-                  className="flex flex-col xl:flex-row gap-2 w-full"
-                  key={volunteeringData.id}
-                >
-                  <div
-                    className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
-                    onClick={() => {
-                      setSelectedVolunteeringData(volunteeringData);
-                      setShowVolunteeringAnnoucementModal(true);
-                      console.log(123);
-                    }}
-                  >
-                    <VolunteeringCard
-                      volunteeringName={volunteeringData.volunteeringName}
-                      orgName={volunteeringData.fundationName}
-                      city={volunteeringData.city}
-                      isPaid={volunteeringPaidToBoolean[volunteeringData.paid]}
-                      volunteeringType={
-                        volunteeringTypes[volunteeringData.type]
-                      }
-                      volunteeringTerm={
-                        volunteeringTerms[volunteeringData.term]
-                      }
-                      volunteeringImage={volunteeringData.image}
-                    />
-                  </div>
-                  <div className="flex justify-center items-center px-6">
-                    {user ? (
-                      <>
-                        <CardEvents
-                          isFavorite={
-                            user?.favorites?.includes(volunteeringData.id) ||
+							{volunteeringsData.map((volunteeringData: Record<string, any>) => (
+								<div
+									className="flex flex-col xl:flex-row gap-2 w-full"
+									key={volunteeringData.id}
+								>
+									<div
+										className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
+										onClick={() => {
+											setSelectedVolunteeringData(volunteeringData)
+											setShowVolunteeringAnnoucementModal(true)
+											console.log(123)
+										}}
+									>
+										<VolunteeringCard
+											volunteeringName={volunteeringData.volunteeringName}
+											orgName={volunteeringData.fundationName}
+											city={volunteeringData.city}
+											isPaid={volunteeringPaidToBoolean[volunteeringData.paid]}
+											volunteeringType={
+												volunteeringTypes[volunteeringData.type]
+											}
+											volunteeringTerm={
+												volunteeringTerms[volunteeringData.term]
+											}
+											volunteeringImage={volunteeringData.image}
+										/>
+									</div>
+									<div className="flex justify-center items-center px-6">
+										{user ? (
+											<>
+												<CardEvents
+													isFavorite={
+														user?.favorites?.includes(volunteeringData.id) ||
                             false
-                          }
-                          isNotifications={
-                            user?.notifications?.includes(volunteeringData.id) ||
+													}
+													isNotifications={
+														user?.notifications?.includes(volunteeringData.id) ||
                             false
-                          }
-                          volunteeringData={volunteeringData}
-                          setShowVolunteeringAnnoucementModal={
-                            setShowVolunteeringAnnoucementModal
-                          }
-                          setSelectedVolunteeringData={
-                            setSelectedVolunteeringData
-                          }
-                        />
-                      </>
-                    ) : (
-                      <NotAuthorizedCardEvents />
-                    )}
-                  </div>
-                </div>
-              ))}
-            </>
-          )}
-        </div>
-      </main>
-    </>
-  );
-};
-export default Volunteering;
+													}
+													volunteeringData={volunteeringData}
+													setShowVolunteeringAnnoucementModal={
+														setShowVolunteeringAnnoucementModal
+													}
+													setSelectedVolunteeringData={
+														setSelectedVolunteeringData
+													}
+												/>
+											</>
+										) : (
+											<NotAuthorizedCardEvents />
+										)}
+									</div>
+								</div>
+							))}
+						</>
+					)}
+				</div>
+			</main>
+		</>
+	)
+}
+export default Volunteering

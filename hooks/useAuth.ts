@@ -1,7 +1,6 @@
-import { UserMetadata } from "firebase/auth";
-import { collection, doc, DocumentData, getDoc, getDocs, query, QuerySnapshot, where } from "firebase/firestore";
-import { useEffect, useState } from "react";
-import { auth, db } from "../saas/firebase";
+import { collection, DocumentData, getDocs, query, QuerySnapshot, where } from "firebase/firestore"
+import { useEffect, useState } from "react"
+import { auth, db } from "../saas/firebase"
 
 export type IUser = {
   accessToken: string;
@@ -18,8 +17,8 @@ export type IUser = {
   isAnonymous: boolean;
   isVerified: boolean;
   location: string;
-  metadata: UserMetadata;
-  notifiacations: Array<string>;
+  metadata: Record<string, any>;
+  notifications: Array<string>;
   phoneNumber: string | null;
   photoURL: string;
   proactiveRefresh: Record<string, any>;
@@ -33,23 +32,23 @@ export type IUser = {
 }; 
 
 const useAuth = () => {
-  const [user, setUser] = useState<IUser>();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  useEffect(() => {
-    auth.onAuthStateChanged((user) => {
-      setIsLoggedIn(user && user.uid ? true : false);
+	const [user, setUser] = useState<IUser>()
+	const [isLoggedIn, setIsLoggedIn] = useState(false)
+	useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+			setIsLoggedIn(user && user.uid ? true : false)
 
-      if (user && user.uid) {
-        const q = query(collection(db, "users"), where("uid", "==", user.uid))
-        getDocs(q).then((querySnapshot: QuerySnapshot) => {
-          querySnapshot.forEach((doc: DocumentData) => {
-            console.log({ ...user, ...doc.data() });
-            setUser({ ...user, ...doc.data() });
-          })
-        })
-      }
-    });
-  }, [])
-  return { user, isLoggedIn };
-};
-export default useAuth;
+			if (user && user.uid) {
+				const q = query(collection(db, "users"), where("uid", "==", user.uid))
+				getDocs(q).then((querySnapshot: QuerySnapshot) => {
+					querySnapshot.forEach((doc: DocumentData) => {
+						console.log({ ...user, ...doc.data() })
+						setUser({ ...user, ...doc.data() })
+					})
+				})
+			}
+		})
+	}, [])
+	return { user, isLoggedIn }
+}
+export default useAuth

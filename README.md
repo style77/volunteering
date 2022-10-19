@@ -55,6 +55,11 @@ emailJsPublicKey=
 - [Vivid Studio](https://vivid.lol/)
 - [Luxon](https://moment.github.io/luxon/)
 
+- [Yarn](https://yarnpkg.com/)
+- [Travis CI](https://travis-ci.org/)
+- [Eslint](https://eslint.org/)
+- [Prettier](https://prettier.io/)
+
 ## Autorzy
 
 - [Joachim Hodana](https://github.com/Style77)
