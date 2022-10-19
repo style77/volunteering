@@ -64,12 +64,12 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
         email.current?.focus()
       }, 1)
       if (findOutMoreButton) {
-        findOutMoreButton.classList.replace("z-0", "-z-[1]")
+        findOutMoreButton.classList.replace("z-20", "-z-[1]")
       }
     } else {
       // hide modal
       if (findOutMoreButton) {
-        findOutMoreButton.classList.replace("-z-[1]", "z-0")
+        findOutMoreButton.classList.replace("-z-[1]", "z-20")
       }
 
       modal.current?.classList.replace("opacity-100", "opacity-0")
