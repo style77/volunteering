@@ -1,15 +1,15 @@
 import { NextPage } from "next";
 import Head from "next/head";
-import { useRef } from "react";
+import { FormEvent, useRef } from "react";
 
 import emailjs from "@emailjs/browser";
 import { Alert, showAlert } from "../components/alert";
 import { NextSeo } from "next-seo";
 
 const Contact: NextPage = () => {
-  const form: React.RefObject<HTMLFormElement> = useRef(null);
+  const form = useRef<HTMLFormElement>(null);
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
 
     const target = event.target as typeof event.target & {
@@ -17,13 +17,6 @@ const Contact: NextPage = () => {
       email: { value: string };
       message: { value: string };
       title: { value: string };
-    };
-
-    const data = {
-      name: target.name.value,
-      title: target.title.value,
-      email: target.email.value,
-      message: target.message.value,
     };
 
     emailjs

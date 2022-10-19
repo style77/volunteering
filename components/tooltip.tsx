@@ -1,9 +1,9 @@
-import { useState } from "react";
+import { ReactNode, useState } from "react";
 
 type Props = {
-  text: any;
+  text: string;
   message: string;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 };
 

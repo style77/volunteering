@@ -8,7 +8,7 @@ import {
 } from "firebase/auth";
 import { addDoc, collection } from "firebase/firestore";
 import { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { humanizeError } from "../../constants";
 import { auth, db } from "../../saas/firebase";
 import { Alert, showAlert } from "../alert";
@@ -46,7 +46,7 @@ const RegisterModal: NextPage = () => {
 
   const [mail, setMail] = useState("");
   const [name, setName] = useState("");
-  const [birthday, setBirthday]: any = useState();  // timestamp
+  const [birthday, setBirthday] = useState("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -118,7 +118,7 @@ const RegisterModal: NextPage = () => {
     handlePasswordVerification();
   }, [verifiedPassword, password]);
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (password === verifiedPassword) {

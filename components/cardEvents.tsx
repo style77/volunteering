@@ -1,8 +1,10 @@
 import {
   collection,
   doc,
+  DocumentData,
   getDocs,
   query,
+  QuerySnapshot,
   updateDoc,
   where,
 } from "firebase/firestore";
@@ -20,9 +22,9 @@ import { toggleLogin } from "./modals/login";
 type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
-  volunteeringData: any;
-  setShowVolunteeringAnnoucementModal?: any;
-  setSelectedVolunteeringData?: any
+  volunteeringData: Record<string, any>;
+  setShowVolunteeringAnnoucementModal?: Function;
+  setSelectedVolunteeringData?: Function;
 };
 
 export const NotAuthorizedCardEvents = () => {
@@ -79,8 +81,8 @@ export const CardEvents = ({
       if (action === "add") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: [...doc.data()[type], volunteeringData.id],
             });
@@ -89,8 +91,8 @@ export const CardEvents = ({
       } else if (action === "remove") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: doc
                 .data()
@@ -134,8 +136,13 @@ export const CardEvents = ({
             <button
               className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300"
               onClick={() => {
-                setSelectedVolunteeringData(volunteeringData);
-                setShowVolunteeringAnnoucementModal(true);
+                if (
+                  setShowVolunteeringAnnoucementModal &&
+                  setSelectedVolunteeringData
+                ) {
+                  setSelectedVolunteeringData(volunteeringData);
+                  setShowVolunteeringAnnoucementModal(true);
+                }
               }}
             >
               <MdChatBubbleOutline />

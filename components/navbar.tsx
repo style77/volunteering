@@ -23,7 +23,7 @@ import LoginModal from "./modals/login";
 
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth();
-  const [data, setData]: any = useState({});
+  const [data, setData] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
 
   const [userDropdownShown, setUserDropdownShown] = useState(false);

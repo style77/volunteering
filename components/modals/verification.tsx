@@ -15,9 +15,11 @@ import {
 } from "firebase/auth";
 import {
   collection,
+  DocumentData,
   getDoc,
   getDocs,
   query,
+  QuerySnapshot,
   setDoc,
   updateDoc,
   where,
@@ -33,16 +35,16 @@ import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 
 import useAuth from "../../hooks/useAuth";
+import { FirebaseError } from "firebase/app";
 
 type Props = {
-  user: any;
+  user: Record<string, any>;
 };
 
 export const VerificationModal = ({ user }: Props) => {
   const verificationModalRef = useRef<HTMLDivElement | null>(null);
-  const phoneNumberRef = useRef<HTMLInputElement | null>(null);
 
-  const [phoneNumber, setPhoneNumber]: any = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [showOtpInput, setShowOTPInput] = useState(false);
 
   const [OTPCode, setOTPCode] = useState("");
@@ -67,15 +69,15 @@ export const VerificationModal = ({ user }: Props) => {
 
   const updateUser = () => {
     getDocs(query(collection(db, "users"), where("uid", "==", user.uid))).then(
-      (querySnapshot: any) => {
-        querySnapshot.forEach((doc: any) => {
+      (querySnapshot: QuerySnapshot) => {
+        querySnapshot.forEach((doc: DocumentData) => {
           updateDoc(doc.ref, { isVerified: true, phoneNumber: phoneNumber })
             .then(() => {
               showAlert("Zweryfikowano konto!", "success");
               handleToggleModal(false);
             })
-            .catch((error: any) => {
-              showAlert(error.message, "error-alert");
+            .catch((error: FirebaseError) => {
+              showAlert(humanizeError[error.code], "error-alert");
             });
         });
       }
@@ -91,7 +93,7 @@ export const VerificationModal = ({ user }: Props) => {
         updateUser();
         showAlert("Zweryfikowano konto!", "error-alert");
       })
-      .catch((error: any) => {
+      .catch((error: FirebaseError) => {
         showAlert(humanizeError[error.code], "error-alert");
       });
   };
@@ -111,7 +113,7 @@ export const VerificationModal = ({ user }: Props) => {
             window.verificationId = verificationId;
             setShowOTPInput(true);
           })
-          .catch((error: any) => {
+          .catch((error: FirebaseError) => {
             if (error.code === "auth/unverified-email") {
               sendEmailVerification(user).then(() => {
                 showAlert(
@@ -121,7 +123,6 @@ export const VerificationModal = ({ user }: Props) => {
               });
             }
             setTimeout(() => {
-              console.log(error.code);
               showAlert(humanizeError[error.code], "error-alert");
             }, 3500);
           });
@@ -136,7 +137,7 @@ export const VerificationModal = ({ user }: Props) => {
         .then((userCredential: UserCredential) => {
           handleOTP(userCredential.user);
         })
-        .catch((error: any) => {
+        .catch((error: FirebaseError) => {
           showAlert(humanizeError[error.code], "error-alert");
         });
     } else {
@@ -157,7 +158,6 @@ export const VerificationModal = ({ user }: Props) => {
         "verify-button",
         {
           size: "invisible",
-          callback: (response: any) => {},
           "expired-callback": function () {
             showAlert("Captcha wygasła, spróbuj ponownie", "error-alert");
           },
@@ -168,15 +168,14 @@ export const VerificationModal = ({ user }: Props) => {
       getDocs(
         query(collection(db, "users"), where("phoneNumber", "==", phoneNumber))
       )
-        .then((querySnapshot: any) => {
+        .then((querySnapshot: QuerySnapshot) => {
           if (querySnapshot.empty) {
             onSolvedRecaptcha();
           } else {
             showAlert("Ten numer telefonu jest już w użyciu", "error-alert");
           }
         })
-        .catch((error: any) => {
-          console.log(error);
+        .catch((error: FirebaseError) => {
           showAlert(humanizeError[error.code], "error-alert");
         });
     }

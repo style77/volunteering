@@ -12,8 +12,8 @@ import { auth } from "../../saas/firebase";
 import { showAlert } from "../alert";
 
 type Props = {
-  setShowMfaModal: any;
-  handleParentModalToggle: any;
+  setShowMfaModal: Function;
+  handleParentModalToggle: Function;
   mfError: MultiFactorError;
   mfaResolver: MultiFactorResolver;
 };
@@ -24,7 +24,7 @@ export const MfaModal = ({
   mfError,
   mfaResolver,
 }: Props) => {
-  const modal: any = useRef()
+  const modal = useRef<HTMLDivElement | null>(null)
 
   const [otpCode, setOtpCode] = useState("");
   const [inputDisabled, setInputDisabled] = useState(true);
@@ -47,7 +47,7 @@ export const MfaModal = ({
     // Send SMS verification code
     phoneAuthProvider
       .verifyPhoneNumber(phoneInfoOptions, MFArecaptchaVerifier)
-      .then((verificationId: any) => {
+      .then((verificationId: string) => {
         setInputDisabled(false)
         setOtpSent(true)
         window.MfaVerificationId = verificationId;

@@ -7,9 +7,10 @@ import { db } from "../saas/firebase";
 
 export const MyList = () => {
   const { user } = useAuth();
-  const [volunteeringData, setVolunteeringData] = useState([]);
+  const [volunteeringData, setVolunteeringData] =
+    useState <Array<Record<string, any>>>([]);
   useEffect(() => {
-    let volunteeringDataTemp: any = [];
+    let volunteeringDataTemp: Array<Record<string, any>> = [];
     getDocs(collection(db, "volunteering")).then(
       (querySnapshot: QuerySnapshot) =>
         querySnapshot.forEach((doc) => {

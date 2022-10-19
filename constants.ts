@@ -1,4 +1,4 @@
-const humanizeError: any = {
+const humanizeError: Record<string, string> = {
   "auth/invalid-email": "Niepoprawny adres email",
   "auth/user-disabled": "Konto zostało zablokowane",
   "auth/user-not-found": "Nie znaleziono użytkownika",
@@ -29,22 +29,21 @@ const humanizeError: any = {
   "auth/invalid-app-id": "Niepoprawne dane logowania",
   "auth/multi-factor-auth-required": "Wymagane uwierzytelnienie dwuetapowe",
   "auth/unverified-email": "Email nie jest zweryfikowany",
-  "auth/second-factor-already-in-use": "Uwierzytelnienie dwuetapowe jest już aktywne",
+  "auth/second-factor-already-in-use":
+    "Uwierzytelnienie dwuetapowe jest już aktywne",
 };
 
 // TODO: change types from any to Map/Array (im getting some errors and its 12:20 am so im not gonna fix it rn)
 
+const volunteeringTypes: Record<string, string> = {
+  hospice: "Hospicyjny",
+  sport: "Sportowy",
+  ngo: "NGO",
+  elderly: "Pomoc seniorom",
+  animals: "Schronisko",
+};
 
-const volunteeringTypes: any = {
-  "hospice": "Hospicyjny",
-  "sport":"Sportowy",
-  "ngo": "NGO",
-  "elderly": "Pomoc seniorom",
-  "animals": "Schronisko",
-
-} 
-
-const cities:Array<String> = [
+const cities: Array<String> = [
   "Bydgoszcz",
   "Gdańsk",
   "Warszawa",
@@ -53,29 +52,20 @@ const cities:Array<String> = [
   "Wrocław",
   "Szczecin",
   "Olsztyn",
-  "Toruń"
-]
+  "Toruń",
+];
 
-const volunteeringTypesArray = {
-  "hospice":"Hospicyjny",
-  "sport": "Sportowy",
-  "ngo": "NGO",
-  "elderly":"Pomoc seniorom",
-  "animals":"Schronisko",
-}
-
-
-const volunteeringPaidTypes = {
+const volunteeringPaidTypes: Record<string, string> = {
   "paid": "Płatna",
   "unpaid": "Bezpłatna",
-}
+};
 
-const volunteeringPaidToBoolean: any = {
+const volunteeringPaidToBoolean: Record<string, boolean> = {
   "paid": true,
   "unpaid": false,
-}
+};
 
-const volunteeringTerms: any = {
+const volunteeringTerms: Record<string, string> = {
   "one-time": "Jednorazowy",
   "periodic": "Długoterminowy",
 };
@@ -83,9 +73,8 @@ const volunteeringTerms: any = {
 export {
   humanizeError,
   volunteeringTypes,
-  volunteeringTypesArray,
   volunteeringPaidTypes,
   volunteeringPaidToBoolean,
   volunteeringTerms,
-  cities
+  cities,
 };

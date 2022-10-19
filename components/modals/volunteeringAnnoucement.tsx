@@ -5,7 +5,7 @@ import { EventButton } from "../eventButton";
 import { MdChatBubbleOutline } from "react-icons/md";
 import { useEffect, useRef, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import { collection, getDocs, query, updateDoc, where } from "firebase/firestore";
+import { collection, DocumentData, getDocs, query, QuerySnapshot, updateDoc, where } from "firebase/firestore";
 import { db } from "../../saas/firebase";
 import { Tooltip } from "../tooltip";
 
@@ -16,14 +16,13 @@ type Props = {
   isPaid: boolean;
   volunteeringType: string;
   volunteeringTerm: string;
-  volunteeringImage: string;
   isFavorite: boolean;
   isNotifications: boolean;
   description: string;
   showVolunteeringAnnoucementModal: boolean;
-  setShowVolunteeringAnnoucementModal: any;
+  setShowVolunteeringAnnoucementModal: Function;
   volunteeringId: string;
-  user: any;
+  user: Record<string, any>;
   email: string;
   phone: string;
 };
@@ -35,7 +34,6 @@ export const VolunteeringAnnoucement = ({
   isPaid,
   volunteeringType,
   volunteeringTerm,
-  volunteeringImage,
   description,
   showVolunteeringAnnoucementModal,
   setShowVolunteeringAnnoucementModal,
@@ -77,8 +75,8 @@ export const VolunteeringAnnoucement = ({
       if (action === "add") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: [...doc.data()[type], volunteeringId],
             });
@@ -87,8 +85,8 @@ export const VolunteeringAnnoucement = ({
       } else if (action === "remove") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: doc
                 .data()

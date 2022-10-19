@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
+import { IconType } from "react-icons/lib";
 
 type Props = {
   children: ReactNode;
-  leftIcon?: any;
+  leftIcon?: ReactNode;
   bgColor?: string;
 };
 

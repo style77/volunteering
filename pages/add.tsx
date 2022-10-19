@@ -1,10 +1,10 @@
 import { addDoc, collection, doc, terminate } from "firebase/firestore";
 import { NextPage } from "next";
 import Head from "next/head";
-import { FormEvent, useEffect, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import { showAlert } from "../components/alert";
 import { toggleLogin } from "../components/modals/login";
-import { volunteeringTypes, volunteeringTypesArray } from "../constants";
+import { volunteeringTypes } from "../constants";
 import useAuth from "../hooks/useAuth";
 import { db, storage } from "../saas/firebase";
 import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
@@ -23,21 +23,21 @@ const Add: NextPage = () => {
   const [description, setDescription] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
-  const [avatar, setAvatar]: any = useState(null);
+  const [avatar, setAvatar] = useState<File | null>(null);
 
   const [isVerified, setIsVerified] = useState(false);
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setIsVerified(user?.isVerified);
+    if (isLoggedIn && user) {
+      setIsVerified(user.isVerified);
     }
   }, [isLoggedIn, user]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    let ext = avatar.type.replace(/(.*)\//g, "");
+    let ext = avatar!.type.replace(/(.*)\//g, "");
     const storageRef = ref(storage, "volunteeringAvatars/" + uuidv4() + ext);
-    uploadBytes(storageRef, avatar).then((snapshot) => {
+    uploadBytes(storageRef, avatar!).then((snapshot) => {
       getDownloadURL(storageRef).then((url) => {
         addDoc(collection(db, "volunteering"), {
           volunteeringName,
@@ -50,7 +50,7 @@ const Add: NextPage = () => {
           description,
           phone: phone,
           email: email,
-          organisator: user.uid,
+          organisator: user!.uid,
         })
           .then(() => {
             setVolunteeringName("");
@@ -150,7 +150,7 @@ const Add: NextPage = () => {
                   >
                     <option selected>Wybierz</option>
                     {Object.entries(volunteeringTypes).map(
-                      ([key, value]: any, i) => (
+                      ([key, value], i) => (
                         <option value={key} key={key}>
                           {value}
                         </option>
@@ -204,7 +204,9 @@ const Add: NextPage = () => {
                   <input
                     id="volunteering-image"
                     type="file"
-                    onChange={(e:any) => setAvatar(e.target?.files[0])}
+                    onChange={(e: any) =>
+                      setAvatar(e.target.files[0])
+                    }
                     placeholder="wymiary obrazu muszą być kwadratem np. 64px x 64px"
                     className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
