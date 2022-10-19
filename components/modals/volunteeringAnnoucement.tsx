@@ -44,6 +44,7 @@ export const VolunteeringAnnoucement = ({
   phone,
   user,
 }: Props) => {
+  const { isLoggedIn } = useAuth()
   const modal = useRef<HTMLDivElement>(null);
   const backdrop = useRef<HTMLDivElement>(null);
 
@@ -219,11 +220,27 @@ export const VolunteeringAnnoucement = ({
               isSelected={notification}
               handleEvent={handleNotifications}
             />
-            <Tooltip text="sad" message={`Dane kontaktowe:\nAdres e-mail: ${email}\nNumer telefonu: ${phone}`}>
-              <div className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
-                <MdChatBubbleOutline />
-              </div>
-            </Tooltip>
+            {isLoggedIn ? (
+              <Tooltip
+                text=""
+                message={`Dane kontaktowe\n📨: ${
+                  email || "Brak danych"
+                }\n📞: ${phone || "Brak danych"}`}
+              >
+                <div className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+                  <MdChatBubbleOutline />
+                </div>
+              </Tooltip>
+            ) : (
+              <Tooltip
+                text=""
+                message="Zaloguj się, aby zobaczyć dane kontaktowe"
+              >
+                <div className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+                  <MdChatBubbleOutline />
+                </div>
+              </Tooltip>
+            )}
           </div>
         </div>
       </div>
