@@ -1,5 +1,7 @@
 # Volunteering
+
 [![Build Status](https://travis-ci.org/style77/volunteering.svg?branch=main)](https://travis-ci.org/style77/volunteering)
+
 <!-- <div style="display: flex; gap: 12px; height:48px; margin-bottom: 20px">
 <a href="https://freetools.seobility.net/en/seocheck/volunteering.pl"><img src="https://freetools.seobility.net/widget/widget.png?url=volunteering.pl" alt="Seobility Score für volunteering.pl"></a>
 </div> -->
@@ -108,4 +110,3 @@ Po wolontariacie, organizator może zaznaczyć na stronie, że wolontariusz wzi�
 <summary>"Organizator doświadczony"</summary>
 - za utworzenie 5 wolontariatów (ID: 2005)
 </details>
-

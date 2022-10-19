@@ -31,7 +31,7 @@ const humanizeError: Record<string, string> = {
   "auth/unverified-email": "Email nie jest zweryfikowany",
   "auth/second-factor-already-in-use":
     "Uwierzytelnienie dwuetapowe jest już aktywne",
-};
+}
 
 // TODO: change types from any to Map/Array (im getting some errors and its 12:20 am so im not gonna fix it rn)
 
@@ -41,7 +41,7 @@ const volunteeringTypes: Record<string, string> = {
   ngo: "NGO",
   elderly: "Pomoc seniorom",
   animals: "Schronisko",
-};
+}
 
 const cities: Array<String> = [
   "Bydgoszcz",
@@ -53,22 +53,22 @@ const cities: Array<String> = [
   "Szczecin",
   "Olsztyn",
   "Toruń",
-];
+]
 
 const volunteeringPaidTypes: Record<string, string> = {
-  "paid": "Płatna",
-  "unpaid": "Bezpłatna",
-};
+  paid: "Płatna",
+  unpaid: "Bezpłatna",
+}
 
 const volunteeringPaidToBoolean: Record<string, boolean> = {
-  "paid": true,
-  "unpaid": false,
-};
+  paid: true,
+  unpaid: false,
+}
 
 const volunteeringTerms: Record<string, string> = {
   "one-time": "Jednorazowy",
-  "periodic": "Długoterminowy",
-};
+  periodic: "Długoterminowy",
+}
 
 export {
   humanizeError,
@@ -77,4 +77,4 @@ export {
   volunteeringPaidToBoolean,
   volunteeringTerms,
   cities,
-};
+}

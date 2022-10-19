@@ -10,10 +10,10 @@ module.exports = {
         "ltr-linear-infinite": "move-bg 10s linear infinite",
       },
       keyframes: {
-        'move-bg': {
-          '0%':   { 'background-position': '0 0' },
-          '100%': { 'background-position': '85rem 0'}
-        }
+        "move-bg": {
+          "0%": { "background-position": "0 0" },
+          "100%": { "background-position": "85rem 0" },
+        },
       },
 
       colors: {
@@ -26,4 +26,4 @@ module.exports = {
     },
   },
   plugins: [require("tailwindcss-font-inter")],
-};
+}

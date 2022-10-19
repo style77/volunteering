@@ -1,4 +1,11 @@
-import { collection, DocumentData, getDocs, query, QuerySnapshot, where } from "firebase/firestore"
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  query,
+  QuerySnapshot,
+  where,
+} from "firebase/firestore"
 import { useEffect, useState } from "react"
 import { auth, db } from "../saas/firebase"
 
@@ -29,26 +36,26 @@ export type IUser = {
   stsTokenManager: Record<string, any>;
   tenantId: string | null;
   uid: string;
-}; 
+};
 
 const useAuth = () => {
-	const [user, setUser] = useState<IUser>()
-	const [isLoggedIn, setIsLoggedIn] = useState(false)
-	useEffect(() => {
-		auth.onAuthStateChanged((user) => {
-			setIsLoggedIn(user && user.uid ? true : false)
+  const [user, setUser] = useState<IUser>()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      setIsLoggedIn(user && user.uid ? true : false)
 
-			if (user && user.uid) {
-				const q = query(collection(db, "users"), where("uid", "==", user.uid))
-				getDocs(q).then((querySnapshot: QuerySnapshot) => {
-					querySnapshot.forEach((doc: DocumentData) => {
-						console.log({ ...user, ...doc.data() })
-						setUser({ ...user, ...doc.data() })
-					})
-				})
-			}
-		})
-	}, [])
-	return { user, isLoggedIn }
+      if (user && user.uid) {
+        const q = query(collection(db, "users"), where("uid", "==", user.uid))
+        getDocs(q).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
+            console.log({ ...user, ...doc.data() })
+            setUser({ ...user, ...doc.data() })
+          })
+        })
+      }
+    })
+  }, [])
+  return { user, isLoggedIn }
 }
 export default useAuth
