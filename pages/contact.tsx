@@ -6,9 +6,19 @@ import { FormEvent, useRef } from "react"
 import emailjs from "@emailjs/browser"
 import { Alert, showAlert } from "../components/alert"
 import { NextSeo } from "next-seo"
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../saas/firebase"
 
 const Contact: NextPage = () => {
   const form = useRef<HTMLFormElement>(null)
+
+  const handleAdd = () => {
+    if (form.current) {
+      const formData = new FormData(form.current)
+      const data = Object.fromEntries(formData)
+      addDoc(collection(db, "support"), data)
+    }
+  }
 
   const handleSubmit = (event: FormEvent) => {
     event.preventDefault()
@@ -19,6 +29,8 @@ const Contact: NextPage = () => {
       message: { value: string };
       title: { value: string };
     }
+
+    handleAdd()
 
     emailjs
       .sendForm(
@@ -69,8 +81,8 @@ const Contact: NextPage = () => {
         <title>Volunteering - Kontakt</title>
       </Head>
       <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center justify-center xl:justify-start mt-8 md:mt-48">
-        <div className="flex flex-col basis-1/3 ml-0 xl:ml-48 mb-52">
-          <h1 className="text-8xl font-inter font-semibold text-main-color">
+        <div className="flex flex-col basis-1/2 ml-0 xl:ml-48 mb-52">
+          <h1 className="text-8xl font-inter font-nowrap font-semibold text-main-color">
             Twoje zdanie
           </h1>
           <h6 className="flex mt-3 font-inter font-regular text-main-color">
@@ -78,7 +90,6 @@ const Contact: NextPage = () => {
             masz propozycję co możemy dodać, pisz śmiało!
           </h6>
         </div>
-        <div className="flex basis-1/3"></div>
         <div className="flex basis-1/3 -mt-32 w-full mx-72">
           <form onSubmit={handleSubmit} ref={form} className="ml-0 xl:ml-12 ">
             <div className="mb-6">
