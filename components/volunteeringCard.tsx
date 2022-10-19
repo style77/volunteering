@@ -64,7 +64,7 @@ export const VolunteeringCard = ({
         <div className="xl:ml-4 mt-6">
           <img
             src={volunteeringImage}
-            className="w-32 hidden xl:block rounded-full shadow-md"
+            className="w-32 hidden object-cover xl:block rounded-full shadow-md"
             alt={`${volunteeringName} logo`}
             onError={(e) => {
               e.currentTarget.src = "/images/placeholder.png";
@@ -72,9 +72,7 @@ export const VolunteeringCard = ({
           />
         </div>
         <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">
-          <div className="font-semibold text-3xl mb-6">
-            {volunteeringName}
-          </div>
+          <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
               <MdOutlineCorporateFare className="flex mr-1 my-1"></MdOutlineCorporateFare>

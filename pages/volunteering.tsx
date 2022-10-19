@@ -136,7 +136,7 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
-              <div className="hidden xl:flex">
+              <div>
                 <VolunteeringAnnoucement
                   volunteeringName={selectedVolunteeringData.volunteeringName}
                   orgName={selectedVolunteeringData.fundationName}
@@ -152,13 +152,12 @@ const Volunteering: NextPage = () => {
                   }
                   volunteeringImage={selectedVolunteeringData.image}
                   isFavorite={
-                    user?.favorites?.includes(selectedVolunteeringData.id) ||
+                    user.notifications?.includes(selectedVolunteeringData.id) ||
                     false
                   }
                   isNotifications={
-                    user?.notifications?.includes(
-                      selectedVolunteeringData.id
-                    ) || false
+                    user.notifications?.includes(selectedVolunteeringData.id) ||
+                    false
                   }
                   description={selectedVolunteeringData.description}
                   showVolunteeringAnnoucementModal={
@@ -167,7 +166,11 @@ const Volunteering: NextPage = () => {
                   setShowVolunteeringAnnoucementModal={
                     setShowVolunteeringAnnoucementModal
                   }
-                ></VolunteeringAnnoucement>
+                  volunteeringId={selectedVolunteeringData.id}
+                  user={user}
+                  phone={selectedVolunteeringData.phone}
+                  email={selectedVolunteeringData.email}
+                />
               </div>
 
               {volunteeringsData.map((volunteeringData: any) => (
@@ -202,14 +205,20 @@ const Volunteering: NextPage = () => {
                       <>
                         <CardEvents
                           isFavorite={
-                            user.favorites?.includes(volunteeringData.id) ||
+                            user.favorites.includes(volunteeringData.id) ||
                             false
                           }
                           isNotifications={
-                            user.notifications?.includes(volunteeringData.id) ||
+                            user.notifications.includes(volunteeringData.id) ||
                             false
                           }
                           volunteeringData={volunteeringData}
+                          setShowVolunteeringAnnoucementModal={
+                            setShowVolunteeringAnnoucementModal
+                          }
+                          setSelectedVolunteeringData={
+                            setSelectedVolunteeringData
+                          }
                         />
                       </>
                     ) : (

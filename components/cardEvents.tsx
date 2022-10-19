@@ -21,6 +21,8 @@ type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
   volunteeringData: any;
+  setShowVolunteeringAnnoucementModal?: any;
+  setSelectedVolunteeringData?: any
 };
 
 export const NotAuthorizedCardEvents = () => {
@@ -64,6 +66,8 @@ export const CardEvents = ({
   isFavorite,
   isNotifications,
   volunteeringData,
+  setShowVolunteeringAnnoucementModal,
+  setSelectedVolunteeringData,
 }: Props) => {
   const [favorite, setFavorite] = useState(isFavorite);
   const [notification, setNotification] = useState(isNotifications);
@@ -127,7 +131,13 @@ export const CardEvents = ({
               isSelected={notification}
               handleEvent={handleNotifications}
             />
-            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+            <button
+              className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300"
+              onClick={() => {
+                setSelectedVolunteeringData(volunteeringData);
+                setShowVolunteeringAnnoucementModal(true);
+              }}
+            >
               <MdChatBubbleOutline />
             </button>
           </div>
