@@ -98,7 +98,7 @@ const Home: NextPage = () => {
           </div>
         </section>
 
-        <div className="h-full w-full -translate-y-40 pt-32 -z-[10]" style={{background: "url('/section_bg.svg')", backgroundSize: "150% auto" }}>
+        <div className="h-full w-full -translate-y-40 pt-32 -z-[10]" style={{background: "url('/section_bg.svg')", backgroundSize: "150%", backgroundRepeat: "no-repeat" }}>
           <section className="py-10">
             <div className="ml-10 select-none" id="what-is-volunteering">
               <h2

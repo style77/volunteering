@@ -34,6 +34,8 @@ export const registerUser = async (
     birthday: birthday, // This will be used to calculate user age
     description: "", // This will be used to save user description
     heldVolunteering: [], // There will be saved id of volunteering that user has held
+    displayName: name, // This will be used to save user display name
+    photoURL: photo, // This will be used to save user photo
   })
   updateProfile(user, {
     displayName: name,

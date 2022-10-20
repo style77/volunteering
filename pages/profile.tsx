@@ -145,7 +145,7 @@ const Profile: NextPage = () => {
             Twój profil
           </div>
           <div className="flex flex-row mt-10">
-            <div className="flex flex-col gap-4 rounded-md border-2 p-6 pb-10 bg-background-color-2">
+            <div className="flex flex-col gap-4 rounded-md border-2 p-6 pb-10 bg-background-color-2 ">
               <div className="flex flex-col items-center">
                 <input
                   type="file"
@@ -156,7 +156,7 @@ const Profile: NextPage = () => {
                   style={{ display: "none" }}
                 />
                 <img
-                  className="h-32 w-32 bg-white rounded-full shadow-md cursor-pointer"
+                  className="h-32 w-32 bg-white rounded-full shadow-lg cursor-pointer"
                   alt="user avatar"
                   src={data!.photoURL}
                   onClick={() => openFileBrowser()}
@@ -177,8 +177,13 @@ const Profile: NextPage = () => {
                 </div>
                 <div className="flex flex-col items-center border-2 rounded-md bg-zinc-200 mt-2 px-4 pb-2 shadow-md">
                   <EditableInput label={displayName} setText={setDisplayName} />
-                  <span>
+                  <span className="hidden xl:flex">
                     Konto na Volunteering założone{" "}
+                    {data!.metadata?.createdAt &&
+                      timeSince(data!.metadata?.createdAt)}
+                  </span>
+                  <span className="flex xl:hidden">
+                    Konto założone{" "}
                     {data!.metadata?.createdAt &&
                       timeSince(data!.metadata?.createdAt)}
                   </span>
@@ -230,6 +235,7 @@ const Profile: NextPage = () => {
                       console.log(e.target.value)
                       setData({ ...data!, birthday: e.target.value })
                     }}
+                    max={DateTime.now().toISODate()}
                     placeholder="Wybierz swoją datę urodzenia"
                     disabled={!edit}
                     className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 shadow-md"

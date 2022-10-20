@@ -184,11 +184,10 @@ const Volunteering: NextPage = () => {
                     key={volunteeringData.id}
                   >
                     <div
-                      className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
+                      className="flex basis-11/12 xl:justify-center items-center cursor-pointer"
                       onClick={() => {
                         setSelectedVolunteeringData(volunteeringData)
                         setShowVolunteeringAnnoucementModal(true)
-                        console.log(123)
                       }}
                     >
                       <VolunteeringCard
