@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<<<<<<< HEAD
+<url><loc>https://volunteering.pl</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://volunteering.pl/add</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://volunteering.pl/contact</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://volunteering.pl/myList</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://volunteering.pl/profile</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://volunteering.pl/volunteering</loc><lastmod>2022-10-19T15:30:59.527Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+=======
 <url><loc>https://volunteering.pl</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://volunteering.pl/add</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://volunteering.pl/contact</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://volunteering.pl/myList</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://volunteering.pl/profile</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 <url><loc>https://volunteering.pl/volunteering</loc><lastmod>2022-10-19T20:16:12.031Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+>>>>>>> 61ceb2c871ea995281d6366cf8b74519451c4316
 </urlset>

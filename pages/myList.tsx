@@ -12,7 +12,7 @@ export const MyList = () => {
   const [volunteeringData, setVolunteeringData] = useState<
     Array<Record<string, any>>
   >([])
-
+  
     const [selectedVolunteeringData, setSelectedVolunteeringData] = useState<
     Record<string, any>
   >({})
@@ -43,7 +43,6 @@ export const MyList = () => {
   return (
     <>
       <main>
-        <>
           <h1 className="text-4xl xl:text-6xl font-semibold text-main-color my-6 ml-6">
             Moja lista
           </h1>
@@ -89,22 +88,23 @@ export const MyList = () => {
             {volunteeringData.map((volunteering) => {
               return (
               <div className="cursor-pointer" key={volunteering.id} onClick={() => {setSelectedVolunteeringData(volunteering); setShowVolunteeringAnnoucementModal(true)}}>
-                <VolunteeringCard
-                  volunteeringName={volunteering.volunteeringName}
-                  orgName={volunteering.fundationName}
-                  city={volunteering.city}
-                  isPaid={volunteeringPaidToBoolean[volunteering.paid]}
-                  volunteeringType={volunteeringTypes[volunteering.type]}
-                  volunteeringTerm={volunteeringTerms[volunteering.term]}
-                  volunteeringImage={volunteering.image}
-                />
+                <div className="flex flex-col gap-5 mx-6 basis-11/12 xl:justify-center items-center">
+                  <VolunteeringCard
+                    volunteeringName={volunteering.volunteeringName}
+                    orgName={volunteering.fundationName}
+                    city={volunteering.city}
+                    isPaid={volunteeringPaidToBoolean[volunteering.paid]}
+                    volunteeringType={volunteeringTypes[volunteering.type]}
+                    volunteeringTerm={volunteeringTerms[volunteering.term]}
+                    volunteeringImage={volunteering.image}
+                  />
+                </div>
               </div>
-              )
-            })}
+            )})}
           </div>
-        </>
       </main>
     </>
   )
 }
+
 export default MyList

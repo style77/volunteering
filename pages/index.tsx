@@ -250,6 +250,10 @@ const Home: NextPage = () => {
       {/* <div
         className="hidden xl:block w-full h-8 absolute  -bottom-3 bg-gradient-to-r from-main-color-2 via-main-color-3 to-main-color-2"
         style={{ backgroundPosition: "20rem 0" }}
+<<<<<<< HEAD
+      ></div>
+      
+=======
       ></div> */}
       <div className="custom-shape-divider-bottom-1666200219 z-10">
         <svg
@@ -297,6 +301,7 @@ const Home: NextPage = () => {
           ></path>
         </svg>
       </div>
+>>>>>>> 61ceb2c871ea995281d6366cf8b74519451c4316
     </>
   )
 }

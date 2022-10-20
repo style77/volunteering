@@ -11,6 +11,7 @@ import { db, storage } from "../saas/firebase"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 as uuidv4 } from "uuid"
 
+
 const Add: NextPage = () => {
   const { user, isLoggedIn } = useAuth()
 
@@ -278,6 +279,7 @@ const Add: NextPage = () => {
               </a>{" "}
               numerem telefonu aby dodać wolontariat
             </div>
+            
           </main>
         </>
       )}
