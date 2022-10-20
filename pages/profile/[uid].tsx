@@ -1,11 +1,9 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
-
-
 import { NextPage } from "next"
 import React, { useEffect, useState } from "react"
 import { FaCheck } from "react-icons/fa"
 import { IUser } from "../../hooks/useAuth"
 
+import Image from "next/image"
 import { DateTime } from "luxon"
 import { toggleLogin } from "../../components/modals/login"
 import { Badge } from "../../components/badge"
@@ -64,9 +62,11 @@ const Profile: NextPage = () => {
           <div className="flex flex-row mt-10">
             <div className="flex flex-col gap-4 rounded-md border-2 p-6 pb-10 bg-background-color-2 ">
               <div className="flex flex-col items-center">
-                <img
-                  className="h-32 w-32 bg-white rounded-full shadow-lg cursor-pointer"
+                <Image
+                  className="rounded-full shadow-lg cursor-pointer"
                   alt="user avatar"
+                  height="128"
+                  width="128"
                   src={data!.photoURL}
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">

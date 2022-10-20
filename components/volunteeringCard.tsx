@@ -1,6 +1,8 @@
 /* eslint-disable react/react-in-jsx-scope */
-import { MdOutlineCorporateFare } from "react-icons/md"
-import { IoLocationOutline } from "react-icons/io5"
+import { MdOutlineCorporateFare } from "react-icons/md";
+import { IoLocationOutline } from "react-icons/io5";
+
+import Image from "next/image";
 
 export const SkeletonVolunteeringCard = () => {
   return (
@@ -36,8 +38,8 @@ export const SkeletonVolunteeringCard = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 type Props = {
   volunteeringName: string;
@@ -60,18 +62,20 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div className="flex flex-row h-52 xl:h-36 w-full bg-main-color rounded-lg mx-6 xl:ml-6 shadow-md">
+      <div className="flex flex-row -z-[1] h-52 xl:h-36 w-screen xl:w-full bg-main-color rounded-lg shadow-md">
         <div className="xl:ml-4 mt-6">
-          <img
-            src={volunteeringImage}
-            className="w-32 hidden object-cover xl:block rounded-full shadow-md"
+          <Image
+            src={volunteeringImage || "/images/placeholder.png"}
+            className="object-cover rounded-full shadow-md z-[1]"
+            width="128"
+            height="128"
             alt={`${volunteeringName} logo`}
             onError={(e) => {
-              e.currentTarget.src = "/images/placeholder.png"
+              e.currentTarget.src = "/images/placeholder.png";
             }}
           />
         </div>
-        <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-4 xl:ml-6">
+        <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-7">
           <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
@@ -112,5 +116,5 @@ export const VolunteeringCard = ({
         </div>
       </div>
     </>
-  )
-}
+  );
+};

@@ -46,7 +46,7 @@ const Volunteering: NextPage = () => {
     const getVolunteeringsData = async () => {
       setIsLoading(true)
 
-      const querySnapshot = await getDocs(collection(db, "volunteering"))
+      const querySnapshot = await getDocs(collection(db, "volunteerings"))
       const staticVolunteeringsData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
@@ -60,7 +60,7 @@ const Volunteering: NextPage = () => {
     }
 
     if (volunteeringsData.length === 0) getVolunteeringsData()
-  }, [])
+  }, [volunteeringsData.length])
 
   return (
     <>
@@ -184,7 +184,7 @@ const Volunteering: NextPage = () => {
                     key={volunteeringData.id}
                   >
                     <div
-                      className="flex basis-11/12 xl:justify-center items-center cursor-pointer"
+                      className="flex basis-11/12 xl:justify-center items-center cursor-pointer ml-6"
                       onClick={() => {
                         setSelectedVolunteeringData(volunteeringData)
                         setShowVolunteeringAnnoucementModal(true)

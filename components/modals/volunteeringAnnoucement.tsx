@@ -166,7 +166,7 @@ export const VolunteeringAnnoucement = ({
           }}
           ref={backdrop}
         ></div>
-        <div className="bg-main-color rounded-lg w-11/12 xl:w-3/5 z-20 justify-center items-center">
+        <div className="bg-main-color rounded-lg w-11/12 xl:w-3/5 z-20 justify-center items-center drop-shadow-2xl">
           <div className="flex flex-col">
             <div className="flex flex-row gap-2 justify-end m-3">
               <button

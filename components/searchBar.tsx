@@ -43,7 +43,7 @@ export const SearchBar = ({
   }
   return (
     <>
-      <div className="flex flex-col md:flex-row font-inter font-light justify-center mx-12">
+      <div className="flex flex-col md:flex-row font-inter font-light justify-center mx-6">
         <div className="flex flex-col md:flex-row gap-3 w-full items-center">
           <div className="flex flex-col w-80">
             <label htmlFor="search-city" className="text-main-color ">

@@ -25,9 +25,10 @@ export const MyList = () => {
     const fetchData = () => {
       const volunteeringDataTemp: Array<Record<string, any>> = []
 
-      getDocs(collection(db, "volunteering")).then(
+      getDocs(collection(db, "volunteerings")).then(
         (querySnapshot: QuerySnapshot) =>
           querySnapshot.forEach((doc) => {
+
             if (user?.favorites?.includes(doc.id)) {
               volunteeringDataTemp.push(doc.data())
             }
@@ -84,11 +85,13 @@ export const MyList = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-2 w-11/12">
+          <div className="flex flex-col gap-4 xl:gap-2 w-full px-12">
+            {volunteeringData.length > 0 ? (
+              <>
             {volunteeringData.map((volunteering) => {
               return (
               <div className="cursor-pointer" key={volunteering.id} onClick={() => {setSelectedVolunteeringData(volunteering); setShowVolunteeringAnnoucementModal(true)}}>
-                <div className="flex flex-col gap-5 mx-6 basis-11/12 xl:justify-center items-center">
+                <div className="flex flex-col basis-11/12 xl:justify-center items-center">
                   <VolunteeringCard
                     volunteeringName={volunteering.volunteeringName}
                     orgName={volunteering.fundationName}
@@ -101,6 +104,15 @@ export const MyList = () => {
                 </div>
               </div>
             )})}
+              </>
+
+            ) : (
+              <div className="flex flex-col gap-5 mx-6 basis-11/12 xl:justify-center items-center">
+                <h1 className="text-2xl xl:text-4xl font-semibold text-main-color my-6">
+                  Nie masz żadnych ulubionych wolontariatu
+                </h1>
+                </div>
+            )}
           </div>
       </main>
     </>

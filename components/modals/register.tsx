@@ -100,29 +100,29 @@ const RegisterModal: NextPage = () => {
     }
   }
 
-  const handlePasswordVerification = () => {
-    if (password === verifiedPassword) {
-      passwordVerification.current?.classList.replace(
-        "border-red-500",
-        "border-gray-300"
-      )
-      passwordRef.current?.classList.replace(
-        "border-red-500",
-        "border-gray-300"
-      )
-    } else {
-      passwordVerification.current?.classList.replace(
-        "border-gray-300",
-        "border-red-500"
-      )
-      passwordRef.current?.classList.replace(
-        "border-gray-300",
-        "border-red-500"
-      )
-    }
-  }
-
   useEffect(() => {
+    const handlePasswordVerification = () => {
+      if (password === verifiedPassword) {
+        passwordVerification.current?.classList.replace(
+          "border-red-500",
+          "border-gray-300"
+        )
+        passwordRef.current?.classList.replace(
+          "border-red-500",
+          "border-gray-300"
+        )
+      } else {
+        passwordVerification.current?.classList.replace(
+          "border-gray-300",
+          "border-red-500"
+        )
+        passwordRef.current?.classList.replace(
+          "border-gray-300",
+          "border-red-500"
+        )
+      }
+    }
+    
     handlePasswordVerification()
   }, [verifiedPassword, password])
 

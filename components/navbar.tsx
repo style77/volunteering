@@ -7,6 +7,7 @@ import useAuth from "../hooks/useAuth"
 import { auth, db } from "../saas/firebase"
 import { Alert, showAlert } from "./alert"
 import LoginModal from "./modals/login"
+import Image from "next/image"
 
 export const Navbar = () => {
   const { user, isLoggedIn } = useAuth()
@@ -38,7 +39,7 @@ export const Navbar = () => {
     }
 
     if (Object.keys(data).length === 0) getAccount()
-  }, [user])
+  }, [user, data])
 
   const showDropdown = () => {
     setUserDropdownShown(true)
@@ -125,18 +126,26 @@ export const Navbar = () => {
         id="nav"
       >
         <div className="container flex justify-between items-center mx-auto">
-          <a href="/" className="flex items-center">
-            <div className="ml-2 hidden lg:block">
-              <img
-                src="/volunteering.svg"
-                className="h-6"
-                alt="Volunteering logo"
-              />
+          <Link href="/">
+            <div className="flex items-center cursor-pointer">
+              <div className="ml-2 mt-4 hidden lg:block">
+                <Image
+                  src="/volunteering.svg"
+                  height="24"
+                  width="210"
+                  alt="Volunteering logo"
+                />
+              </div>
+              <div className="p-3 ml-2 block lg:hidden">
+                <Image
+                  src="/icon.svg"
+                  height="20"
+                  width="20"
+                  alt="Volunteering logo"
+                />
+              </div>
             </div>
-            <div className="p-3 ml-2 block lg:hidden">
-              <img src="/icon.svg" className="h-5" alt="Volunteering logo" />
-            </div>
-          </a>
+          </Link>
           <div className="flex xl:order-2">
             <Link href="/contact">
               <button
@@ -165,9 +174,11 @@ export const Navbar = () => {
                         onClick={() => handleDropdownToggle()}
                       >
                         <span className="sr-only">Open user menu</span>
-                        <img
-                          className="w-8 h-8 rounded-full"
-                          src={data.photoURL}
+                        <Image
+                          className="rounded-full"
+                          height="32"
+                          width="32"
+                          src={data!.photoURL}
                           alt="user avatar"
                         />
                       </button>
@@ -196,12 +207,28 @@ export const Navbar = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href="/myList">
-                              <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
+                            <Link href="/favorites">
+                              <a
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                onClick={() => hideDropdown()}
+                              >
                                 Moja lista
                               </a>
                             </Link>
                           </li>
+                          {user?.isVerified ? (
+                            <li>
+                              <Link href="/dashboard">
+                                <a
+                                  className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                  onClick={() => hideDropdown()}
+                                >
+                                  Panel
+                                </a>
+                              </Link>
+                            </li>
+                          ) : null}
+
                           <li>
                             <a
                               onClick={() => {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 /* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
 
@@ -10,6 +9,16 @@ module.exports = withBundleAnalyzer({
   reactStrictMode: true,
   compress: true,
 
+  images: {
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**",
+      },
+    ],
+    domains: ["firebasestorage.googleapis.com", "lh3.googleusercontent.com"],
+  },
+  
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback.fs = false

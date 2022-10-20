@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   collection,
   DocumentData,
@@ -24,6 +23,8 @@ import { updateProfile } from "firebase/auth"
 import { humanizeError } from "../constants"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FirebaseError } from "firebase/app"
+
+import Image from "next/image"
 
 const Profile: NextPage = () => {
   const { user, isLoggedIn } = useAuth()
@@ -51,7 +52,7 @@ const Profile: NextPage = () => {
     }
 
     if (Object.keys(data).length === 0) getAccount()
-  }, [user])
+  }, [user, data])
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
@@ -155,9 +156,11 @@ const Profile: NextPage = () => {
                   onChange={(e) => uploadNewAvatar(e)}
                   style={{ display: "none" }}
                 />
-                <img
-                  className="h-32 w-32 bg-white rounded-full shadow-lg cursor-pointer"
+                <Image
+                  className="rounded-full shadow-lg cursor-pointer"
                   alt="user avatar"
+                  height="128"
+                  width="128"
                   src={data!.photoURL}
                   onClick={() => openFileBrowser()}
                 />

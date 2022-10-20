@@ -1,18 +1,17 @@
-import { MdOutlineCorporateFare } from "react-icons/md";
-import { IoLocationOutline } from "react-icons/io5";
+import { MdOutlineCorporateFare } from "react-icons/md"
+import { IoLocationOutline } from "react-icons/io5"
 
 type Props = {
-  volunteeringName: string;
-  orgName: string;
-  city: string;
-  isPaid: boolean;
-  volunteeringType: string;
-  volunteeringTerm: string;
-  volunteeringImage: string;
-  description: string;
-  participantsCounter:number;
-
-};
+  volunteeringName: string
+  orgName: string
+  city: string
+  isPaid: boolean
+  volunteeringType: string
+  volunteeringTerm: string
+  volunteeringImage: string
+  description: string
+  participants: Array<Record<string, any>>
+}
 
 export const OrganisatorVolunteeringBox = ({
   volunteeringName,
@@ -22,12 +21,12 @@ export const OrganisatorVolunteeringBox = ({
   volunteeringType,
   volunteeringTerm,
   description,
-  participantsCounter
+  participants
 }: Props) => {
   return (
-    <div className="font-inter flex h-screen">
-      <div className="flex w-2/5 h-3/4 bg-main-color rounded-xl ">
-        <div className="flex flex-col mt-3 ml-6 gap-2">
+    <div className="font-inter flex">
+      <div className="flex bg-main-color rounded-xl p-4">
+        <div className="flex flex-col mt-3 gap-2">
           <span className="font-semibold text-3xl text-white">
             {volunteeringName}
           </span>
@@ -36,7 +35,7 @@ export const OrganisatorVolunteeringBox = ({
               <MdOutlineCorporateFare className="flex mr-1 my-1" />
               <span className="">{orgName}</span>
             </div>
-            <div className="flex flex-row items-center">
+            <div className="flex flex-row items-center ml-2">
               <IoLocationOutline className="flex mr-1 my-1" />
               <span className="">{city}</span>
             </div>
@@ -54,14 +53,22 @@ export const OrganisatorVolunteeringBox = ({
           </div>
           <div className="flex flex-col">
             <span className="text-white">Opis</span>
-            <div className="bg-white rounded-lg p-2">{description}</div>
+            <textarea
+              disabled
+              className="bg-white rounded-lg p-2"
+              style={{ resize: "none" }}
+            >
+              {description}
+            </textarea>
           </div>
-        <div className="flex flex-col">
-            <span className="text-white">Uczestnicy: {participantsCounter}</span>
-        </div>
+          <div className="flex flex-col">
+            <span className="text-white">
+              Uczestnicy: {participants.length}
+            </span>
+          </div>
         </div>
       </div>
     </div>
-  );
-};
-export default OrganisatorVolunteeringBox;
+  )
+}
+export default OrganisatorVolunteeringBox

@@ -1,4 +1,3 @@
-/* eslint-disable react/react-in-jsx-scope */
 import { addDoc, collection } from "firebase/firestore"
 import { NextPage } from "next"
 import Head from "next/head"
@@ -10,7 +9,7 @@ import useAuth from "../hooks/useAuth"
 import { db, storage } from "../saas/firebase"
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { v4 as uuidv4 } from "uuid"
-
+import Link from "next/link"
 
 const Add: NextPage = () => {
   const { user, isLoggedIn } = useAuth()
@@ -40,7 +39,7 @@ const Add: NextPage = () => {
     const storageRef = ref(storage, "volunteeringAvatars/" + uuidv4() + ext)
     uploadBytes(storageRef, avatar!).then(() => {
       getDownloadURL(storageRef).then((url) => {
-        addDoc(collection(db, "volunteering"), {
+        addDoc(collection(db, "volunteerings"), {
           volunteeringName,
           fundationName,
           city,
@@ -52,7 +51,7 @@ const Add: NextPage = () => {
           phone: phone,
           email: email,
           organisator: user?.uid,
-          usersAppending: [],
+          usersAppending: []
         })
           .then(() => {
             setVolunteeringName("")
@@ -64,6 +63,7 @@ const Add: NextPage = () => {
             setAvatar(null)
             setDescription("")
             showAlert("Dodano ogłoszenie wolontariatu!", "success")
+            window.location.href = "/volunteering"
           })
           .catch((error) => {
             showAlert(error.message, "error-alert")
@@ -271,15 +271,13 @@ const Add: NextPage = () => {
                 Zaloguj się
               </span>
               , albo{" "}
-              <a
-                href="/profile"
-                className="text-main-color-2 hover:text-main-color-3 cursor-pointer transition"
-              >
-                zweryfikuj konto
-              </a>{" "}
+              <Link href="/profile">
+                <span className="text-main-color-2 hover:text-main-color-3 cursor-pointer transition">
+                  zweryfikuj konto
+                </span>
+              </Link>{" "}
               numerem telefonu aby dodać wolontariat
             </div>
-            
           </main>
         </>
       )}
