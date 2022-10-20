@@ -32,7 +32,7 @@ export const OrganisatorPanel = () => {
     }
 
     fetchVolunteerings()
-  }, [volunteerings, user])
+  }, [user])
 
   return (
     <>

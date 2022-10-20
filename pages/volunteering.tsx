@@ -60,7 +60,7 @@ const Volunteering: NextPage = () => {
     }
 
     if (volunteeringsData.length === 0) getVolunteeringsData()
-  }, [volunteeringsData.length])
+  }, [volunteeringsData])
 
   return (
     <>
