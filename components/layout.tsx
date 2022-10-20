@@ -1,13 +1,13 @@
-import React, { FC, ReactNode } from "react";
-import { Navbar } from "./navbar";
-import Head from "next/head";
+import React, { ReactNode } from "react"
+import { Navbar } from "./navbar"
+import Head from "next/head"
 
 type Props = {
   children: ReactNode;
   title?: string;
 };
 
-export const Layout = ({children}: Props) => {
+export const Layout = ({ children }: Props) => {
   return (
     <>
       <Head>
@@ -18,5 +18,5 @@ export const Layout = ({children}: Props) => {
       <Navbar />
       {children}
     </>
-  );
-};
+  )
+}

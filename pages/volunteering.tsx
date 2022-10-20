@@ -1,62 +1,66 @@
-import { NextPage } from "next";
-import Head from "next/head";
+/* eslint-disable react/react-in-jsx-scope */
+import { NextPage } from "next"
+import Head from "next/head"
 import {
   SkeletonVolunteeringCard,
   VolunteeringCard,
-} from "../components/volunteeringCard";
+} from "../components/volunteeringCard"
 import {
   CardEvents,
   NotAuthorizedCardEvents,
   SkeletonCardEvents,
-} from "../components/cardEvents";
-import { SearchBar } from "../components/searchBar";
-import { NextSeo } from "next-seo";
-import { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
-import { db } from "../saas/firebase";
+} from "../components/cardEvents"
+import { SearchBar } from "../components/searchBar"
+import { NextSeo } from "next-seo"
+import { useEffect, useState } from "react"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../saas/firebase"
 import {
   volunteeringPaidToBoolean,
   volunteeringTerms,
   volunteeringTypes,
-} from "../constants";
-import useAuth from "../hooks/useAuth";
-import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
+} from "../constants"
+import useAuth from "../hooks/useAuth"
+import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement"
 
 const Volunteering: NextPage = () => {
-  const { user } = useAuth();
+  const { user } = useAuth()
 
-  const [account, setUser] = useState({});
-  const [volunteeringsData, setVolunteeringsData]: any = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [allVolunteeringsData, setAllVolunteeringsData]: any = useState([]);
+  const [volunteeringsData, setVolunteeringsData] = useState<
+    Array<Record<string, any>>
+  >([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [allVolunteeringsData, setAllVolunteeringsData] = useState<
+    Array<Record<string, any>>
+  >([])
 
-  const [selectedVolunteeringData, setSelectedVolunteeringData]: any = useState(
-    {}
-  );
+  const [selectedVolunteeringData, setSelectedVolunteeringData] = useState<
+    Record<string, any>
+  >({})
   const [
     showVolunteeringAnnoucementModal,
     setShowVolunteeringAnnoucementModal,
-  ] = useState(false);
+  ] = useState<boolean>(false)
 
   useEffect(() => {
     const getVolunteeringsData = async () => {
-      setIsLoading(true);
+      setIsLoading(true)
 
-      const querySnapshot = await getDocs(collection(db, "volunteering"));
+      const querySnapshot = await getDocs(collection(db, "volunteering"))
       const staticVolunteeringsData = querySnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
-      }));
+      }))
 
-      setVolunteeringsData(staticVolunteeringsData);
+      setVolunteeringsData(staticVolunteeringsData)
 
-      setAllVolunteeringsData(staticVolunteeringsData);
+      setAllVolunteeringsData(staticVolunteeringsData)
 
-      setIsLoading(false);
-    };
+      setIsLoading(false)
+    }
 
-    if (volunteeringsData.length === 0) getVolunteeringsData();
-  }, []);
+    if (volunteeringsData.length === 0) getVolunteeringsData()
+  }, [])
 
   return (
     <>
@@ -136,7 +140,7 @@ const Volunteering: NextPage = () => {
             </>
           ) : (
             <>
-              <div className="hidden xl:flex">
+              <div>
                 <VolunteeringAnnoucement
                   volunteeringName={selectedVolunteeringData.volunteeringName}
                   orgName={selectedVolunteeringData.fundationName}
@@ -150,7 +154,6 @@ const Volunteering: NextPage = () => {
                   volunteeringTerm={
                     volunteeringTerms[selectedVolunteeringData.term]
                   }
-                  volunteeringImage={selectedVolunteeringData.image}
                   isFavorite={
                     user?.favorites?.includes(selectedVolunteeringData.id) ||
                     false
@@ -167,62 +170,77 @@ const Volunteering: NextPage = () => {
                   setShowVolunteeringAnnoucementModal={
                     setShowVolunteeringAnnoucementModal
                   }
-                ></VolunteeringAnnoucement>
+                  volunteeringId={selectedVolunteeringData.id}
+                  user={user!}
+                  phone={selectedVolunteeringData.phone}
+                  email={selectedVolunteeringData.email}
+                />
               </div>
 
-              {volunteeringsData.map((volunteeringData: any) => (
-                <div
-                  className="flex flex-col xl:flex-row gap-2 w-full"
-                  key={volunteeringData.id}
-                >
+              {volunteeringsData.map(
+                (volunteeringData: Record<string, any>) => (
                   <div
-                    className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
-                    onClick={() => {
-                      setSelectedVolunteeringData(volunteeringData);
-                      setShowVolunteeringAnnoucementModal(true);
-                      console.log(123);
-                    }}
+                    className="flex flex-col xl:flex-row gap-2 w-full"
+                    key={volunteeringData.id}
                   >
-                    <VolunteeringCard
-                      volunteeringName={volunteeringData.volunteeringName}
-                      orgName={volunteeringData.fundationName}
-                      city={volunteeringData.city}
-                      isPaid={volunteeringPaidToBoolean[volunteeringData.paid]}
-                      volunteeringType={
-                        volunteeringTypes[volunteeringData.type]
-                      }
-                      volunteeringTerm={
-                        volunteeringTerms[volunteeringData.term]
-                      }
-                      volunteeringImage={volunteeringData.image}
-                    />
+                    <div
+                      className="flex basis-11/12 xl:justify-center items-center xl:cursor-pointer"
+                      onClick={() => {
+                        setSelectedVolunteeringData(volunteeringData)
+                        setShowVolunteeringAnnoucementModal(true)
+                        console.log(123)
+                      }}
+                    >
+                      <VolunteeringCard
+                        volunteeringName={volunteeringData.volunteeringName}
+                        orgName={volunteeringData.fundationName}
+                        city={volunteeringData.city}
+                        isPaid={
+                          volunteeringPaidToBoolean[volunteeringData.paid]
+                        }
+                        volunteeringType={
+                          volunteeringTypes[volunteeringData.type]
+                        }
+                        volunteeringTerm={
+                          volunteeringTerms[volunteeringData.term]
+                        }
+                        volunteeringImage={volunteeringData.image}
+                      />
+                    </div>
+                    <div className="flex justify-center items-center px-6">
+                      {user ? (
+                        <>
+                          <CardEvents
+                            isFavorite={
+                              user?.favorites?.includes(volunteeringData.id) ||
+                              false
+                            }
+                            isNotifications={
+                              user?.notifications?.includes(
+                                volunteeringData.id
+                              ) || false
+                            }
+                            volunteeringData={volunteeringData}
+                            setShowVolunteeringAnnoucementModal={
+                              setShowVolunteeringAnnoucementModal
+                            }
+                            setSelectedVolunteeringData={
+                              setSelectedVolunteeringData
+                            }
+                          />
+                        </>
+                      ) : (
+                        <NotAuthorizedCardEvents />
+                      )}
+                    </div>
                   </div>
-                  <div className="flex justify-center items-center px-6">
-                    {user ? (
-                      <>
-                        <CardEvents
-                          isFavorite={
-                            user.favorites?.includes(volunteeringData.id) ||
-                            false
-                          }
-                          isNotifications={
-                            user.notifications?.includes(volunteeringData.id) ||
-                            false
-                          }
-                          volunteeringData={volunteeringData}
-                        />
-                      </>
-                    ) : (
-                      <NotAuthorizedCardEvents />
-                    )}
-                  </div>
-                </div>
-              ))}
+                )
+              )}
             </>
           )}
         </div>
       </main>
     </>
-  );
-};
-export default Volunteering;
+  )
+}
+export default Volunteering

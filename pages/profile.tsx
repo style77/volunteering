@@ -1,135 +1,141 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import {
   collection,
-  doc,
-  getDoc,
+  DocumentData,
   getDocs,
   query,
-  setDoc,
+  QuerySnapshot,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { NextPage } from "next";
-import { FormEvent, useEffect, useRef, useState } from "react";
-import { FaCheck, FaEdit } from "react-icons/fa";
-import { showAlert } from "../components/alert";
-import useAuth from "../hooks/useAuth";
-import { db, storage } from "../saas/firebase";
+} from "firebase/firestore"
+import { NextPage } from "next"
+import React, { FormEvent, useEffect, useRef, useState } from "react"
+import { FaCheck, FaEdit } from "react-icons/fa"
+import { showAlert } from "../components/alert"
+import useAuth, { IUser } from "../hooks/useAuth"
+import { db, storage } from "../saas/firebase"
 
-import { DateTime } from "luxon";
-import { toggleLogin } from "../components/modals/login";
-import { Badge } from "../components/badge";
-import { VerificationModal } from "../components/modals/verification";
-import { EditableInput } from "../components/editableInput";
-import { updateProfile } from "firebase/auth";
-import { humanizeError } from "../constants";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { DateTime } from "luxon"
+import { toggleLogin } from "../components/modals/login"
+import { Badge } from "../components/badge"
+import { VerificationModal } from "../components/modals/verification"
+import { EditableInput } from "../components/editableInput"
+import { updateProfile } from "firebase/auth"
+import { humanizeError } from "../constants"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { FirebaseError } from "firebase/app"
 
 const Profile: NextPage = () => {
-  const { user, isLoggedIn } = useAuth();
-  const [loading, setLoading] = useState(false);
-  const inputFile = useRef<any>(); // for image upload
+  const { user, isLoggedIn } = useAuth()
+  const [, setLoading] = useState(false)
+  const inputFile = useRef<HTMLInputElement | null>(null) // for image upload
 
-  const [data, setData]: any = useState({});
+  const [data, setData] = useState<IUser | Record<string, any>>({})
 
-  const [edit, setEdit] = useState(false);
+  const [edit, setEdit] = useState(false)
 
-  const [saveButtonType, setSaveButtonType]: any = useState("button");
+  const [saveButtonType, setSaveButtonType] = useState<any>("button")
 
-  const [displayName, setDisplayName] = useState("");
+  const [displayName, setDisplayName] = useState("")
 
   useEffect(() => {
     const getAccount = async () => {
-      setLoading(true);
+      setLoading(true)
       if (user) {
-        setData(user);
+        setData(user)
 
-        setDisplayName(user.displayName);
+        setDisplayName(user.displayName)
       }
 
-      setLoading(false);
-    };
+      setLoading(false)
+    }
 
-    if (Object.keys(data).length === 0) getAccount();
-  }, [user]);
+    if (Object.keys(data).length === 0) getAccount()
+  }, [user])
 
   const handleSubmit = (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    setSaveButtonType("button");
+    setSaveButtonType("button")
 
-    getDocs(query(collection(db, "users"), where("uid", "==", user.uid))).then(
-      (querySnapshot: any) => {
-        querySnapshot.forEach((doc: any) => {
-          let dataToSave = {
-            birthday: data.birthday,
-            description: data.description,
-            location: data.location,
-          };
+    getDocs(query(collection(db, "users"), where("uid", "==", user!.uid))).then(
+      (querySnapshot: QuerySnapshot) => {
+        querySnapshot.forEach((doc: DocumentData) => {
+          const dataToSave = {
+            birthday: data!.birthday,
+            description: data!.description,
+            location: data!.location,
+          }
 
           updateDoc(doc.ref, dataToSave)
             .then(() => {
-              updateProfile(user.auth.currentUser, {
+              updateProfile(user!.auth.currentUser, {
                 displayName: displayName,
               })
                 .then(() => {
-                  setEdit(false);
+                  setEdit(false)
                   showAlert(
                     "Zaaktualizowano informacje pomyślnie 🎉",
                     "success"
-                  );
+                  )
                 })
-                .catch((error: any) => {
-                  console.log(error);
-                  showAlert(humanizeError[error.code], "error-alert");
-                });
+                .catch((error: FirebaseError) => {
+                  console.log(error)
+                  showAlert(humanizeError[error.code], "error-alert")
+                })
             })
-            .catch((error: any) => {
-              showAlert(humanizeError[error.code], "error-alert");
-            });
-        });
+            .catch((error: FirebaseError) => {
+              showAlert(humanizeError[error.code], "error-alert")
+            })
+        })
       }
-    );
-  };
+    )
+  }
 
   const timeSince = (date: number) => {
-    new Date(date * 1);
-    return DateTime.fromMillis(date * 1).toRelative({ locale: "pl" }); // BUG I have no idea why do i need to multiply timestamp by 1 to make it work. Probably some bug in JS
-  };
+    new Date(date * 1)
+    return DateTime.fromMillis(date * 1).toRelative({ locale: "pl" }) // BUG I have no idea why do i need to multiply timestamp by 1 to make it work. Probably some bug in JS
+  }
 
-  const countAge: any = (date: string) => {
-    new Date(date);
-    return DateTime.fromISO(date).diffNow("years").toObject().years;
-  };
+  const countAge = (date: string): number => {
+    new Date(date)
+    return DateTime.fromISO(date).diffNow("years").toObject().years!
+  }
 
-  const uploadNewAvatar = (e: any) => {
-    const file = e.target.files[0]
-    let ext = file.type.replace(/(.*)\//g, '')
-    const storageRef = ref(storage, 'avatars/' + user.uid + ext)
-    uploadBytes(storageRef, file).then((snapshot) => {
-        getDownloadURL(storageRef)
-          .then((imageURL: string) => {
-            updateProfile(user.auth.currentUser, { photoURL: imageURL })
-              .then(() => {
-                showAlert("Zaktualizowano awatar pomyślnie 🎉", "success");
-
-              })
-              setData({ ...data, photoURL: imageURL })
-
-              .catch((error: any) => {
-                console.error(error);
-                showAlert("Wystąpił błąd podczas aktualizacji awatara", "error-alert");
-              });
-          })
-          .catch((error: any) => {
-            console.error(error)
-            showAlert("Wystąpił błąd podczas aktualizacji awatara", "error-alert");
-          });
+  const uploadNewAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files![0]
+    const ext = file.type.replace(/(.*)\//g, "")
+    if (!user) {
+      showAlert("Musisz się zalogować aby zmienić avatar", "error-alert")
+      return
+    }
+    const storageRef = ref(storage, "avatars/" + user.uid + ext)
+    uploadBytes(storageRef, file).then(() => {
+      getDownloadURL(storageRef)
+        .then((imageURL: string) => {
+          updateProfile(user.auth.currentUser, { photoURL: imageURL }).then(
+            () => {
+              showAlert("Zaktualizowano awatar pomyślnie 🎉", "success")
+            }
+          )
+          setData({ ...data!, photoURL: imageURL })
+          // .catch((error: Error) => {
+          //   console.error(error);
+          //   showAlert(
+          //     "Wystąpił błąd podczas aktualizacji awatara",
+          //     "error-alert"
+          //   );
+          // });
+        })
+        .catch((error: FirebaseError) => {
+          showAlert(humanizeError[error.code], "error-alert")
+        })
     })
-  };
+  }
 
   const openFileBrowser = () => {
-    inputFile.current!.click();
-  };
+    inputFile.current!.click()
+  }
 
   return (
     <>
@@ -152,18 +158,18 @@ const Profile: NextPage = () => {
                 <img
                   className="h-32 w-32 bg-white rounded-full shadow-md cursor-pointer"
                   alt="user avatar"
-                  src={data.photoURL}
+                  src={data!.photoURL}
                   onClick={() => openFileBrowser()}
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">
-                  {data.isVerified ? (
+                  {data!.isVerified ? (
                     <Badge bgColor="bg-lime-500" leftIcon={<FaCheck />}>
                       Zweryfikowany
                     </Badge>
                   ) : (
-                    <VerificationModal user={data} />
+                    <VerificationModal user={data!} />
                   )}
-                  {data.badges?.map((badge: any) => (
+                  {data!.badges?.map((badge: Record<string, string>) => (
                     <Badge bgColor={badge.color} key={badge.name}>
                       {badge.name}
                     </Badge>
@@ -173,12 +179,12 @@ const Profile: NextPage = () => {
                   <EditableInput label={displayName} setText={setDisplayName} />
                   <span>
                     Konto na Volunteering założone{" "}
-                    {data.metadata?.createdAt &&
-                      timeSince(data.metadata?.createdAt)}
+                    {data!.metadata?.createdAt &&
+                      timeSince(data!.metadata?.createdAt)}
                   </span>
-                  {Math.abs(countAge(data.birthday)) > 0 && (
+                  {Math.abs(countAge(data!.birthday)) > 0 && (
                     <span>
-                      Wiek: {Math.floor(Math.abs(countAge(data.birthday)))} lat{" "}
+                      Wiek: {Math.floor(Math.abs(countAge(data!.birthday)))} lat{" "}
                     </span>
                   )}
                 </div>
@@ -190,11 +196,11 @@ const Profile: NextPage = () => {
                   </label>
                   <textarea
                     id="description"
-                    value={data.description}
+                    value={data!.description}
                     placeholder="Podaj opis"
                     disabled={!edit}
                     onChange={(e) =>
-                      setData({ ...data, description: e.target.value })
+                      setData({ ...data!, description: e.target.value })
                     }
                     className="w-full h-20 rounded-md shadow-md bg-gray-50 border-[1px] pl-1"
                     style={{ resize: "none" }}
@@ -205,9 +211,9 @@ const Profile: NextPage = () => {
                   <input
                     id="location"
                     type="text"
-                    value={data.location}
+                    value={data!.location}
                     onChange={(e) =>
-                      setData({ ...data, location: e.target.value })
+                      setData({ ...data!, location: e.target.value })
                     }
                     placeholder="Wybierz swoją lokalizację"
                     disabled={!edit}
@@ -219,10 +225,10 @@ const Profile: NextPage = () => {
                   <input
                     id="birthday"
                     type="date"
-                    value={data.birthday}
+                    value={data!.birthday}
                     onChange={(e) => {
-                      console.log(e.target.value);
-                      setData({ ...data, birthday: e.target.value });
+                      console.log(e.target.value)
+                      setData({ ...data!, birthday: e.target.value })
                     }}
                     placeholder="Wybierz swoją datę urodzenia"
                     disabled={!edit}
@@ -233,11 +239,11 @@ const Profile: NextPage = () => {
                       type={saveButtonType}
                       onClick={() => {
                         if (edit) {
-                          setSaveButtonType("submit");
+                          setSaveButtonType("submit")
                         } else {
-                          setSaveButtonType("button");
+                          setSaveButtonType("button")
                         }
-                        setEdit(!edit);
+                        setEdit(!edit)
                       }}
                       className="bg-zinc-200 border border-zinc-200 text-zinc-800 text-sm rounded-lg block w-full p-2.5 shadow-md"
                     >
@@ -275,6 +281,6 @@ const Profile: NextPage = () => {
         </div>
       )}
     </>
-  );
-};
-export default Profile;
+  )
+}
+export default Profile

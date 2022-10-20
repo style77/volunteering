@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable no-undef */
 /** @type {import('next').NextConfig} */
 
 const withBundleAnalyzer = require("@next/bundle-analyzer")({
   enabled: process.env.ANALYZE === "true",
-});
+})
 
 module.exports = withBundleAnalyzer({
   reactStrictMode: true,
@@ -10,11 +12,11 @@ module.exports = withBundleAnalyzer({
 
   webpack: (config, { isServer }) => {
     if (!isServer) {
-      config.resolve.fallback.fs = false;
-      config.resolve.fallback.child_process = false;
+      config.resolve.fallback.fs = false
+      config.resolve.fallback.child_process = false
     }
 
-    return config;
+    return config
   },
 
   env: {
@@ -29,7 +31,5 @@ module.exports = withBundleAnalyzer({
     emailJsServiceId: `${process.env.emailJsServiceId}`,
     emailJsTemplateId: `${process.env.emailJsTemplateId}`,
     emailJsPublicKey: `${process.env.emailJsPublicKey}`,
-
-    googleApiKey: `${process.env.googleApiKey}`,
   },
-});
+})

@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable react/react-in-jsx-scope */
 import {
   getMultiFactorResolver,
   MultiFactorError,
@@ -5,15 +7,15 @@ import {
   PhoneAuthProvider,
   PhoneMultiFactorGenerator,
   RecaptchaVerifier,
-} from "firebase/auth";
-import { MutableRefObject, useEffect, useRef, useState } from "react";
-import { humanizeError } from "../../constants";
-import { auth } from "../../saas/firebase";
-import { showAlert } from "../alert";
+} from "firebase/auth"
+import { useRef, useState } from "react"
+import { humanizeError } from "../../constants"
+import { auth } from "../../saas/firebase"
+import { showAlert } from "../alert"
 
 type Props = {
-  setShowMfaModal: any;
-  handleParentModalToggle: any;
+  setShowMfaModal: Function;
+  handleParentModalToggle: Function;
   mfError: MultiFactorError;
   mfaResolver: MultiFactorResolver;
 };
@@ -24,11 +26,11 @@ export const MfaModal = ({
   mfError,
   mfaResolver,
 }: Props) => {
-  const modal: any = useRef()
+  const modal = useRef<HTMLDivElement | null>(null)
 
-  const [otpCode, setOtpCode] = useState("");
-  const [inputDisabled, setInputDisabled] = useState(true);
-  const [otpSent, setOtpSent] = useState(false);
+  const [otpCode, setOtpCode] = useState("")
+  const [inputDisabled, setInputDisabled] = useState(true)
+  const [otpSent, setOtpSent] = useState(false)
 
   const sendMFA = () => {
     const MFArecaptchaVerifier = new RecaptchaVerifier(
@@ -37,58 +39,60 @@ export const MfaModal = ({
         size: "invisible",
       },
       auth
-    );
+    )
 
     const phoneInfoOptions = {
       multiFactorHint: mfaResolver.hints[0],
       session: mfaResolver.session,
-    };
-    const phoneAuthProvider = new PhoneAuthProvider(auth);
+    }
+    const phoneAuthProvider = new PhoneAuthProvider(auth)
     // Send SMS verification code
     phoneAuthProvider
       .verifyPhoneNumber(phoneInfoOptions, MFArecaptchaVerifier)
-      .then((verificationId: any) => {
+      .then((verificationId: string) => {
         setInputDisabled(false)
         setOtpSent(true)
-        window.MfaVerificationId = verificationId;
-      });
-  };
+        window.MfaVerificationId = verificationId
+      })
+  }
 
   const handleMFA = () => {
-    const resolver = getMultiFactorResolver(auth, mfError);
+    const resolver = getMultiFactorResolver(auth, mfError)
 
     const cred = PhoneAuthProvider.credential(
       window.MfaVerificationId,
       otpCode
-    );
-    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
+    )
+    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred)
 
-    resolver.resolveSignIn(multiFactorAssertion).then((userCredential) => {
-
-        showAlert(`Zalogowano pomyślnie 🎉`, "success")
+    resolver
+      .resolveSignIn(multiFactorAssertion)
+      .then(() => {
+        showAlert("Zalogowano pomyślnie 🎉", "success")
         setShowMfaModal(false)
         handleParentModalToggle(false)
-    }).catch((error) => {
+      })
+      .catch((error) => {
         showAlert(humanizeError[error.code], "error-alert")
-    })
-  };
+      })
+  }
 
   const handleToggleModal = (value: boolean) => {
     if (modal.current) {
-      if (value) modal.current.classList.toggle("hidden");
+      if (value) modal.current.classList.toggle("hidden")
       setTimeout(() => {
         if (value) {
-          modal.current!.classList.replace("opacity-0", "opacity-100");
+          modal.current?.classList.replace("opacity-0", "opacity-100")
         } else {
-          modal.current!.classList.replace("opacity-100", "opacity-0");
+          modal.current?.classList.replace("opacity-100", "opacity-0")
           setTimeout(() => {
-            modal.current?.classList.toggle("hidden");
-            setShowMfaModal(false);
-          }, 500);
+            modal.current?.classList.toggle("hidden")
+            setShowMfaModal(false)
+          }, 500)
         }
-      }, 1);
+      }, 1)
     }
-  };
+  }
 
   return (
     <>
@@ -173,5 +177,5 @@ export const MfaModal = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}

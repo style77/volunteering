@@ -3,5 +3,46 @@
 @tailwind utilities;
 
 html {
-    scroll-behavior: smooth;
+  scroll-behavior: smooth;
+}
+
+.custom-shape-divider-bottom-1666200219 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+  transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1666200219 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 157px;
+}
+
+.custom-shape-divider-bottom-1666200219 .shape-fill {
+  fill: #2e4583;
+}
+
+.custom-shape-divider-top-1666200276 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.custom-shape-divider-top-1666200276 svg {
+  position: relative;
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 157px;
+}
+
+.custom-shape-divider-top-1666200276 .shape-fill {
+  fill: #2e4583;
 }

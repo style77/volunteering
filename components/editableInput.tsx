@@ -1,7 +1,7 @@
+/* eslint-disable react/react-in-jsx-scope */
 // I think it's pretty cool looking so why not implement it in our app
 
-import { useRef, useState } from "react";
-import { FaEdit } from "react-icons/fa";
+import { useRef, useState } from "react"
 
 type Props = {
   label: string;
@@ -9,8 +9,8 @@ type Props = {
 };
 
 export const EditableInput = ({ label, setText }: Props) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const backdropRef = useRef<HTMLDivElement | null>(null);
+  const [isEditing, setIsEditing] = useState(false)
+  const backdropRef = useRef<HTMLDivElement | null>(null)
 
   return (
     <>
@@ -19,8 +19,8 @@ export const EditableInput = ({ label, setText }: Props) => {
         ref={backdropRef}
         className="fixed w-full h-screen hidden z-10"
         onClick={() => {
-            backdropRef.current!.classList.add("hidden");
-          setIsEditing(false);
+          backdropRef.current?.classList.add("hidden")
+          setIsEditing(false)
         }}
       ></div>
       {isEditing ? (
@@ -28,8 +28,8 @@ export const EditableInput = ({ label, setText }: Props) => {
           <input
             type="text"
             onChange={(e) => {
-              setText(e.target.value);
-              backdropRef.current!.classList.remove("hidden");
+              setText(e.target.value)
+              backdropRef.current?.classList.remove("hidden")
             }}
             value={label}
             className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block z-50 p-2.5 shadow-md"
@@ -44,5 +44,5 @@ export const EditableInput = ({ label, setText }: Props) => {
         </span>
       )}
     </>
-  );
-};
+  )
+}

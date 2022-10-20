@@ -1,36 +1,38 @@
-import { useEffect } from "react";
+/* eslint-disable react/react-in-jsx-scope */
 
 type Props = {
   color: string;
   alertId: string;
 };
 
-const AlertDuration = 3000;
+const AlertDuration = 3000
 
-export const showAlert = (text: string, alertId: string = "alert") => {
-  const alert = document.getElementById(alertId) as HTMLElement;
-  const alertText = document.getElementById(`alert-text-${alertId}`) as HTMLElement;
+export const showAlert = (text: string, alertId = "alert") => {
+  const alert = document.getElementById(alertId) as HTMLElement
+  const alertText = document.getElementById(
+    `alert-text-${alertId}`
+  ) as HTMLElement
 
   if (alert && alertText) {
-    alertText.innerHTML = text;
+    alertText.innerHTML = text
 
     alert.classList.remove("hidden")
 
     setTimeout(() => {
-      alert.classList.remove("opacity-0");
-      alert.classList.add("opacity-100");
+      alert.classList.remove("opacity-0")
+      alert.classList.add("opacity-100")
+
+      setTimeout(() => {
+        alert.classList.remove("opacity-100")
+        alert.classList.add("opacity-0")
+      }, AlertDuration)
+    }, 1)
 
     setTimeout(() => {
-      alert.classList.remove("opacity-100");
-      alert.classList.add("opacity-0");
-    }, AlertDuration);
-    }, 1);
-
-    setTimeout(() => {
-      alert.classList.add("hidden");
-    }, AlertDuration);
+      alert.classList.add("hidden")
+    }, AlertDuration)
   }
-};
+}
 
 export const Alert = (props: Props) => {
   return (
@@ -52,5 +54,5 @@ export const Alert = (props: Props) => {
         <p id={`alert-text-${props.alertId}`}></p>
       </div>
     </div>
-  );
-};
+  )
+}

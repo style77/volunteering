@@ -1,129 +1,116 @@
-import {
-  collection,
-  CollectionReference,
-  DocumentData,
-  DocumentReference,
-  Firestore,
-  getDoc,
-  getDocs,
-  query,
-  QuerySnapshot,
-  where,
-} from "firebase/firestore";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import { FiMenu } from "react-icons/fi";
-import { MdOutlineLogin } from "react-icons/md";
-import useAuth from "../hooks/useAuth";
-import Volunteering from "../pages/volunteering";
-import { auth, db } from "../saas/firebase";
-import { Alert, showAlert } from "./alert";
-import LoginModal from "./modals/login";
+/* eslint-disable react/react-in-jsx-scope */
+import { collection, getDocs, query, where } from "firebase/firestore"
+import Link from "next/link"
+import { useEffect, useRef, useState } from "react"
+import { FiMenu } from "react-icons/fi"
+import useAuth from "../hooks/useAuth"
+import { auth, db } from "../saas/firebase"
+import { Alert, showAlert } from "./alert"
+import LoginModal from "./modals/login"
 
 export const Navbar = () => {
-  const { user, isLoggedIn } = useAuth();
-  const [data, setData]: any = useState({});
-  const [loading, setLoading] = useState(false);
+  const { user, isLoggedIn } = useAuth()
+  const [data, setData] = useState<Record<string, any>>({})
+  const [loading, setLoading] = useState(false)
 
-  const [userDropdownShown, setUserDropdownShown] = useState(false);
+  const [userDropdownShown, setUserDropdownShown] = useState(false)
 
-  const userDropdown = useRef<HTMLDivElement>(null);
-  const userMenuBackdrop = useRef<HTMLDivElement>(null);
+  const userDropdown = useRef<HTMLDivElement>(null)
+  const userMenuBackdrop = useRef<HTMLDivElement>(null)
 
   // mobile menu state
-  const navbar = useRef<HTMLDivElement>(null);
-  const [navbarShown, setShowNavbar] = useState(false);
+  const navbar = useRef<HTMLDivElement>(null)
+  const [navbarShown, setShowNavbar] = useState(false)
 
   useEffect(() => {
     const getAccount = async () => {
-      setLoading(true);
+      setLoading(true)
       if (user) {
         const querySnapshot = await getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        );
-        const snapshotData = querySnapshot.docs[0].data();
+        )
+        const snapshotData = querySnapshot.docs[0].data()
 
-        setData(Object.assign({}, snapshotData, user));
+        setData(Object.assign({}, snapshotData, user))
       }
 
-      setLoading(false);
-    };
+      setLoading(false)
+    }
 
-    if (Object.keys(data).length === 0) getAccount();
-  }, [user]);
+    if (Object.keys(data).length === 0) getAccount()
+  }, [user])
 
   const showDropdown = () => {
-    setUserDropdownShown(true);
+    setUserDropdownShown(true)
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-0");
+    userMenuBackdrop.current?.classList.replace("-z-[1]", "z-0")
 
-    userDropdown.current!.classList.toggle("hidden");
+    userDropdown.current?.classList.toggle("hidden")
     setTimeout(() => {
-      userDropdown.current!.classList.replace("opacity-0", "opacity-100");
-      userMenuBackdrop.current!.classList.replace("opacity-0", "opacity-100");
-    }, 1);
-  };
+      userDropdown.current?.classList.replace("opacity-0", "opacity-100")
+      userMenuBackdrop.current?.classList.replace("opacity-0", "opacity-100")
+    }, 1)
+  }
 
   const hideDropdown = () => {
-    setUserDropdownShown(false);
+    setUserDropdownShown(false)
 
     // change backdrop's z-index
-    userMenuBackdrop.current?.classList.replace("z-0", "-z-[1]");
+    userMenuBackdrop.current?.classList.replace("z-0", "-z-[1]")
 
-    userDropdown.current?.classList.replace("opacity-100", "opacity-0");
-    userMenuBackdrop.current?.classList.replace("opacity-100", "opacity-0");
+    userDropdown.current?.classList.replace("opacity-100", "opacity-0")
+    userMenuBackdrop.current?.classList.replace("opacity-100", "opacity-0")
     setTimeout(() => {
-      userDropdown.current?.classList.toggle("hidden");
-    }, 300);
-  };
+      userDropdown.current?.classList.toggle("hidden")
+    }, 300)
+  }
 
   const handleDropdownToggle = () => {
-    if (!userDropdownShown) showDropdown();
-    else hideDropdown();
-  };
+    if (!userDropdownShown) showDropdown()
+    else hideDropdown()
+  }
 
   const showNavbar = () => {
-    setShowNavbar(true);
+    setShowNavbar(true)
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("-z-[1]", "z-0");
+    userMenuBackdrop.current?.classList.replace("-z-[1]", "z-0")
 
-    navbar.current!.classList.remove("hidden");
+    navbar.current?.classList.remove("hidden")
     setTimeout(() => {
-      navbar.current!.classList.replace("opacity-0", "opacity-100");
-      navbar.current!.classList.replace("translate-y-0", "translate-y-1");
-    }, 1);
-  };
+      navbar.current?.classList.replace("opacity-0", "opacity-100")
+      navbar.current?.classList.replace("translate-y-0", "translate-y-1")
+    }, 1)
+  }
 
   const hideNavbar = () => {
-    setShowNavbar(false);
+    setShowNavbar(false)
 
     // change backdrop's z-index
-    userMenuBackdrop.current!.classList.replace("z-0", "-z-[1]");
+    userMenuBackdrop.current?.classList.replace("z-0", "-z-[1]")
 
-    navbar.current!.classList.replace("opacity-100", "opacity-0");
-    navbar.current!.classList.replace("translate-y-1", "translate-y-0");
+    navbar.current?.classList.replace("opacity-100", "opacity-0")
+    navbar.current?.classList.replace("translate-y-1", "translate-y-0")
     setTimeout(() => {
-      navbar.current!.classList.add("hidden");
-    }, 300);
-  };
+      navbar.current?.classList.add("hidden")
+    }, 300)
+  }
 
   const toggleNavbar = () => {
-    if (!navbarShown) showNavbar();
-    else hideNavbar();
-  };
+    if (!navbarShown) showNavbar()
+    else hideNavbar()
+  }
 
   const handleBackdrop = () => {
     if (userDropdownShown) {
-      hideDropdown();
+      hideDropdown()
     }
 
     if (navbarShown) {
-      hideNavbar();
+      hideNavbar()
     }
-  };
+  }
 
   return (
     <>
@@ -218,12 +205,12 @@ export const Navbar = () => {
                           <li>
                             <a
                               onClick={() => {
-                                auth.signOut();
+                                auth.signOut()
                                 showAlert(
                                   "Wylogowano pomyślnie. Wracaj do nas jak najszybciej!",
                                   "logout-alert"
-                                );
-                                hideDropdown();
+                                )
+                                hideDropdown()
                               }}
                               className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                             >
@@ -315,5 +302,5 @@ export const Navbar = () => {
       <Alert color="bg-red-500" alertId="register-error-alert"></Alert>
       <Alert color="bg-main-color" alertId="register-success"></Alert>
     </>
-  );
-};
+  )
+}

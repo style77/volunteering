@@ -1,51 +1,46 @@
-import { FormEvent, useEffect, useState } from "react";
-import { FiSearch } from "react-icons/fi";
-import {
-  cities,
-  volunteeringTerms,
-  volunteeringTypes,
-} from "../constants";
+/* eslint-disable react/react-in-jsx-scope */
+import { FormEvent, useState } from "react"
+import { FiSearch } from "react-icons/fi"
+import { cities, volunteeringTerms, volunteeringTypes } from "../constants"
 
 type Props = {
-  volunteeringsData: any;
-  setVolunteeringsData: any;
-  allVolunteeringsData: any;
-  setIsLoading: any;
+  volunteeringsData: Record<string, any>;
+  setVolunteeringsData: Function;
+  allVolunteeringsData: Record<string, any>;
+  setIsLoading: Function;
 };
 
 export const SearchBar = ({
   allVolunteeringsData,
-  volunteeringsData,
   setVolunteeringsData,
   setIsLoading,
 }: Props) => {
-  const [searchCity, setSearchCity] = useState("");
-  const [searchType, setSearchType] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchCity, setSearchCity] = useState("")
+  const [searchType, setSearchType] = useState("")
+  const [searchTerm, setSearchTerm] = useState("")
 
   const handleSubmit = (e: FormEvent) => {
     setIsLoading(true)
-    e.preventDefault();
-    let filtered = allVolunteeringsData;
+    e.preventDefault()
+    let filtered = allVolunteeringsData
     if (searchCity) {
-      filtered = filtered.filter((volunteering: any) =>
+      filtered = filtered.filter((volunteering: Record<string, any>) =>
         volunteering.city.toLowerCase().includes(searchCity.toLowerCase())
-      );
+      )
     }
     if (searchType) {
-      filtered = filtered.filter((volunteering: any) =>
+      filtered = filtered.filter((volunteering: Record<string, any>) =>
         volunteering.type.toLowerCase().includes(searchType.toLowerCase())
-      );
+      )
     }
     if (searchTerm) {
-      filtered = filtered.filter((volunteering: any) =>
+      filtered = filtered.filter((volunteering: Record<string, any>) =>
         volunteering.term.toLowerCase().includes(searchTerm.toLowerCase())
-      );
+      )
     }
-    setVolunteeringsData(filtered);
+    setVolunteeringsData(filtered)
     setIsLoading(false)
-  };
-
+  }
   return (
     <>
       <div className="flex flex-col md:flex-row font-inter font-light justify-center mx-12">
@@ -81,7 +76,7 @@ export const SearchBar = ({
               <option selected value="">
                 Wybierz
               </option>
-              {Object.entries(volunteeringTypes).map(([key, value]: any, i) => (
+              {Object.entries(volunteeringTypes).map(([key, value]: any) => (
                 <option value={key} key={key}>
                   {value}
                 </option>
@@ -101,7 +96,7 @@ export const SearchBar = ({
                 Wybierz
               </option>
 
-              {Object.entries(volunteeringTerms).map(([key, value]: any, i) => (
+              {Object.entries(volunteeringTerms).map(([key, value]: any) => (
                 <option value={key} key={key}>
                   {value}
                 </option>
@@ -120,5 +115,5 @@ export const SearchBar = ({
         </div>
       </div>
     </>
-  );
-};
+  )
+}

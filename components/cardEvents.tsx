@@ -1,26 +1,26 @@
+/* eslint-disable react/react-in-jsx-scope */
 import {
   collection,
-  doc,
+  DocumentData,
   getDocs,
   query,
+  QuerySnapshot,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { useState } from "react";
-import { MdOutlineFavoriteBorder } from "react-icons/md";
-import { MdOutlineFavorite } from "react-icons/md";
-import { MdNotificationsNone } from "react-icons/md";
-import { MdNotificationsActive } from "react-icons/md";
-import { MdChatBubbleOutline } from "react-icons/md";
-import { EventButton } from "../components/eventButton";
-import useAuth from "../hooks/useAuth";
-import { db } from "../saas/firebase";
-import { toggleLogin } from "./modals/login";
+} from "firebase/firestore"
+import { useState } from "react"
+import { MdChatBubbleOutline } from "react-icons/md"
+import { EventButton } from "../components/eventButton"
+import useAuth from "../hooks/useAuth"
+import { db } from "../saas/firebase"
+import { toggleLogin } from "./modals/login"
 
 type Props = {
   isFavorite: boolean;
   isNotifications: boolean;
-  volunteeringData: any;
+  volunteeringData: Record<string, any>;
+  setShowVolunteeringAnnoucementModal?: Function;
+  setSelectedVolunteeringData?: Function;
 };
 
 export const NotAuthorizedCardEvents = () => {
@@ -37,8 +37,8 @@ export const NotAuthorizedCardEvents = () => {
         </button>
       </div>
     </>
-  );
-};
+  )
+}
 
 export const SkeletonCardEvents = () => {
   return (
@@ -57,60 +57,61 @@ export const SkeletonCardEvents = () => {
         </div>
       </div>
     </>
-  );
-};
+  )
+}
 
 export const CardEvents = ({
   isFavorite,
   isNotifications,
   volunteeringData,
+  setShowVolunteeringAnnoucementModal,
+  setSelectedVolunteeringData,
 }: Props) => {
-  const [favorite, setFavorite] = useState(isFavorite);
-  const [notification, setNotification] = useState(isNotifications);
+  const [favorite, setFavorite] = useState(isFavorite)
+  const [notification, setNotification] = useState(isNotifications)
 
-  const { user } = useAuth();
+  const { user } = useAuth()
 
   const updateEventsData = (type: string, action: string) => {
     if (user) {
       if (action === "add") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: [...doc.data()[type], volunteeringData.id],
-            });
-          });
-        });
+            })
+          })
+        })
       } else if (action === "remove") {
         getDocs(
           query(collection(db, "users"), where("uid", "==", user.uid))
-        ).then((querySnapshot: any) => {
-          querySnapshot.forEach((doc: any) => {
+        ).then((querySnapshot: QuerySnapshot) => {
+          querySnapshot.forEach((doc: DocumentData) => {
             updateDoc(doc.ref, {
               [type]: doc
-                .data()
-                [type].filter((id: string) => id !== volunteeringData.id),
-            });
-          });
-        });
+                .data()[type].filter((id: string) => id !== volunteeringData.id),
+            })
+          })
+        })
       }
     }
-  };
+  }
 
   const handleNotifications = (isSelected: boolean) => {
-    setNotification(isSelected);
+    setNotification(isSelected)
 
     // there will be all the logic to handle the notifications switch
-    updateEventsData("notifications", isSelected ? "add" : "remove");
-  };
+    updateEventsData("notifications", isSelected ? "add" : "remove")
+  }
 
   const handleFavorite = (isSelected: boolean) => {
-    setFavorite(isSelected);
+    setFavorite(isSelected)
 
     // there will be all the logic to handle the favorite switch
-    updateEventsData("favorites", isSelected ? "add" : "remove");
-  };
+    updateEventsData("favorites", isSelected ? "add" : "remove")
+  }
 
   return (
     <>
@@ -127,12 +128,23 @@ export const CardEvents = ({
               isSelected={notification}
               handleEvent={handleNotifications}
             />
-            <button className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300">
+            <button
+              className="rounded-full bg-white text-4xl p-2 transition ease-in-out hover:scale-110 duration-300"
+              onClick={() => {
+                if (
+                  setShowVolunteeringAnnoucementModal &&
+                  setSelectedVolunteeringData
+                ) {
+                  setSelectedVolunteeringData(volunteeringData)
+                  setShowVolunteeringAnnoucementModal(true)
+                }
+              }}
+            >
               <MdChatBubbleOutline />
             </button>
           </div>
         </div>
       </div>
     </>
-  );
-};
+  )
+}

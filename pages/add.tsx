@@ -1,44 +1,44 @@
-import { addDoc, collection, doc, terminate } from "firebase/firestore";
-import { NextPage } from "next";
-import Head from "next/head";
-import { FormEvent, useEffect, useState } from "react";
-import { showAlert } from "../components/alert";
-import { toggleLogin } from "../components/modals/login";
-import { volunteeringTypes, volunteeringTypesArray } from "../constants";
-import useAuth from "../hooks/useAuth";
-import { db, storage } from "../saas/firebase";
-import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnoucement";
-import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid";
+/* eslint-disable react/react-in-jsx-scope */
+import { addDoc, collection } from "firebase/firestore"
+import { NextPage } from "next"
+import Head from "next/head"
+import { FormEvent, useEffect, useState } from "react"
+import { showAlert } from "../components/alert"
+import { toggleLogin } from "../components/modals/login"
+import { volunteeringTypes } from "../constants"
+import useAuth from "../hooks/useAuth"
+import { db, storage } from "../saas/firebase"
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
+import { v4 as uuidv4 } from "uuid"
 
 
 const Add: NextPage = () => {
-  const { user, isLoggedIn } = useAuth();
+  const { user, isLoggedIn } = useAuth()
 
-  const [volunteeringName, setVolunteeringName] = useState("");
-  const [fundationName, setFundationName] = useState("");
-  const [city, setCity] = useState("");
-  const [type, setType] = useState("");
-  const [term, setTerm] = useState("");
-  const [paid, setPaid] = useState("");
-  const [description, setDescription] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [avatar, setAvatar]: any = useState(null);
+  const [volunteeringName, setVolunteeringName] = useState("")
+  const [fundationName, setFundationName] = useState("")
+  const [city, setCity] = useState("")
+  const [type, setType] = useState("")
+  const [term, setTerm] = useState("")
+  const [paid, setPaid] = useState("")
+  const [description, setDescription] = useState("")
+  const [email, setEmail] = useState("")
+  const [phone, setPhone] = useState("")
+  const [avatar, setAvatar] = useState<File | null>(null)
 
-  const [isVerified, setIsVerified] = useState(false);
+  const [isVerified, setIsVerified] = useState(false)
 
   useEffect(() => {
-    if (isLoggedIn) {
-      setIsVerified(user?.isVerified);
+    if (isLoggedIn && user) {
+      setIsVerified(user.isVerified)
     }
-  }, [isLoggedIn, user]);
+  }, [isLoggedIn, user])
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    let ext = avatar.type.replace(/(.*)\//g, "");
-    const storageRef = ref(storage, "volunteeringAvatars/" + uuidv4() + ext);
-    uploadBytes(storageRef, avatar).then((snapshot) => {
+    e.preventDefault()
+    const ext = avatar?.type.replace(/(.*)\//g, "")
+    const storageRef = ref(storage, "volunteeringAvatars/" + uuidv4() + ext)
+    uploadBytes(storageRef, avatar!).then(() => {
       getDownloadURL(storageRef).then((url) => {
         addDoc(collection(db, "volunteering"), {
           volunteeringName,
@@ -51,25 +51,26 @@ const Add: NextPage = () => {
           description,
           phone: phone,
           email: email,
-          organisator: user.uid,
+          organisator: user?.uid,
+          usersAppending: [],
         })
           .then(() => {
-            setVolunteeringName("");
-            setFundationName("");
-            setCity("");
-            setType("");
-            setTerm("");
-            setPaid("");
-            setAvatar(null);
-            setDescription("");
-            showAlert("Dodano ogłoszenie wolontariatu!", "success");
+            setVolunteeringName("")
+            setFundationName("")
+            setCity("")
+            setType("")
+            setTerm("")
+            setPaid("")
+            setAvatar(null)
+            setDescription("")
+            showAlert("Dodano ogłoszenie wolontariatu!", "success")
           })
           .catch((error) => {
-            showAlert(error.message, "error-alert");
-          });
-      });
-    });
-  };
+            showAlert(error.message, "error-alert")
+          })
+      })
+    })
+  }
 
   return (
     <>
@@ -87,7 +88,7 @@ const Add: NextPage = () => {
               <form
                 className="space-y-2"
                 onSubmit={(e) => {
-                  handleSubmit(e);
+                  handleSubmit(e)
                 }}
               >
                 <div className="flex flex-col w-full">
@@ -150,13 +151,11 @@ const Add: NextPage = () => {
                     required
                   >
                     <option selected>Wybierz</option>
-                    {Object.entries(volunteeringTypes).map(
-                      ([key, value]: any, i) => (
-                        <option value={key} key={key}>
-                          {value}
-                        </option>
-                      )
-                    )}
+                    {Object.entries(volunteeringTypes).map(([key, value]) => (
+                      <option value={key} key={key}>
+                        {value}
+                      </option>
+                    ))}
                   </select>
                 </div>
                 <div className="flex flex-col w-full">
@@ -205,7 +204,7 @@ const Add: NextPage = () => {
                   <input
                     id="volunteering-image"
                     type="file"
-                    onChange={(e:any) => setAvatar(e.target?.files[0])}
+                    onChange={(e: any) => setAvatar(e.target.files[0])}
                     placeholder="wymiary obrazu muszą być kwadratem np. 64px x 64px"
                     className="resize-none rounded-lg bg-white border-2 text-main-color border-main-color hover:border-main-color-2 focus:rounded-xl p-2"
                     required
@@ -285,7 +284,7 @@ const Add: NextPage = () => {
         </>
       )}
     </>
-  );
-};
+  )
+}
 
-export default Add;
+export default Add

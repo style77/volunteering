@@ -1,50 +1,51 @@
-import { sendPasswordResetEmail } from "firebase/auth";
-import { useEffect, useRef, useState } from "react";
-import { humanizeError } from "../../constants";
-import { auth } from "../../saas/firebase";
-import { Alert, showAlert } from "../alert";
+/* eslint-disable react/react-in-jsx-scope */
+import { sendPasswordResetEmail } from "firebase/auth"
+import { useEffect, useRef, useState } from "react"
+import { humanizeError } from "../../constants"
+import { auth } from "../../saas/firebase"
+import { showAlert } from "../alert"
 
 const ForgotModal = () => {
-    const emailRef = useRef<HTMLInputElement | null>(null);
-    const forgotPasswordModalRef = useRef<HTMLDivElement | null>(null);
+  const emailRef = useRef<HTMLInputElement | null>(null)
+  const forgotPasswordModalRef = useRef<HTMLDivElement | null>(null)
 
-    const [email, setEmail] = useState("")
+  const [email, setEmail] = useState("")
 
   useEffect(() => {
     setTimeout(() => {
-      if (emailRef?.current) emailRef.current!.focus();
-    }, 500);
-  }, []);
+      if (emailRef?.current) emailRef.current!.focus()
+    }, 500)
+  }, [])
 
   const handleToggleModal = (value: boolean) => {
     const modal = forgotPasswordModalRef.current
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden");
+      if (value) modal.classList.toggle("hidden")
       setTimeout(() => {
         if (value) {
-          modal.classList.replace("opacity-0", "opacity-100");
+          modal.classList.replace("opacity-0", "opacity-100")
         } else {
-          modal.classList.replace("opacity-100", "opacity-0");
+          modal.classList.replace("opacity-100", "opacity-0")
           setTimeout(() => {
-            modal.classList.toggle("hidden");
-          }, 500);
+            modal.classList.toggle("hidden")
+          }, 500)
         }
-      }, 1);
+      }, 1)
     }
-  };
+  }
 
   const handleSendPasswordResetEmail = async () => {
     await sendPasswordResetEmail(auth, email)
       .then(() => {
-        showAlert("Wysłano link do resetowania hasła", "forgot-success-alert");
+        showAlert("Wysłano link do resetowania hasła", "forgot-success-alert")
       })
       .catch((error) => {
-        console.log(error);
-        showAlert(humanizeError[error.code], "forgot-error-alert");
-      });
-        handleToggleModal(false)
-    }
+        console.log(error)
+        showAlert(humanizeError[error.code], "forgot-error-alert")
+      })
+    handleToggleModal(false)
+  }
 
   return (
     <>
@@ -125,7 +126,7 @@ const ForgotModal = () => {
         </div>
       }
     </>
-  );
-};
+  )
+}
 
-export default ForgotModal;
+export default ForgotModal

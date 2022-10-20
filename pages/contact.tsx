@@ -1,30 +1,36 @@
-import { NextPage } from "next";
-import Head from "next/head";
-import { useRef } from "react";
+/* eslint-disable react/react-in-jsx-scope */
+import { NextPage } from "next"
+import Head from "next/head"
+import { FormEvent, useRef } from "react"
 
-import emailjs from "@emailjs/browser";
-import { Alert, showAlert } from "../components/alert";
-import { NextSeo } from "next-seo";
+import emailjs from "@emailjs/browser"
+import { Alert, showAlert } from "../components/alert"
+import { NextSeo } from "next-seo"
+import { addDoc, collection } from "firebase/firestore"
+import { db } from "../saas/firebase"
 
 const Contact: NextPage = () => {
-  const form: React.RefObject<HTMLFormElement> = useRef(null);
+  const form = useRef<HTMLFormElement>(null)
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleAdd = () => {
+    if (form.current) {
+      const formData = new FormData(form.current)
+      const data = Object.fromEntries(formData)
+      addDoc(collection(db, "support"), data)
+    }
+  }
+
+  const handleSubmit = (event: FormEvent) => {
+    event.preventDefault()
 
     const target = event.target as typeof event.target & {
       name: { value: string };
       email: { value: string };
       message: { value: string };
       title: { value: string };
-    };
+    }
 
-    const data = {
-      name: target.name.value,
-      title: target.title.value,
-      email: target.email.value,
-      message: target.message.value,
-    };
+    handleAdd()
 
     emailjs
       .sendForm(
@@ -36,29 +42,30 @@ const Contact: NextPage = () => {
       .then(
         () => {
           // clear form inputs
-          target.name.value = "";
-          target.title.value = "";
-          target.email.value = "";
-          target.message.value = "";
+          target.name.value = ""
+          target.title.value = ""
+          target.email.value = ""
+          target.message.value = ""
 
-          showAlert("Wiadomość wysłana! Dziękujemy 💖");
+          showAlert("Wiadomość wysłana! Dziękujemy 💖")
         },
         (error) => {
-          console.log(error.text);
+          console.log(error.text)
         }
-      );
-  };
+      )
+  }
 
   return (
     <main className="bg-background-color">
-      <NextSeo 
+      <NextSeo
         title="Volunteering - Kontakt"
         description="Strona kontaktowa serwisu Volunteering. Znajdziesz tutaj informacje o tym jak możesz się z nami skontaktować w celu zgłoszenia błedu lub propozycji do dodania. Zacznij pomagać razem z nami już teraz!"
         canonical="https://volunteering.pl/contact"
         openGraph={{
           url: "https://volunteering.pl/contact",
           title: "Volunteering - Kontakt",
-          description: "Strona kontaktowa serwisu Volunteering. Znajdziesz tutaj informacje o tym jak możesz się z nami skontaktować w celu zgłoszenia błedu lub propozycji do dodania. Zacznij pomagać razem z nami już teraz!",
+          description:
+            "Strona kontaktowa serwisu Volunteering. Znajdziesz tutaj informacje o tym jak możesz się z nami skontaktować w celu zgłoszenia błedu lub propozycji do dodania. Zacznij pomagać razem z nami już teraz!",
           images: [
             {
               url: "https://volunteering.pl/favicon.ico",
@@ -74,8 +81,8 @@ const Contact: NextPage = () => {
         <title>Volunteering - Kontakt</title>
       </Head>
       <div className="flex flex-wrap md:flex-nowrap h-full min-w-screen items-center justify-center xl:justify-start mt-8 md:mt-48">
-        <div className="flex flex-col basis-1/3 ml-0 xl:ml-48 mb-52">
-          <h1 className="text-8xl font-inter font-semibold text-main-color">
+        <div className="flex flex-col basis-1/2 ml-0 xl:ml-48 mb-52">
+          <h1 className="text-8xl font-inter font-nowrap font-semibold text-main-color">
             Twoje zdanie
           </h1>
           <h6 className="flex mt-3 font-inter font-regular text-main-color">
@@ -83,13 +90,8 @@ const Contact: NextPage = () => {
             masz propozycję co możemy dodać, pisz śmiało!
           </h6>
         </div>
-        <div className="flex basis-1/3"></div>
         <div className="flex basis-1/3 -mt-32 w-full mx-72">
-          <form
-            onSubmit={handleSubmit}
-            ref={form}
-            className="ml-0 xl:ml-12 "
-          >
+          <form onSubmit={handleSubmit} ref={form} className="ml-0 xl:ml-12 ">
             <div className="mb-6">
               <label
                 htmlFor="contact-email"
@@ -159,7 +161,7 @@ const Contact: NextPage = () => {
       </div>
       <Alert alertId="alert" color="bg-main-color"></Alert>
     </main>
-  );
-};
+  )
+}
 
-export default Contact;
+export default Contact

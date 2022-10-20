@@ -1,12 +1,17 @@
-import { ReactNode } from "react";
+/* eslint-disable react/react-in-jsx-scope */
+import { ReactNode } from "react"
 
 type Props = {
   children: ReactNode;
-  leftIcon?: any;
+  leftIcon?: ReactNode;
   bgColor?: string;
 };
 
-export const Badge = ({ children, bgColor = "bg-violet-500", leftIcon }: Props) => {
+export const Badge = ({
+  children,
+  bgColor = "bg-violet-500",
+  leftIcon,
+}: Props) => {
   return (
     <>
       <div
@@ -17,12 +22,10 @@ export const Badge = ({ children, bgColor = "bg-violet-500", leftIcon }: Props) 
         }
       >
         <span className="text-white text-sm font-semibold flex flex-row justify-center items-center">
-          {leftIcon &&
-            <div className="mr-1">{leftIcon}</div>
-          }
+          {leftIcon && <div className="mr-1">{leftIcon}</div>}
           {children}
         </span>
       </div>
     </>
-  );
-};
+  )
+}

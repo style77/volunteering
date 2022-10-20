@@ -1,3 +1,5 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable react/react-in-jsx-scope */
 import {
   GoogleAuthProvider,
   signInWithEmailAndPassword,
@@ -5,98 +7,86 @@ import {
   browserSessionPersistence,
   inMemoryPersistence,
   getMultiFactorResolver,
-  PhoneAuthProvider,
-  RecaptchaVerifier,
   MultiFactorError,
-  PhoneMultiFactorGenerator,
   MultiFactorResolver,
-} from "firebase/auth";
-import {
-  collection,
-  doc,
-  getDoc,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
-import { useRef, useState } from "react";
-import { FaGoogle } from "react-icons/fa";
-import { MdOutlineLogin } from "react-icons/md";
-import { humanizeError } from "../../constants";
-import { auth, db } from "../../saas/firebase";
-import { Alert, showAlert } from "../alert";
-import ForgotModal from "./forgot";
-import { MfaModal } from "./mfa";
-import RegisterModal, { registerUser } from "./register";
+} from "firebase/auth"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { useRef, useState } from "react"
+import { FaGoogle } from "react-icons/fa"
+import { MdOutlineLogin } from "react-icons/md"
+import { humanizeError } from "../../constants"
+import { auth, db } from "../../saas/firebase"
+import { showAlert } from "../alert"
+import ForgotModal from "./forgot"
+import { MfaModal } from "./mfa"
+import RegisterModal, { registerUser } from "./register"
 
 export const toggleLogin = () => {
-  const loginButton = document.getElementById("login-button");
-  loginButton?.click();
-};
+  const loginButton = document.getElementById("login-button")
+  loginButton?.click()
+}
 
 type Props = {
   closeUserDropdown: () => void;
 };
 
 const LoginModal = ({ closeUserDropdown }: Props) => {
-  const modal = useRef<HTMLDivElement>(null);
+  const modal = useRef<HTMLDivElement>(null)
 
-  const email = useRef<HTMLInputElement>(null);
-  const password = useRef<HTMLInputElement>(null);
-  const remember = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null)
+  const password = useRef<HTMLInputElement>(null)
+  const remember = useRef<HTMLInputElement>(null)
 
-  const [showMfaModal, setShowMfaModal] = useState(false);
-  const [mfError, setMfError] = useState<MultiFactorError>();
-  const [mfaResolver, setMfaResolver] = useState<MultiFactorResolver>();
-
-  const [authType, setAuthType] = useState("")
+  const [showMfaModal, setShowMfaModal] = useState(false)
+  const [mfError, setMfError] = useState<MultiFactorError>()
+  const [mfaResolver, setMfaResolver] = useState<MultiFactorResolver>()
 
   const handleToggleModal = (value: boolean) => {
     if (!value) {
-      document.body.classList.remove("overflow-y-hidden");
-      closeUserDropdown();
+      document.body.classList.remove("overflow-y-hidden")
+      closeUserDropdown()
     } else {
-      document.body.classList.add("overflow-y-hidden");
+      document.body.classList.add("overflow-y-hidden")
     }
 
     // There are some weird problems with "Dowiedz się więcej" button
     // It's not working properly when you open login modal
     // So I need to change its z-index
     // It's junky code but what can I do :(
-    const findOutMoreButton = document.getElementById("find-out-more");
+    const findOutMoreButton = document.getElementById("find-out-more")
 
     if (value) {
       // show modal
-      modal.current!.classList.toggle("hidden");
+      modal.current?.classList.toggle("hidden")
 
       setTimeout(() => {
-        modal.current!.classList.replace("opacity-0", "opacity-100");
-        email.current!.focus();
-      }, 1);
+        modal.current?.classList.replace("opacity-0", "opacity-100")
+        email.current?.focus()
+      }, 1)
       if (findOutMoreButton) {
-        findOutMoreButton.classList.replace("z-0", "-z-[1]");
+        findOutMoreButton.classList.replace("z-20", "-z-[1]")
       }
     } else {
       // hide modal
       if (findOutMoreButton) {
-        findOutMoreButton.classList.replace("-z-[1]", "z-0");
+        findOutMoreButton.classList.replace("-z-[1]", "z-20")
       }
 
-      modal.current?.classList.replace("opacity-100", "opacity-0");
+      modal.current?.classList.replace("opacity-100", "opacity-0")
       setTimeout(() => {
-        modal.current!.classList.toggle("hidden");
-      }, 500);
+        modal.current?.classList.toggle("hidden")
+      }, 500)
     }
-  };
+  }
 
   const handleGoogle = async () => {
-    const googleProvider = new GoogleAuthProvider();
+    const googleProvider = new GoogleAuthProvider()
     await signInWithPopup(auth, googleProvider).then(async (result) => {
-      const { user } = result;
-      console.log(user);
+      const { user } = result
+      console.log(user)
       if (user) {
-        const q = query(collection(db, "users"), where("uid", "==", user.uid));
-        const querySnapshot = await getDocs(q);
+        const q = query(collection(db, "users"), where("uid", "==", user.uid))
+        const querySnapshot = await getDocs(q)
         if (querySnapshot.empty) {
           registerUser(
             user,
@@ -105,75 +95,75 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
             user.email!,
             "",
             user.photoURL!
-          );
+          )
           showAlert(
-            `Zarejestrowano pomyślnie 🎉\nTeraz odśwież stronę`,
+            "Zarejestrowano pomyślnie 🎉\nTeraz odśwież stronę",
             "success"
-          );
+          )
         } else {
-          showAlert(`Zalogowano pomyślnie 🎉`, "success");
+          showAlert("Zalogowano pomyślnie 🎉", "success")
         }
       }
       // can do something with this but its not that important rn
-    });
-  };
+    })
+  }
 
   const handleEmail = async () => {
     await signInWithEmailAndPassword(
       auth,
       email.current!.value,
       password.current!.value
-    ).then((userCredential) => {
+    ).then(() => {
       auth.setPersistence(
         remember.current!.checked
           ? inMemoryPersistence
           : browserSessionPersistence
-      );
-      showAlert(`Zalogowano pomyślnie 🎉`, "success");
-    });
-  };
+      )
+      showAlert("Zalogowano pomyślnie 🎉", "success")
+    })
+  }
 
   const handleAuth = async (provider: string) => {
     if (provider == "google") {
       handleGoogle()
         .then(() => {
-          handleToggleModal(false);
+          handleToggleModal(false)
         })
         .catch((error) => {
-          showAlert(humanizeError[error.code], "error-alert");
+          showAlert(humanizeError[error.code], "error-alert")
 
           if (error.code === "auth/multi-factor-auth-required") {
-            const resolver = getMultiFactorResolver(auth, error);
-            setMfaResolver(resolver);
-            setMfError(error);
-            setShowMfaModal(true);
+            const resolver = getMultiFactorResolver(auth, error)
+            setMfaResolver(resolver)
+            setMfError(error)
+            setShowMfaModal(true)
           }
-        });
+        })
     } else if (provider == "email") {
       handleEmail()
         .then(() => {
-          handleToggleModal(false);
+          handleToggleModal(false)
         })
         .catch((error) => {
-          showAlert(humanizeError[error.code], "error-alert");
+          showAlert(humanizeError[error.code], "error-alert")
 
           if (error.code === "auth/multi-factor-auth-required") {
-            const resolver = getMultiFactorResolver(auth, error);
-            setMfaResolver(resolver);
-            setMfError(error);
-            setShowMfaModal(true);
+            const resolver = getMultiFactorResolver(auth, error)
+            setMfaResolver(resolver)
+            setMfError(error)
+            setShowMfaModal(true)
           }
-        });
+        })
     }
-  };
+  }
 
   return (
     <>
       <a
         className="flex justify-center items-center text-main-color hover:text-main-color-2 transition cursor-pointer"
         id="login-button"
-        onClick={(e) => {
-          handleToggleModal(true);
+        onClick={() => {
+          handleToggleModal(true)
         }}
       >
         <div className="flex flex-row justify-center ml-4 items-center text-main-color hover:text-main-color-2 transition cursor-pointer">
@@ -308,7 +298,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
         </div>
       }
     </>
-  );
-};
+  )
+}
 
-export default LoginModal;
+export default LoginModal

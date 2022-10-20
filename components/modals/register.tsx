@@ -1,21 +1,27 @@
+/* eslint-disable no-mixed-spaces-and-tabs */
+/* eslint-disable react/react-in-jsx-scope */
 import {
   createUserWithEmailAndPassword,
-  EmailAuthCredential,
-  signInWithEmailAndPassword,
   updateProfile,
   User,
-  UserCredential,
-} from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
-import { NextPage } from "next";
-import { useEffect, useRef, useState } from "react";
-import { humanizeError } from "../../constants";
-import { auth, db } from "../../saas/firebase";
-import { Alert, showAlert } from "../alert";
+} from "firebase/auth"
+import { addDoc, collection } from "firebase/firestore"
+import { NextPage } from "next"
+import { FormEvent, useEffect, useRef, useState } from "react"
+import { humanizeError } from "../../constants"
+import { auth, db } from "../../saas/firebase"
+import { showAlert } from "../alert"
 
-import PasswordStrengthBar from "react-password-strength-bar";
+import PasswordStrengthBar from "react-password-strength-bar"
 
-export const registerUser = async (user: User, uid: string, name: string, mail: string, birthday: string, photo?: string) => {
+export const registerUser = async (
+  user: User,
+  uid: string,
+  name: string,
+  mail: string,
+  birthday: string,
+  photo?: string
+) => {
   await addDoc(collection(db, "users"), {
     email: mail,
     uid: uid,
@@ -28,31 +34,31 @@ export const registerUser = async (user: User, uid: string, name: string, mail: 
     birthday: birthday, // This will be used to calculate user age
     description: "", // This will be used to save user description
     heldVolunteering: [], // There will be saved id of volunteering that user has held
-  });
+  })
   updateProfile(user, {
     displayName: name,
     photoURL: photo || "https://volunteering.pl/images/blank.png",
-  });
-};
+  })
+}
 
 const RegisterModal: NextPage = () => {
-  const [password, setPassword] = useState("");
-  const passwordRef = useRef<HTMLInputElement>(null);
+  const [password, setPassword] = useState("")
+  const passwordRef = useRef<HTMLInputElement>(null)
 
-  const username = useRef<HTMLInputElement | null>(null);
+  const username = useRef<HTMLInputElement | null>(null)
 
-  const [verifiedPassword, setVerifiedPassword] = useState("");
-  const passwordVerification = useRef<HTMLInputElement | null>(null);
+  const [verifiedPassword, setVerifiedPassword] = useState("")
+  const passwordVerification = useRef<HTMLInputElement | null>(null)
 
-  const [mail, setMail] = useState("");
-  const [name, setName] = useState("");
-  const [birthday, setBirthday]: any = useState();  // timestamp
+  const [mail, setMail] = useState("")
+  const [name, setName] = useState("")
+  const [birthday, setBirthday] = useState("")
 
   useEffect(() => {
     setTimeout(() => {
-      if (username.current) username.current!.focus();
-    }, 500);
-  }, []);
+      if (username.current) username.current?.focus()
+    }, 500)
+  }, [])
 
   const registerWithEmailAndPassword = async () => {
     await createUserWithEmailAndPassword(auth, mail, password)
@@ -62,71 +68,71 @@ const RegisterModal: NextPage = () => {
           userCredential.user.uid,
           name,
           mail,
-          birthday,
+          birthday
         ).then(() => {
-          showAlert("Zarejestrowano pomyślnie", "register-success");
-          return userCredential;
-        });
+          showAlert("Zarejestrowano pomyślnie", "register-success")
+          return userCredential
+        })
       })
       .catch((error) => {
-        showAlert(humanizeError[error.code], "register-error-alert");
-      });
-    handleToggleModal(false);
-  };
+        showAlert(humanizeError[error.code], "register-error-alert")
+      })
+    handleToggleModal(false)
+  }
 
   const handleToggleModal = (value: boolean) => {
-    const modal = document.getElementById("register-modal");
+    const modal = document.getElementById("register-modal")
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden");
+      if (value) modal.classList.toggle("hidden")
       setTimeout(() => {
         if (value) {
-          modal.classList.replace("opacity-0", "opacity-100");
+          modal.classList.replace("opacity-0", "opacity-100")
         } else {
-          modal.classList.replace("opacity-100", "opacity-0");
+          modal.classList.replace("opacity-100", "opacity-0")
           setTimeout(() => {
-            modal.classList.toggle("hidden");
-          }, 500);
+            modal.classList.toggle("hidden")
+          }, 500)
         }
-      }, 1);
+      }, 1)
     }
-  };
+  }
 
   const handlePasswordVerification = () => {
     if (password === verifiedPassword) {
-      passwordVerification.current!.classList.replace(
+      passwordVerification.current?.classList.replace(
         "border-red-500",
         "border-gray-300"
-      );
-      passwordRef.current!.classList.replace(
+      )
+      passwordRef.current?.classList.replace(
         "border-red-500",
         "border-gray-300"
-      );
+      )
     } else {
-      passwordVerification.current!.classList.replace(
+      passwordVerification.current?.classList.replace(
         "border-gray-300",
         "border-red-500"
-      );
-      passwordRef.current!.classList.replace(
+      )
+      passwordRef.current?.classList.replace(
         "border-gray-300",
         "border-red-500"
-      );
+      )
     }
-  };
+  }
 
   useEffect(() => {
-    handlePasswordVerification();
-  }, [verifiedPassword, password]);
+    handlePasswordVerification()
+  }, [verifiedPassword, password])
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent) => {
     e.preventDefault()
 
     if (password === verifiedPassword) {
-      registerWithEmailAndPassword();
+      registerWithEmailAndPassword()
     } else {
-      showAlert("Hasła nie są takie same", "register-error-alert");
+      showAlert("Hasła nie są takie same", "register-error-alert")
     }
-  };
+  }
 
   return (
     <>
@@ -227,7 +233,7 @@ const RegisterModal: NextPage = () => {
                       ref={passwordRef}
                       placeholder="••••••••"
                       onChange={(e) => {
-                        setPassword(e.target.value);
+                        setPassword(e.target.value)
                       }}
                       className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       required
@@ -246,7 +252,7 @@ const RegisterModal: NextPage = () => {
                       ref={passwordVerification}
                       placeholder="••••••••"
                       onChange={(e) => {
-                        setVerifiedPassword(e.target.value);
+                        setVerifiedPassword(e.target.value)
                       }}
                       className="bg-gray-50 border border-red-500 text-gray-800 text-sm rounded-lg block w-full p-2.5"
                       required
@@ -294,7 +300,7 @@ const RegisterModal: NextPage = () => {
         </div>
       }
     </>
-  );
-};
+  )
+}
 
-export default RegisterModal;
+export default RegisterModal

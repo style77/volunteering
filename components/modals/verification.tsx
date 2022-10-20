@@ -1,100 +1,96 @@
-import { verify } from "crypto";
+/* eslint-disable react/react-in-jsx-scope */
+// @tsx
 import {
   RecaptchaVerifier,
-  signInWithPhoneNumber,
   multiFactor,
   PhoneAuthProvider,
   PhoneMultiFactorGenerator,
-  getAuth,
   GoogleAuthProvider,
   EmailAuthProvider,
   UserCredential,
   reauthenticateWithPopup,
   User,
   sendEmailVerification,
-} from "firebase/auth";
+} from "firebase/auth"
 import {
   collection,
-  getDoc,
+  DocumentData,
   getDocs,
   query,
-  setDoc,
+  QuerySnapshot,
   updateDoc,
   where,
-} from "firebase/firestore";
-import { DateTime } from "luxon";
-import { FormEvent, useRef, useState } from "react";
-import { humanizeError } from "../../constants";
-import { auth, db } from "../../saas/firebase";
-import { showAlert } from "../alert";
-import { Badge } from "../badge";
+} from "firebase/firestore"
+import { FormEvent, useRef, useState } from "react"
+import { humanizeError } from "../../constants"
+import { auth, db } from "../../saas/firebase"
+import { showAlert } from "../alert"
+import { Badge } from "../badge"
 
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2"
+import "react-phone-input-2/lib/style.css"
 
-import useAuth from "../../hooks/useAuth";
+import { FirebaseError } from "firebase/app"
 
 type Props = {
-  user: any;
+  user: Record<string, any>;
 };
 
 export const VerificationModal = ({ user }: Props) => {
-  const verificationModalRef = useRef<HTMLDivElement | null>(null);
-  const phoneNumberRef = useRef<HTMLInputElement | null>(null);
+  const verificationModalRef = useRef<HTMLDivElement | null>(null)
 
-  const [phoneNumber, setPhoneNumber]: any = useState("");
-  const [showOtpInput, setShowOTPInput] = useState(false);
+  const [phoneNumber, setPhoneNumber] = useState("")
+  const [showOtpInput, setShowOTPInput] = useState(false)
 
-  const [OTPCode, setOTPCode] = useState("");
+  const [OTPCode, setOTPCode] = useState("")
 
   const handleToggleModal = (value: boolean) => {
-    const modal = verificationModalRef.current;
+    const modal = verificationModalRef.current
 
     if (modal) {
-      if (value) modal.classList.toggle("hidden");
+      if (value) modal.classList.toggle("hidden")
       setTimeout(() => {
         if (value) {
-          modal.classList.replace("opacity-0", "opacity-100");
+          modal.classList.replace("opacity-0", "opacity-100")
         } else {
-          modal.classList.replace("opacity-100", "opacity-0");
+          modal.classList.replace("opacity-100", "opacity-0")
           setTimeout(() => {
-            modal.classList.toggle("hidden");
-          }, 500);
+            modal.classList.toggle("hidden")
+          }, 500)
         }
-      }, 1);
+      }, 1)
     }
-  };
+  }
 
   const updateUser = () => {
     getDocs(query(collection(db, "users"), where("uid", "==", user.uid))).then(
-      (querySnapshot: any) => {
-        querySnapshot.forEach((doc: any) => {
+      (querySnapshot: QuerySnapshot) => {
+        querySnapshot.forEach((doc: DocumentData) => {
           updateDoc(doc.ref, { isVerified: true, phoneNumber: phoneNumber })
             .then(() => {
-              showAlert("Zweryfikowano konto!", "success");
-              handleToggleModal(false);
+              showAlert("Zweryfikowano konto!", "success")
+              handleToggleModal(false)
             })
-            .catch((error: any) => {
-              showAlert(error.message, "error-alert");
-            });
-        });
+            .catch((error: FirebaseError) => {
+              showAlert(humanizeError[error.code], "error-alert")
+            })
+        })
       }
-    );
-  };
+    )
+  }
 
   const verifyOTP = (verificationId: string, verificationCode: string) => {
-    const cred = PhoneAuthProvider.credential(verificationId, verificationCode);
-    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred);
+    const cred = PhoneAuthProvider.credential(verificationId, verificationCode)
+    const multiFactorAssertion = PhoneMultiFactorGenerator.assertion(cred)
     multiFactor(user.auth.currentUser)
       .enroll(multiFactorAssertion)
       .then(() => {
-        updateUser();
-        showAlert("Zweryfikowano konto!", "error-alert");
+        updateUser()
       })
-      .catch((error: any) => {
-        showAlert(humanizeError[error.code], "error-alert");
-      });
-  };
+      .catch((error: FirebaseError) => {
+        showAlert(humanizeError[error.code], "error-alert")
+      })
+  }
 
   const handleOTP = (user: User) => {
     multiFactor(user)
@@ -103,84 +99,81 @@ export const VerificationModal = ({ user }: Props) => {
         const phoneInfoOptions = {
           phoneNumber: "+" + phoneNumber,
           session: multiFactorSession,
-        };
-        const phoneProvider = new PhoneAuthProvider(auth);
+        }
+        const phoneProvider = new PhoneAuthProvider(auth)
         phoneProvider
           .verifyPhoneNumber(phoneInfoOptions, window.recaptchaVerifier)
           .then((verificationId) => {
-            window.verificationId = verificationId;
-            setShowOTPInput(true);
+            window.verificationId = verificationId
+            setShowOTPInput(true)
           })
-          .catch((error: any) => {
+          .catch((error: FirebaseError) => {
             if (error.code === "auth/unverified-email") {
               sendEmailVerification(user).then(() => {
                 showAlert(
                   "Na twój email została wysłana wiadomość z linkiem do weryfikacji.",
                   "error-alert"
-                );
-              });
+                )
+              })
             }
             setTimeout(() => {
-              console.log(error.code);
-              showAlert(humanizeError[error.code], "error-alert");
-            }, 3500);
-          });
-      });
-  };
+              showAlert(humanizeError[error.code], "error-alert")
+            }, 3500)
+          })
+      })
+  }
 
   const onSolvedRecaptcha = () => {
-    let provider;
+    let provider
     if (user.providerData[0].providerId === "google.com") {
-      provider = new GoogleAuthProvider();
+      provider = new GoogleAuthProvider()
       reauthenticateWithPopup(user.auth.currentUser, provider)
         .then((userCredential: UserCredential) => {
-          handleOTP(userCredential.user);
+          handleOTP(userCredential.user)
         })
-        .catch((error: any) => {
-          showAlert(humanizeError[error.code], "error-alert");
-        });
+        .catch((error: FirebaseError) => {
+          showAlert(humanizeError[error.code], "error-alert")
+        })
     } else {
-      provider = new EmailAuthProvider();
-      handleOTP(user.auth.currentUser);
+      provider = new EmailAuthProvider()
+      handleOTP(user.auth.currentUser)
     }
-  };
+  }
 
   const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    console.log(123);
+    console.log(123)
 
     if (OTPCode.length === 6) {
-      verifyOTP(window.verificationId, OTPCode);
+      verifyOTP(window.verificationId, OTPCode)
     } else {
       window.recaptchaVerifier = new RecaptchaVerifier(
         "verify-button",
         {
           size: "invisible",
-          callback: (response: any) => {},
           "expired-callback": function () {
-            showAlert("Captcha wygasła, spróbuj ponownie", "error-alert");
+            showAlert("Captcha wygasła, spróbuj ponownie", "error-alert")
           },
         },
         auth
-      );
+      )
 
       getDocs(
         query(collection(db, "users"), where("phoneNumber", "==", phoneNumber))
       )
-        .then((querySnapshot: any) => {
+        .then((querySnapshot: QuerySnapshot) => {
           if (querySnapshot.empty) {
-            onSolvedRecaptcha();
+            onSolvedRecaptcha()
           } else {
-            showAlert("Ten numer telefonu jest już w użyciu", "error-alert");
+            showAlert("Ten numer telefonu jest już w użyciu", "error-alert")
           }
         })
-        .catch((error: any) => {
-          console.log(error);
-          showAlert(humanizeError[error.code], "error-alert");
-        });
+        .catch((error: FirebaseError) => {
+          showAlert(humanizeError[error.code], "error-alert")
+        })
     }
-  };
+  }
 
   return (
     <>
@@ -298,5 +291,5 @@ export const VerificationModal = ({ user }: Props) => {
         </div>
       }
     </>
-  );
-};
+  )
+}
