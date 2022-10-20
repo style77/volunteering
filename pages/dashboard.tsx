@@ -48,7 +48,7 @@ export const OrganisatorPanel = () => {
             volunteeringTerm={volunteeringTerms[volunteering.term]}
             volunteeringImage={volunteering.image}
             description={volunteering.description}
-            participants={volunteering.usersAppending}
+            defParticipants={volunteering.usersAppending}
           />
         ))}
       </main>

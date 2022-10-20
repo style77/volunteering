@@ -1,5 +1,10 @@
 import { MdOutlineCorporateFare } from "react-icons/md"
 import { IoLocationOutline } from "react-icons/io5"
+import React, { ChangeEvent, useEffect, useState } from "react"
+import { collection, getDocs } from "firebase/firestore"
+import { db } from "../saas/firebase"
+import Fuse from "fuse.js"
+import Image from "next/image"
 
 type Props = {
   volunteeringName: string
@@ -10,7 +15,40 @@ type Props = {
   volunteeringTerm: string
   volunteeringImage: string
   description: string
-  participants: Array<Record<string, any>>
+  defParticipants: Array<Record<string, any>>
+}
+
+type SelectProps = {
+  users: Array<Record<string, any>>
+}
+
+const SelectUser = ({users}: SelectProps) => {
+  const [foundUsers, setFoundUsers] = useState<Record<string, any>[]>([])
+
+  const onChange = (e: ChangeEvent<HTMLSelectElement>) => {
+    const fuse = new Fuse(users, {
+      keys: ["email"]
+    })
+    const result = fuse.search(e.target.value, { limit: 3 })
+    setFoundUsers(result.map((result) => result.item))
+  }
+
+  return (
+    <>
+      <input
+        type="text"
+        onChange={(e: any) => onChange(e)}
+        className="h-8 pl-1"
+      />
+      <div className="text-main-color bg-white">
+        {foundUsers.map((user) => (
+          <div key={user.id} className="cursor-pointer p-1 border-t-[1px]">
+            {user.email}
+          </div>
+        ))}
+      </div>
+    </>
+  )
 }
 
 export const OrganisatorVolunteeringBox = ({
@@ -21,8 +59,30 @@ export const OrganisatorVolunteeringBox = ({
   volunteeringType,
   volunteeringTerm,
   description,
-  participants
+  defParticipants
 }: Props) => {
+
+  const [selectedUser, setSelectedUser] = useState<Record<string, any>>({})
+  const [editMode, setEditMode] = useState<boolean>(false)
+
+  const [participants, setParticipants] =
+    useState<Record<string, any>[]>(defParticipants)
+
+  const [users, setUsers] = useState<Record<string, any>[]>([])
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      getDocs(collection(db, "users")).then((querySnapshot) => {
+        const users: Record<string, any>[] = []
+        querySnapshot.forEach((doc) => {
+          users.push({ id: doc.id, ...doc.data() })
+        })
+        setUsers(users)
+      })
+    }
+    fetchUsers()
+  }, [])
+
   return (
     <div className="font-inter flex">
       <div className="flex bg-main-color rounded-xl p-4">
@@ -54,7 +114,6 @@ export const OrganisatorVolunteeringBox = ({
           <div className="flex flex-col">
             <span className="text-white">Opis</span>
             <textarea
-              disabled
               className="bg-white rounded-lg p-2"
               style={{ resize: "none" }}
             >
@@ -65,6 +124,23 @@ export const OrganisatorVolunteeringBox = ({
             <span className="text-white">
               Uczestnicy: {participants.length}
             </span>
+            {participants.map((participant) => (
+              <div
+                key={participant.id}
+                className="flex flex-row"
+                onClick={() => setSelectedUser(participant)}
+              >
+                <Image
+                  src={participant.photoURL}
+                  alt="user"
+                  className="rounded-full"
+                  height="32"
+                  width="32"
+                />
+                <span className="ml-2">{participant.email}</span>
+              </div>
+            ))}
+            <SelectUser users={users} />
           </div>
         </div>
       </div>

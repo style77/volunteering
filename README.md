@@ -56,16 +56,19 @@ emailJsPublicKey=
 - [Next.js](https://nextjs.org/)
 - [React](https://reactjs.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
-- [Firebase](https://firebase.google.com/)
+- [Firebase](https://firebase.google.com/) (Firestore, Authentication, Storage)
 - [Email.js](https://www.emailjs.com/)
 - [Vivid Studio](https://vivid.lol/)
 - [Luxon](https://moment.github.io/luxon/)
+- [Fuse.js](https://fusejs.io/)
 
 ##### LINT
 - [Yarn](https://yarnpkg.com/)
-- [Travis CI](https://travis-ci.org/)
-- [Eslint](https://eslint.org/)
+- [CodeFactor](https://www.codefactor.io/)
+- [ESLint](https://eslint.org/)
 - [Prettier](https://prettier.io/)
+
+i wiele innych pomniejszych technologi!
 
 ## System odznak
 
