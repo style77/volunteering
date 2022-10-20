@@ -186,7 +186,7 @@ export const Navbar = () => {
                         </div>
                         <ul className="py-1" aria-labelledby="user-menu-button">
                           <li>
-                            <Link href="profile">
+                            <Link href="/profile">
                               <a
                                 className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                                 onClick={() => hideDropdown()}
@@ -196,7 +196,7 @@ export const Navbar = () => {
                             </Link>
                           </li>
                           <li>
-                            <Link href="myList">
+                            <Link href="/myList">
                               <a className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer">
                                 Moja lista
                               </a>

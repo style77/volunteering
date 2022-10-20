@@ -270,6 +270,9 @@ const Profile: NextPage = () => {
               </div>
             </div>
           </div>
+          <a href={`/profile/${data.uid}`} className="text-zinc-400/50 text-sm">
+            UID {data.uid}
+          </a>
         </main>
       ) : (
         <div className="flex flex-col items-center justify-center h-full">

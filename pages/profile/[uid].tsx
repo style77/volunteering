@@ -158,7 +158,7 @@ const Profile: NextPage = () => {
               >
                 Zaloguj się
               </span>
-              , aby zobaczyć swój profil
+              , aby zobaczyć profil tego użytkownika
             </span>
           </div>
         </div>
