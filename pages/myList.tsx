@@ -8,21 +8,32 @@ import { db } from "../saas/firebase";
 export const MyList = () => {
   const { user } = useAuth();
   const [volunteeringData, setVolunteeringData] = useState([]);
-  useEffect(() => {
-    let volunteeringDataTemp: any = [];
-    getDocs(collection(db, "volunteering")).then(
-      (querySnapshot: QuerySnapshot) =>
-        querySnapshot.forEach((doc) => {
-          if (user?.favorites?.includes(doc.id)) {
-            console.log(user.favorites);
-            volunteeringDataTemp.push(doc.data());
-            console.log(volunteeringDataTemp);
-          }
-        })
-    );
-    setVolunteeringData(volunteeringDataTemp);
-  }, []);
 
+  useEffect(() => {
+    console.log(123)
+    const getData = () => {
+      let volunteeringDataTemp: any = [];
+      getDocs(collection(db, "volunteering")).then(
+        (querySnapshot: QuerySnapshot) =>
+          querySnapshot.forEach((doc) => {
+            if (user?.favorites?.includes(doc.id)) {
+              console.log(user.favorites);
+              volunteeringDataTemp.push(doc.data());
+              console.log(volunteeringDataTemp);
+            }
+          })
+      );
+      setVolunteeringData(volunteeringDataTemp);
+      
+    };
+
+        getData()
+      
+    
+
+  },[user]);
+
+  console.log(volunteeringData);
   return (
     <>
       <main>
@@ -31,20 +42,21 @@ export const MyList = () => {
             Moja lista
           </h1>
 
-          <>
-            {volunteeringData.forEach((volunteering: any) => {
-              <VolunteeringCard
-                volunteeringName={volunteering.volunteeringName}
-                orgName={volunteering.fundationName}
-                city={volunteering.city}
-                isPaid={volunteering.paid}
-                volunteeringType={volunteering.type}
-                volunteeringTerm={volunteering.term}
-                volunteeringImage={volunteering.image}
-              ></VolunteeringCard>;
-              <VolunteeringCard volunteeringName="chuj" orgName="chuj" city="czesc" isPaid={false} volunteeringImage="" volunteeringTerm="period" volunteeringType="sport"></VolunteeringCard>
+          <div className="flex flex-col gap-5 mx-6 basis-11/12 xl:justify-center items-center">
+            {volunteeringData.map((volunteering: any) => {
+              return (
+                <VolunteeringCard
+                  volunteeringName={volunteering.volunteeringName}
+                  orgName={volunteering.fundationName}
+                  city={volunteering.city}
+                  isPaid={volunteering.paid}
+                  volunteeringType={volunteering.type}
+                  volunteeringTerm={volunteering.term}
+                  volunteeringImage={volunteering.image}
+                ></VolunteeringCard>
+              );
             })}
-          </>
+          </div>
         </>
       </main>
     </>

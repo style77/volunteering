@@ -11,6 +11,7 @@ import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnouc
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid";
 
+
 const Add: NextPage = () => {
   const { user, isLoggedIn } = useAuth();
 
@@ -279,6 +280,7 @@ const Add: NextPage = () => {
               </a>{" "}
               numerem telefonu aby dodać wolontariat
             </div>
+            
           </main>
         </>
       )}
