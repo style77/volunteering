@@ -175,6 +175,9 @@ const Profile: NextPage = () => {
                   width="128"
                   src={data!.photoURL}
                   onClick={() => openFileBrowser()}
+                  onError={(e: any) => {
+                    e.currentTarget.src = "/images/blank.png"
+                  }}
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">
                   {data!.isVerified ? (

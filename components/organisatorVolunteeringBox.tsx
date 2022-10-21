@@ -120,6 +120,17 @@ export const OrganisatorVolunteeringBox = ({
         })
       }
     )
+
+  getDocs(collection(db, "users")).then((querySnapshot: QuerySnapshot) => {
+    querySnapshot.forEach((doc: DocumentData) => {
+      if (doc.data().uid === user.uid) {
+        updateDoc(doc.ref, {
+          heldVolunteering: [...newParticipants]
+        })
+      }
+    })
+  })
+
   }
 
   const addToParticipants = (user: Record<string, any>) => {
@@ -140,7 +151,7 @@ export const OrganisatorVolunteeringBox = ({
 
     getDocs(collection(db, "users")).then((querySnapshot: QuerySnapshot) => {
       querySnapshot.forEach((doc: DocumentData) => {
-        if (doc.id === user.id) {
+        if (doc.data().uid === user.uid) {
           updateDoc(doc.ref, {
             heldVolunteering: [...user.heldVolunteering, volunteeringID]
           })
