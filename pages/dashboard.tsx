@@ -1,5 +1,6 @@
-import { collection, getDocs, query, where } from "firebase/firestore"
+import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore"
 import { useEffect, useState } from "react"
+import { showAlert } from "../components/alert"
 import OrganisatorVolunteeringBox from "../components/organisatorVolunteeringBox"
 import {
   volunteeringPaidToBoolean,
@@ -31,8 +32,26 @@ export const OrganisatorPanel = () => {
       })
     }
 
+    console.log(1)
     fetchVolunteerings()
   }, [user])
+
+  const removeVolunteering = (volunteeringId: string) => {
+    setVolunteerings(volunteerings.filter((v) => v.id !== volunteeringId))
+    getDocs(collection(db, "volunteerings")).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        if (doc.id === volunteeringId) {
+          deleteDoc(doc.ref)
+            .then(() => {
+              showAlert("Usunięto wolontariat", "success")
+            })
+            .then((e) => {
+              showAlert("Wystąpił błąd", "error")
+            })
+        }
+      })
+    })
+  }
 
   return (
     <>
@@ -40,6 +59,7 @@ export const OrganisatorPanel = () => {
         {volunteerings.map((volunteering) => (
           <OrganisatorVolunteeringBox
             key={volunteering.id}
+            volunteeringID={volunteering.id}
             volunteeringName={volunteering.volunteeringName}
             orgName={volunteering.fundationName}
             city={volunteering.city}
@@ -49,6 +69,7 @@ export const OrganisatorPanel = () => {
             volunteeringImage={volunteering.image}
             description={volunteering.description}
             defParticipants={volunteering.usersAppending}
+            removeVolunteering={removeVolunteering}
           />
         ))}
       </main>

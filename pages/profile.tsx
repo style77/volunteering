@@ -66,6 +66,7 @@ const Profile: NextPage = () => {
             birthday: data!.birthday,
             description: data!.description,
             location: data!.location,
+            displayName: displayName
           }
 
           updateDoc(doc.ref, dataToSave)
@@ -103,6 +104,16 @@ const Profile: NextPage = () => {
     return DateTime.fromISO(date).diffNow("years").toObject().years!
   }
 
+  const updateAvatar = (url: string) => {
+    getDocs(query(collection(db, "users"), where("uid", "==", user!.uid))).then(
+      (querySnapshot: QuerySnapshot) => {
+        querySnapshot.forEach((doc: DocumentData) => {
+          updateDoc(doc.ref, { avatar: url })
+        })
+      }
+    )
+  }
+
   const uploadNewAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files![0]
     const ext = file.type.replace(/(.*)\//g, "")
@@ -116,6 +127,7 @@ const Profile: NextPage = () => {
         .then((imageURL: string) => {
           updateProfile(user.auth.currentUser, { photoURL: imageURL }).then(
             () => {
+              updateAvatar(imageURL)
               showAlert("Zaktualizowano awatar pomyślnie 🎉", "success")
             }
           )
