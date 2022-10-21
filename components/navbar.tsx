@@ -212,7 +212,17 @@ export const Navbar = () => {
                                 className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                                 onClick={() => hideDropdown()}
                               >
-                                Moja lista
+                                Ulubione
+                              </a>
+                            </Link>
+                          </li>
+                          <li>
+                            <Link href="/myVolunteerings">
+                              <a
+                                className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                                onClick={() => hideDropdown()}
+                              >
+                                Moje wolontariaty
                               </a>
                             </Link>
                           </li>

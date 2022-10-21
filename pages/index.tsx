@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                     className="xl:w-full xl:h-full delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
-                    <button className="h-14 w-48 shadow-md text-md xl:h-18 xl:w-52 xl:text-xl relative font-semibold font-inter bottom-20 xl:bottom-0 bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
+                    <button className="h-14 w-48 shadow-md text-md xl:h-24 xl:w-72 xl:text-xl relative font-semibold font-inter bottom-20 xl:bottom-0 bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
                       Dowiedz się więcej!
                     </button>
                   </a>
@@ -197,15 +197,15 @@ const Home: NextPage = () => {
               </div>
 
               <div className="flex flex-col md:flex-row px-10 select-none text-main-color gap-10 xl:gap-36 font-inter my-10 w-full justify-center items-start">
-                <div className="flex flex-col basis-1/3 ">
+                <div className="flex flex-col basis-1/3">
                   <span
-                    className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                    className="text-4xl z-10 delay-[800ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2 ml-20"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Stwórz konto
                   </span>
                   <span
-                    className="font-regular text-lg z-10 delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    className="font-regular text-lg z-10 delay-[900ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out ml-20"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Nasza aplikacja pozwoli Tobie znaleźć <br /> wolontariat lub
@@ -214,13 +214,13 @@ const Home: NextPage = () => {
                 </div>
                 <div className="flex flex-col basis-1/3">
                   <span
-                    className="text-4xl delay-1000 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                    className="text-4xl delay-1000 duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2 mr-0"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Wystaw się lub znajdź wolontariat
                   </span>
                   <span
-                    className="font-regular text-lg delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    className="font-regular text-lg delay-[1100ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out mr-0"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Zadeklaruj swoją chęć do udziału w wolontariacie poprzez
@@ -229,13 +229,13 @@ const Home: NextPage = () => {
                 </div>
                 <div className="flex flex-col basis-1/3">
                   <span
-                    className="text-4xl delay-[1200ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2"
+                    className="text-4xl delay-[1200ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out my-2 mr-24"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Czekaj na odpowiedź i nieś dobro!
                   </span>
                   <span
-                    className="font-regular text-lg delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
+                    className="font-regular text-lg delay-[1300ms] duration-700 transform opacity-0 transition-all translate-y-12 ease-out mr-20"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
                     Znajdź odpowiadający Tobie wolontariat, czekaj aż ktoś się
