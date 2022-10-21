@@ -4,16 +4,16 @@ import { FiSearch } from "react-icons/fi"
 import { cities, volunteeringTerms, volunteeringTypes } from "../constants"
 
 type Props = {
-  volunteeringsData: Record<string, any>;
-  setVolunteeringsData: Function;
-  allVolunteeringsData: Record<string, any>;
-  setIsLoading: Function;
-};
+  volunteeringsData: Record<string, any>
+  setVolunteeringsData: Function
+  allVolunteeringsData: Record<string, any>
+  setIsLoading: Function
+}
 
 export const SearchBar = ({
   allVolunteeringsData,
   setVolunteeringsData,
-  setIsLoading,
+  setIsLoading
 }: Props) => {
   const [searchCity, setSearchCity] = useState("")
   const [searchType, setSearchType] = useState("")
@@ -23,21 +23,27 @@ export const SearchBar = ({
     setIsLoading(true)
     e.preventDefault()
     let filtered = allVolunteeringsData
+
     if (searchCity) {
-      filtered = filtered.filter((volunteering: Record<string, any>) =>
-        volunteering.city.toLowerCase().includes(searchCity.toLowerCase())
+      filtered = filtered.filter(
+        (volunteering: Record<string, any>) =>
+          volunteering.city.toLowerCase() === searchCity.toLowerCase()
       )
+      console.log(filtered)
     }
     if (searchType) {
-      filtered = filtered.filter((volunteering: Record<string, any>) =>
-        volunteering.type.toLowerCase().includes(searchType.toLowerCase())
+      filtered = filtered.filter(
+        (volunteering: Record<string, any>) =>
+          volunteering.type.toLowerCase() === searchType.toLowerCase()
       )
+      console.log(filtered)
     }
     if (searchTerm) {
-      filtered = filtered.filter((volunteering: Record<string, any>) =>
-        volunteering.term.toLowerCase().includes(searchTerm.toLowerCase())
-      )
+      filtered = filtered.filter((volunteering: Record<string, any>) => {
+        volunteering.term.toLowerCase() === searchTerm.toLowerCase()
+      })
     }
+
     setVolunteeringsData(filtered)
     setIsLoading(false)
   }

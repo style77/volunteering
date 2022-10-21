@@ -149,7 +149,6 @@ export const VolunteeringAnnoucement = ({
     }, 1)
   }, [showVolunteeringAnnoucementModal])
 
-  console.log(favorite)
   return (
     <>
       <div

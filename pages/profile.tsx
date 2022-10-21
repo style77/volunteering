@@ -108,7 +108,7 @@ const Profile: NextPage = () => {
     getDocs(query(collection(db, "users"), where("uid", "==", user!.uid))).then(
       (querySnapshot: QuerySnapshot) => {
         querySnapshot.forEach((doc: DocumentData) => {
-          updateDoc(doc.ref, { avatar: url })
+          updateDoc(doc.ref, { photoURL: url })
         })
       }
     )
@@ -251,6 +251,7 @@ const Profile: NextPage = () => {
                       setData({ ...data!, birthday: e.target.value })
                     }}
                     max={DateTime.now().toISODate()}
+                    min="1900-01-01"
                     placeholder="Wybierz swoją datę urodzenia"
                     disabled={!edit}
                     className="bg-gray-50 border border-gray-300 text-gray-800 text-sm rounded-lg block w-full p-2.5 shadow-md"

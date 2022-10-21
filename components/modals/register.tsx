@@ -35,7 +35,7 @@ export const registerUser = async (
     description: "", // This will be used to save user description
     heldVolunteering: [], // There will be saved id of volunteering that user has held
     displayName: name, // This will be used to save user display name
-    photoURL: photo, // This will be used to save user photo
+    photoURL: photo || "", // This will be used to save user photo
   })
   updateProfile(user, {
     displayName: name,
@@ -284,6 +284,8 @@ const RegisterModal: NextPage = () => {
                       type="date"
                       className="rounded-md w-full h-10 text-center"
                       onChange={(e) => setBirthday(e.target.value)}
+                      max={new Date().toISOString().split("T")[0]}
+                      min="1900-01-01"
                       required
                     />
                   </div>
