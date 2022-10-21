@@ -198,7 +198,10 @@ export const Navbar = () => {
                             {data.email}
                           </span>
                         </div>
-                        <ul className="py-1" aria-labelledby="user-menu-button">
+                        <ul
+                          className="py-1 z-[9999]"
+                          aria-labelledby="user-menu-button"
+                        >
                           <li>
                             <Link href="/profile">
                               <a
@@ -285,7 +288,7 @@ export const Navbar = () => {
             id="navbar-sticky"
             ref={navbar}
           >
-            <ul className="flex flex-col p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color xl:bg-transparent xl:w-auto xl:flex-row xl:space-x-8 xl:mt-0 xl:text-sm xl:font-medium xl:border-0 gap-1 shadow xl:shadow-none">
+            <ul className="flex flex-col z-[9999] p-4 mt-4 border-t-2 border-zinc-200 w-full bg-background-color xl:bg-transparent xl:w-auto xl:flex-row xl:space-x-8 xl:mt-0 xl:text-sm xl:font-medium xl:border-0 gap-1 shadow xl:shadow-none">
               <li>
                 <Link href="/">
                   <a

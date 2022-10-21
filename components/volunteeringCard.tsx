@@ -62,20 +62,21 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div className="flex flex-row -z-[1] h-52 xl:h-36 w-screen xl:w-full bg-main-color rounded-lg shadow-md">
-        <div className="xl:ml-4 mt-6">
+      <div className="flex flex-row -z-[1] h-52 xl:h-36 w-screen xl:w-full bg-main-color rounded-lg shadow-md mr-7">
+        <div className="mt-6">
           <Image
             src={volunteeringImage || "/images/placeholder.png"}
             className="object-cover rounded-full shadow-md z-[1]"
+            layout="responsive"
             width="128"
             height="128"
             alt={`${volunteeringName} logo`}
             onError={(e) => {
-              e.currentTarget.src = "/images/placeholder.png";
+              e.currentTarget.src = "/images/placeholder.png"
             }}
           />
         </div>
-        <div className="flex flex-col text-white mt-3 xl:mt-0 xl:justify-center ml-7">
+        <div className="flex flex-col text-white p-3 xl:justify-center">
           <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
@@ -87,11 +88,12 @@ export const VolunteeringCard = ({
               <span className="">{city}</span>
             </div>
           </div>
+
           <div className="xl:hidden select-none flex text-sm flex-row gap-2 mt-5 px-2 font-regular text-main-color w-full items-end">
-            <div className="rounded-lg bg-white text-center py-2 px-2 my-6 shadow-md">
-              {isPaid ? "Płatny" : "Bezpłatny"}
-            </div>
             <div className="flex flex-row gap-2 my-6">
+              <div className="rounded-lg bg-white text-center py-2 px-2 shadow-md">
+                {isPaid ? "Płatny" : "Bezpłatny"}
+              </div>
               <div className="rounded-lg bg-white px-2 py-2 text-center shadow-md">
                 {volunteeringType}
               </div>
@@ -101,6 +103,7 @@ export const VolunteeringCard = ({
             </div>
           </div>
         </div>
+
         <div className="hidden xl:flex text-md gap-2 flex-col mt-0 font-regular text-main-color justify-center mr-6 w-full items-end select-none">
           <div className="rounded-lg bg-white text-center w-[15.5rem] py-2">
             {isPaid ? "Płatny" : "Bezpłatny"}
@@ -116,5 +119,5 @@ export const VolunteeringCard = ({
         </div>
       </div>
     </>
-  );
+  )
 };
