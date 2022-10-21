@@ -30,7 +30,7 @@ export const MyList = () => {
           querySnapshot.forEach((doc) => {
 
             if (user?.favorites?.includes(doc.id)) {
-              volunteeringDataTemp.push(doc.data())
+              volunteeringDataTemp.push({id:doc.id, ...doc.data()})
             }
             if (volunteeringDataTemp.length === user?.favorites?.length) {
               setVolunteeringData(volunteeringDataTemp)
@@ -63,8 +63,7 @@ export const MyList = () => {
                 volunteeringTerms[selectedVolunteeringData.term]
               }
               isFavorite={
-                user?.favorites?.includes(selectedVolunteeringData.id) ||
-                false
+                true
               }
               isNotifications={
                 user?.notifications?.includes(

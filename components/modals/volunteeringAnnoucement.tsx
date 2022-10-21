@@ -49,9 +49,8 @@ export const VolunteeringAnnoucement = ({
   volunteeringId,
   email,
   phone,
-  user,
 }: Props) => {
-  const { isLoggedIn } = useAuth()
+  const { user, isLoggedIn } = useAuth()
   const modal = useRef<HTMLDivElement>(null)
   const backdrop = useRef<HTMLDivElement>(null)
 
@@ -59,6 +58,10 @@ export const VolunteeringAnnoucement = ({
   const [notification, setNotification] = useState(false)
 
   useEffect(() => {
+
+
+console.log(user, volunteeringId)
+
     const fetchFavorite = () => {
       if (user?.favorites?.includes(volunteeringId)) {
         setFavorite(true)
@@ -86,6 +89,8 @@ export const VolunteeringAnnoucement = ({
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
+            console.log(volunteeringId)
+            console.log(type, [...doc.data()[type], volunteeringId])
             updateDoc(doc.ref, {
               [type]: [...doc.data()[type], volunteeringId],
             })
@@ -96,6 +101,7 @@ export const VolunteeringAnnoucement = ({
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
+            console.log(type, doc.data()[type].filter((id: string) => id !== volunteeringId))
             updateDoc(doc.ref, {
               [type]: doc
                 .data()[type].filter((id: string) => id !== volunteeringId),
