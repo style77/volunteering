@@ -173,7 +173,7 @@ const Profile: NextPage = () => {
                   alt="user avatar"
                   height="128"
                   width="128"
-                  src={data!.photoURL || "/images/blank.png"}
+                  src={data!.photoURL}
                   onClick={() => openFileBrowser()}
                   onError={(e) => {
                     e.currentTarget.src = "/images/blank.png"

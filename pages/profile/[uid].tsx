@@ -68,6 +68,9 @@ const Profile: NextPage = () => {
                   height="128"
                   width="128"
                   src={data!.photoURL}
+                  onError={(e) => {
+                    e.currentTarget.src = "../images/blank.png"
+                  }}
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">
                   {data!.isVerified ? (
