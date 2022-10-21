@@ -7,7 +7,7 @@ html {
 }
 
 .custom-shape-divider-bottom-1666200219 {
-  position: absolute;
+  position: relative;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -28,7 +28,7 @@ html {
 }
 
 .custom-shape-divider-top-1666200276 {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
   width: 100%;

@@ -46,10 +46,10 @@ const Home: NextPage = () => {
               url: "https://volunteering.pl/favicon.ico",
               width: 256,
               height: 256,
-              alt: "Volunteering - Zacznij pomagać razem z nami!",
-            },
+              alt: "Volunteering - Zacznij pomagać razem z nami!"
+            }
           ],
-          site_name: "Volunteering",
+          site_name: "Volunteering"
         }}
       />
 
@@ -57,7 +57,7 @@ const Home: NextPage = () => {
         <title>Volunteering - Zacznij pomagać razem z nami!</title>
       </Head>
       <main className="flex min-h-screen flex-col py-2">
-        <section className="flex flex-col">
+        <section className="flex flex-col h-[75vh]">
           <div className="flex flex-row gap-42 2xl:gap-48 mt-20 justify-center">
             <div className="h-screen">
               <div className="flex flex-col">
@@ -85,7 +85,7 @@ const Home: NextPage = () => {
                     className="xl:w-full xl:h-full delay-500 duration-700 transform opacity-0 transition-all translate-y-12 ease-out"
                     data-replace='{ "translate-y-12": "translate-y-0", "opacity-0": "opacity-100" }'
                   >
-                    <button className="h-14 w-48 shadow-md text-md xl:h-24 xl:w-72 xl:text-xl relative font-semibold font-inter bottom-20 xl:bottom-0 bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
+                    <button className="h-14 w-48 shadow-md text-md xl:h-24 xl:w-72 xl:text-2xl relative font-semibold font-inter bottom-20 xl:bottom-0 bg-main-color hover:bg-main-color-2 transition text-background-color rounded-lg">
                       Dowiedz się więcej!
                     </button>
                   </a>
@@ -98,7 +98,63 @@ const Home: NextPage = () => {
           </div>
         </section>
 
-        <div className="h-full w-full -translate-y-40 pt-32 -z-[10]" style={{background: "url('/section_bg.svg')", backgroundSize: "150%", backgroundRepeat: "no-repeat" }}>
+        <section className="flex flex-col">
+          <div className="flex custom-shape-divider-bottom-1666200219 z-10">
+            <svg
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                opacity=".25"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+                opacity=".5"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+                className="shape-fill"
+              ></path>
+            </svg>
+          </div>
+          <div className="flex custom-shape-divider-top-1666200276 z-10">
+            <svg
+              data-name="Layer 1"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 1200 120"
+              preserveAspectRatio="none"
+            >
+              <path
+                d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
+                opacity=".25"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
+                opacity=".5"
+                className="shape-fill"
+              ></path>
+              <path
+                d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
+                className="shape-fill"
+              ></path>
+            </svg>
+          </div>
+        </section>
+
+        <div
+          className="h-full w-full -translate-y-40 pt-32 -z-[10]"
+          style={{
+            background: "url('/section_bg.svg')",
+            backgroundSize: "150%",
+            backgroundRepeat: "no-repeat"
+          }}
+        >
           <section className="py-10">
             <div className="ml-10 select-none" id="what-is-volunteering">
               <h2
@@ -247,52 +303,6 @@ const Home: NextPage = () => {
           </section>
         </div>
       </main>
-      <div className="custom-shape-divider-bottom-1666200219 z-10">
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            className="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            className="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            className="shape-fill"
-          ></path>
-        </svg>
-      </div>
-      <div className="custom-shape-divider-top-1666200276 mt-[100vh] z-10">
-        <svg
-          data-name="Layer 1"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-        >
-          <path
-            d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z"
-            opacity=".25"
-            className="shape-fill"
-          ></path>
-          <path
-            d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z"
-            opacity=".5"
-            className="shape-fill"
-          ></path>
-          <path
-            d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"
-            className="shape-fill"
-          ></path>
-        </svg>
-      </div>
     </>
   )
 }
