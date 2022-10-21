@@ -131,7 +131,7 @@ export const MfaModal = ({
             </button>
             <div className="py-6 px-6 lg:px-8">
               <h3 className="mb-4 text-xl font-medium text-main-color ">
-                Podaj kod wysłany na twój telefon
+                 Weryfikacja dwuetapowa
               </h3>
               <div className="space-y-6">
                 <div>

@@ -180,6 +180,9 @@ export const Navbar = () => {
                           width="32"
                           src={data!.photoURL}
                           alt="user avatar"
+                          onError={(e) => {
+                            e.currentTarget.src = "/images/blank.png"
+                          }}
                         />
                       </button>
                       <div
