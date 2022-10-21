@@ -169,19 +169,19 @@ const Profile: NextPage = () => {
                   style={{ display: "none" }}
                 />
                 <Image
-                  className="rounded-full shadow-lg cursor-pointer"
+                  className="rounded-full shadow-lg cursor-pointer hover:opacity-80 transition"
                   alt="user avatar"
                   height="128"
                   width="128"
-                  src={data!.photoURL}
+                  src={data!.photoURL || "/images/blank.png"}
                   onClick={() => openFileBrowser()}
-                  onError={(e: any) => {
+                  onError={(e) => {
                     e.currentTarget.src = "/images/blank.png"
                   }}
                 />
-                <div className="my-2 gap-2 flex flex-row" id="badges">
+                <div className="my-4 gap-2 flex flex-row" id="badges">
                   {data!.isVerified ? (
-                    <Badge bgColor="bg-lime-500" leftIcon={<FaCheck />}>
+                    <Badge bgColor="#84cc16" leftIcon={<FaCheck />}>
                       Zweryfikowany
                     </Badge>
                   ) : (

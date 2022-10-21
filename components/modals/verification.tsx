@@ -181,7 +181,7 @@ export const VerificationModal = ({ user }: Props) => {
         <span className="animate-ping ml-1 -mt-1 z-50 absolute inline-flex h-3 w-3 rounded-full bg-zinc-500 opacity-75"></span>
         <span className="absolute z-50 ml-1 -mt-1 inline-flex rounded-full h-3 w-3 bg-zinc-500"></span>
       </div>
-      <Badge bgColor="bg-zinc-400">
+      <Badge bgColor="#a1a1aa">
         <a onClick={() => handleToggleModal(true)} className="cursor-pointer">
           Niezweryfikowany
         </a>

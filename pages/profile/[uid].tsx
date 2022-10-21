@@ -71,13 +71,11 @@ const Profile: NextPage = () => {
                 />
                 <div className="my-2 gap-2 flex flex-row" id="badges">
                   {data!.isVerified ? (
-                    <Badge bgColor="bg-lime-500" leftIcon={<FaCheck />}>
+                    <Badge bgColor="#84cc16" leftIcon={<FaCheck />}>
                       Zweryfikowany
                     </Badge>
                   ) : (
-                    <Badge bgColor="bg-zinc-400">
-                        Niezweryfikowany
-                    </Badge>
+                    <Badge bgColor="#a1a1aa">Niezweryfikowany</Badge>
                   )}
                   {data!.badges?.map((badge: Record<string, string>) => (
                     <Badge bgColor={badge.color} key={badge.name}>
@@ -86,20 +84,16 @@ const Profile: NextPage = () => {
                   ))}
                 </div>
                 <div className="flex flex-col items-center border-2 rounded-md bg-zinc-200 mt-2 px-4 pb-2 shadow-md">
-                  <span
-                    className="font-semibold text-3xl mt-2 cursor-text"
-                    >
+                  <span className="font-semibold text-3xl mt-2 cursor-text">
                     {data?.displayName}{" "}
-                </span>
+                  </span>
                   <span className="hidden xl:flex">
                     Konto na Volunteering założone{" "}
-                    {data!.createdAt &&
-                      timeSince(data!.createdAt.seconds)}
+                    {data!.createdAt && timeSince(data!.createdAt.seconds)}
                   </span>
                   <span className="flex xl:hidden">
                     Konto założone{" "}
-                    {data!.createdAt &&
-                      timeSince(data!.createdAt.seconds)}
+                    {data!.createdAt && timeSince(data!.createdAt.seconds)}
                   </span>
                   {Math.abs(countAge(data!.birthday)) > 0 && (
                     <span>
