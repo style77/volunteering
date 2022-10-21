@@ -220,6 +220,7 @@ export const OrganisatorVolunteeringBox = ({
             <textarea
               className="bg-white rounded-lg p-2"
               style={{ resize: "none" }}
+              disabled
             >
               {description}
             </textarea>
