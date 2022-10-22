@@ -29,14 +29,12 @@ export const SearchBar = ({
         (volunteering: Record<string, any>) =>
           volunteering.city.toLowerCase() === searchCity.toLowerCase()
       )
-      console.log(filtered)
     }
     if (searchType) {
       filtered = filtered.filter(
         (volunteering: Record<string, any>) =>
           volunteering.type.toLowerCase() === searchType.toLowerCase()
       )
-      console.log(filtered)
     }
     if (searchTerm) {
       filtered = filtered.filter((volunteering: Record<string, any>) => {

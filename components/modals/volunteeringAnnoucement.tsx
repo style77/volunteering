@@ -58,10 +58,6 @@ export const VolunteeringAnnoucement = ({
   const [notification, setNotification] = useState(false)
 
   useEffect(() => {
-
-
-console.log(user, volunteeringId)
-
     const fetchFavorite = () => {
       if (user?.favorites?.includes(volunteeringId)) {
         setFavorite(true)
@@ -89,8 +85,6 @@ console.log(user, volunteeringId)
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
-            console.log(volunteeringId)
-            console.log(type, [...doc.data()[type], volunteeringId])
             updateDoc(doc.ref, {
               [type]: [...doc.data()[type], volunteeringId],
             })
@@ -101,7 +95,6 @@ console.log(user, volunteeringId)
           query(collection(db, "users"), where("uid", "==", user.uid))
         ).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
-            console.log(type, doc.data()[type].filter((id: string) => id !== volunteeringId))
             updateDoc(doc.ref, {
               [type]: doc
                 .data()[type].filter((id: string) => id !== volunteeringId),

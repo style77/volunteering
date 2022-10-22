@@ -83,7 +83,6 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
     const googleProvider = new GoogleAuthProvider()
     await signInWithPopup(auth, googleProvider).then(async (result) => {
       const { user } = result
-      console.log(user)
       if (user) {
         const q = query(collection(db, "users"), where("uid", "==", user.uid))
         const querySnapshot = await getDocs(q)

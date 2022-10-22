@@ -29,7 +29,6 @@ const Profile: NextPage = () => {
         const q = query(collection(db, "users"), where("uid", "==", uid))
         getDocs(q).then((querySnapshot: QuerySnapshot) => {
           querySnapshot.forEach((doc: DocumentData) => {
-            console.log(doc.data())
             setData(doc.data())
           })
         })
@@ -49,8 +48,6 @@ const Profile: NextPage = () => {
     new Date(date)
     return DateTime.fromISO(date).diffNow("years").toObject().years!
   }
-
-  console.log(data)
 
   return (
     <>

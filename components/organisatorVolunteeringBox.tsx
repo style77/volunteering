@@ -231,7 +231,6 @@ export const OrganisatorVolunteeringBox = ({
             </span>
             <div className="h-48 my-2 overflow-y-auto">
               {participantsUsers.map((participant) => {
-                console.log(participantsUsers)
                 return (
                   <div
                     key={participant.id}

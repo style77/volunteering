@@ -143,8 +143,6 @@ export const VerificationModal = ({ user }: Props) => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
 
-    console.log(123)
-
     if (OTPCode.length === 6) {
       verifyOTP(window.verificationId, OTPCode)
     } else {

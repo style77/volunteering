@@ -31,8 +31,7 @@ export const OrganisatorPanel = () => {
         setVolunteerings(volunteerings)
       })
     }
-
-    console.log(1)
+    
     fetchVolunteerings()
   }, [user])
 

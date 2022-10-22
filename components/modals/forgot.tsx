@@ -41,7 +41,6 @@ const ForgotModal = () => {
         showAlert("Wysłano link do resetowania hasła", "forgot-success-alert")
       })
       .catch((error) => {
-        console.log(error)
         showAlert(humanizeError[error.code], "forgot-error-alert")
       })
     handleToggleModal(false)

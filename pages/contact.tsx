@@ -50,7 +50,6 @@ const Contact: NextPage = () => {
           showAlert("Wiadomość wysłana! Dziękujemy 💖")
         },
         (error) => {
-          console.log(error.text)
         }
       )
   }

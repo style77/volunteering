@@ -82,7 +82,6 @@ const Profile: NextPage = () => {
                   )
                 })
                 .catch((error: FirebaseError) => {
-                  console.log(error)
                   showAlert(humanizeError[error.code], "error-alert")
                 })
             })
@@ -250,7 +249,6 @@ const Profile: NextPage = () => {
                     type="date"
                     value={data!.birthday}
                     onChange={(e) => {
-                      console.log(e.target.value)
                       setData({ ...data!, birthday: e.target.value })
                     }}
                     max={DateTime.now().toISODate()}
