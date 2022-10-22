@@ -25,6 +25,7 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage"
 import { FirebaseError } from "firebase/app"
 
 import Image from "next/image"
+import Head from "next/head"
 
 const Profile: NextPage = () => {
   const { user, isLoggedIn } = useAuth()
@@ -151,6 +152,9 @@ const Profile: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Volunteering - Profil</title>
+      </Head>
       {isLoggedIn ? (
         <main className="font-inter flex flex-col py-2 mx-6 items-center text-main-color">
           <div className="font-semibold text-4xl xl:text-6xl mt-6">
