@@ -62,12 +62,11 @@ export const VolunteeringCard = ({
 }: Props) => {
   return (
     <>
-      <div className="flex flex-row -z-[1] h-52 xl:h-36 w-screen xl:w-full bg-main-color rounded-lg shadow-md mr-7">
-        <div className="mt-6">
+      <div className="flex flex-row -z-[1] h-52 xl:h-36 w-full xl:w-full bg-main-color rounded-lg shadow-md mr-7">
+        <div className="mt-6 ml-2 xl:block hidden">
           <Image
             src={volunteeringImage || "/images/placeholder.png"}
             className="object-cover rounded-full shadow-md z-[1]"
-            layout="responsive"
             width="128"
             height="128"
             alt={`${volunteeringName} logo`}
@@ -77,7 +76,7 @@ export const VolunteeringCard = ({
           />
         </div>
         <div className="flex flex-col text-white p-3 xl:justify-center">
-          <div className="font-semibold text-3xl mb-6">{volunteeringName}</div>
+          <div className="font-semibold text-2xl mb-6">{volunteeringName}</div>
           <div className="flex flex-col xl:flex-row font-regular gap-1 text-sm">
             <div className="flex flex-row w-40 items-center">
               <MdOutlineCorporateFare className="flex mr-1 my-1"></MdOutlineCorporateFare>

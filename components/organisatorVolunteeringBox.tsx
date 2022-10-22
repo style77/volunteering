@@ -60,6 +60,7 @@ const SelectUser = ({
         type="text"
         ref={InputRef}
         onChange={(e: any) => onChange(e)}
+        placeholder="Wyszukaj użytkownika po emailu"
         className="h-8 pl-1 w-full rounded-md border border-gray-300 focus:outline-none focus:ring-1 focus:ring-blue-500"
       />
       <div className="text-black bg-white absolute w-[31rem]">

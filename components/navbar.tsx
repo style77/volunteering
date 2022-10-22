@@ -239,7 +239,7 @@ export const Navbar = () => {
                                   className="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                                   onClick={() => hideDropdown()}
                                 >
-                                  Panel
+                                  Panel organizatora
                                 </a>
                               </Link>
                             </li>

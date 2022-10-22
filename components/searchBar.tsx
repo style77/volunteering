@@ -23,25 +23,31 @@ export const SearchBar = ({
     setIsLoading(true)
     e.preventDefault()
     let filtered = allVolunteeringsData
+    console.log(0, filtered)
 
     if (searchCity) {
       filtered = filtered.filter(
         (volunteering: Record<string, any>) =>
           volunteering.city.toLowerCase() === searchCity.toLowerCase()
       )
+      console.log(1, filtered)
+
     }
     if (searchType) {
       filtered = filtered.filter(
         (volunteering: Record<string, any>) =>
           volunteering.type.toLowerCase() === searchType.toLowerCase()
       )
+      console.log(2, filtered)
     }
     if (searchTerm) {
       filtered = filtered.filter((volunteering: Record<string, any>) => {
         volunteering.term.toLowerCase() === searchTerm.toLowerCase()
       })
+      console.log(3, filtered)
     }
 
+    console.log(4, filtered)
     setVolunteeringsData(filtered)
     setIsLoading(false)
   }

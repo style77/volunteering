@@ -174,7 +174,7 @@ export const VolunteeringAnnoucement = ({
                 <AiOutlineCloseCircle />
               </button>
             </div>
-            <span className="text-white text-4xl font-semibold ml-6">
+            <span className="text-white text-4xl font-semibold ml-6 mb-2">
               {volunteeringName}
             </span>
 
@@ -208,9 +208,8 @@ export const VolunteeringAnnoucement = ({
                 disabled
                 className="rounded-lg bg-white h-[30vh] w-10/12 xl:w-1/2 mx-6 my-2 text-main-color p-2"
                 style={{ resize: "none" }}
-              >
-                {description}
-              </textarea>
+                value={description}
+              />
             </div>
           </div>
           <div className="flex w-full justify-center gap-3 text-main-color my-4">

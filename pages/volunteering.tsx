@@ -26,9 +26,7 @@ import { VolunteeringAnnoucement } from "../components/modals/volunteeringAnnouc
 const Volunteering: NextPage = () => {
   const { user } = useAuth()
 
-  const [volunteeringsData, setVolunteeringsData] = useState<
-    Array<Record<string, any>>
-  >([])
+  const [volunteeringsData, setVolunteeringsData] = useState<Record<string, any>[] | []>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [allVolunteeringsData, setAllVolunteeringsData] = useState<
     Array<Record<string, any>>
@@ -59,8 +57,8 @@ const Volunteering: NextPage = () => {
       setIsLoading(false)
     }
 
-    if (volunteeringsData.length === 0) getVolunteeringsData()
-  }, [volunteeringsData])
+    getVolunteeringsData()
+  }, [])
 
   return (
     <>
