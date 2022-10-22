@@ -1,4 +1,5 @@
 import { collection, deleteDoc, getDocs, query, where } from "firebase/firestore"
+import Head from "next/head"
 import { useEffect, useState } from "react"
 import { showAlert } from "../components/alert"
 import OrganisatorVolunteeringBox from "../components/organisatorVolunteeringBox"
@@ -54,6 +55,9 @@ export const OrganisatorPanel = () => {
 
   return (
     <>
+      <Head>
+        <title>Volunteering - Panel</title>
+      </Head>
       <main className="flex flex-row gap-4 p-2 overflow-y-auto w-screen">
         {volunteerings.map((volunteering) => (
           <OrganisatorVolunteeringBox
