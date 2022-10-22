@@ -186,7 +186,7 @@ const LoginModal = ({ closeUserDropdown }: Props) => {
           )}
 
           <div
-            className="absolute inset-0 w-full h-screen bg-black/50"
+            className="absolute inset-0 w-full h-[1000vh] bg-black/50"
             onClick={() => handleToggleModal(false)}
           ></div>
           <div className="relative p-4 w-full max-w-md h-full grid place-items-center mx-auto">

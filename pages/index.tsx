@@ -99,7 +99,7 @@ const Home: NextPage = () => {
         </section>
 
         <section className="flex flex-col">
-          <div className="flex custom-shape-divider-bottom-1666200219 z-10">
+          <div className="flex custom-shape-divider-bottom-1666200219 -z-[1] absolute">
             <svg
               data-name="Layer 1"
               xmlns="http://www.w3.org/2000/svg"
@@ -122,7 +122,7 @@ const Home: NextPage = () => {
               ></path>
             </svg>
           </div>
-          <div className="flex custom-shape-divider-top-1666200276 z-10">
+          <div className="flex custom-shape-divider-top-1666200276 -z-[1] absolute">
             <svg
               data-name="Layer 1"
               xmlns="http://www.w3.org/2000/svg"

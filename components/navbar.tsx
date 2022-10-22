@@ -118,7 +118,7 @@ export const Navbar = () => {
       <div
         id="user-menu-backdrop"
         ref={userMenuBackdrop}
-        className="h-screen w-screen opacity-0 fixed -z-[1]"
+        className="h-[1000vh] w-screen opacity-0 fixed -z-[1]"
         onClick={() => handleBackdrop()}
       ></div>
       <nav
